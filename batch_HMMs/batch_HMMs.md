@@ -45,4 +45,9 @@ source /home/GLBRCORG/bpeterson26/miniconda3/etc/profile.d/conda.sh
 conda activate bioinformatics
 PYTHONPATH=""
 
+rm -rf testing_the_script/
+python batch_HMMs.py --orf_folder ~/5M/dataEdited/binAnalysis/ORFs/ \
+                      --hmm_folder testing_files/metabolic_HMMs\
+                      --hmm_csv testing_files/metabolic_HMMs.csv \
+                      --output testing_the_script 
 ```

@@ -1,5 +1,3 @@
-#! /usr/bin/env python3
-
 #################################
 # batch_HMMs.py
 # Benjamin D. Peterson
@@ -10,13 +8,12 @@
 # from a set of bins.
 #################################
 
-
-
 # Set up environment
 import os
 import sys
 import argparse
 import Bio
+import glob
 from Bio import AlignIO
 from Bio import SearchIO
 from Bio import SeqIO
@@ -24,36 +21,116 @@ import pandas as pd
 
 # Set up an argument parser
 parser = argparse.ArgumentParser()
-parser.add_argument('--orf_faa')
+parser.add_argument('--orf_file')
+parser.add_argument('--orf_folder')
 parser.add_argument('--g2b')
 parser.add_argument('--hmm_folder')
 parser.add_argument('--hmm_csv')
 parser.add_argument('--output')
+parser.add_argument('--testing')
 
-
-# Read in argument names
+# Parse names from argument
 inputs = parser.parse_args()
-ORF_FILE = inputs.ORF_faa
+ORF_FILE = inputs.orf_file
+ORF_FOLDER = inputs.orf_folder
 G2B = inputs.g2b
 HMM_FOLDER = inputs.hmm_folder
 HMM_CSV = inputs.hmm_csv
 OUTPUT_LOCATION = inputs.output
+TESTING = inputs.testing
 
 
-# Read in needed files
-hmm_csv = pd.read_csv(HMM_CSV, delimiter=",")
-g2b = pd.read_csv(G2B, delimiter="\t", names=['gene', 'bin'])
-orfs = SeqIO.parse(fasta, "fasta")
-
-
-# Check to make sure directory doesn't exist yet
+###########################
+# Make sure we're set up properly
+###########################
+# Check if output directory already exists
 if os.path.isdir(OUTPUT_LOCATION) == True:
     print("Hey dummy, " + OUTPUT_LOCATION + " is already a directory. You're gonna write over stuff.")
     sys.exit()
-
-
-# Set up output directories
 os.mkdir(OUTPUT_LOCATION)
+
+# Make sure we have either an ORF folder or ORF file + G2B file
+if ORF_FILE is not None:
+    if ORF_FOLDER is not None:
+        print("You've supplied both an concatenated ORF file and a folder with the ORFs for the bins. Only supply one.")
+    elif G2B is None:
+        print("You supplied a concatenated ORF file, you'll also want to supply a gene-to-bin file.")
+    else:
+        print("Input is concatenated ORFs file")
+        input_type = "concat_orfs"
+elif ORF_FOLDER is not None:
+    print("Input is a folder of ORF files")
+    input_type = "folder_of_orfs"
+
+
+###########################
+# Get inputs set up
+###########################
+# Set up inputs
+FAA_INPUTS = OUTPUT_LOCATION + '/faa_inputs/'
+concat_orf_to_use = FAA_INPUTS + 'ORFs.faa'
+os.mkdir(FAA_INPUTS)
+
+###########################
+# Input set-up: using concatenated ORF file
+###########################
+# If we supplied concatenated ORF, move it over:
+if input_type == "concat_orfs":
+    print("Copying " + ORF_FILE + " to " + concat_orf_to_use)
+    cp_command = "cp " + ORF_FILE + " " + concat_orf_to_use
+    os.system(cp_command)
+
+# Set up G2B file
+if input_type == "concat_orfs":
+    g2b = pd.read_csv(G2B, delimiter="\t", names=['gene', 'bin'])
+    g2bkey = dict()
+    for index, row in g2b.iterrows():
+        g2bkey[row.gene] = row.bin
+
+
+###########################
+# Input set-up: using folder of ORFs
+###########################
+# If we supplied folder of ORFs, concatenate them to a folder, and generate G2B file
+if input_type == "folder_of_orfs":
+    print("Concatenating ORFs from all bins")
+    concat_cmd = "cat "
+    genome_files = ORF_FOLDER + "/**"
+    genomes = glob.glob(genome_files)
+    for genome in genomes:
+        if genome.endswith('.faa'):
+            concat_cmd = concat_cmd + " " + genome
+    concat_cmd = concat_cmd + " >> " + concat_orf_to_use
+    os.system(concat_cmd)
+
+# Generate gene to bin file
+if input_type == "folder_of_orfs":
+    print("Generating G2B file from all bins")
+    g2bkey = dict()
+    genome_files = ORF_FOLDER + "/**"
+    genomes = glob.glob(genome_files)
+    for genome in genomes:
+        if genome.endswith('.faa'):
+            genome_name = genome.rsplit("/", 1)[1].rsplit(".faa", 1)[0]
+            genome_orfs = SeqIO.parse(genome, "fasta")
+            for ORF in genome_orfs:
+                g2bkey[ORF.id] = genome_name
+
+
+###########################
+# Read in needed files
+###########################
+# Read in dataframe of HMM info
+hmm_csv = pd.read_csv(HMM_CSV, delimiter=",")
+# Set up dictionary for fasta sequences
+faadict = dict()
+for seq_record in SeqIO.parse(concat_orf_to_use, "fasta"):
+	faadict[seq_record.id] = seq_record.seq
+
+
+###########################
+# Set up output directories
+###########################
 HMM_OUTPUT = OUTPUT_LOCATION + "/hmm_output/"
 os.mkdir(HMM_OUTPUT)
 ALIGNMENT_OUTPUT = OUTPUT_LOCATION + "/alignments/"
@@ -64,32 +141,29 @@ BIN_COUNTS = OUTPUT_LOCATION + "/bin_counts/"
 os.mkdir(BIN_COUNTS)
 
 
-# Set up dictionary for fasta sequences
-faadict = dict()
-for seq_record in SeqIO.parse(ORF_FILE, "fasta"):
-	faadict[seq_record.id] = seq_record.seq
-
-# Set up dictionary for gene to bin key
-g2bkey = dict()
-for index, row in g2b.iterrows():
-    g2bkey[row.gene] = row.bin
+###########################
+# lines to break script while testing, if needed
+###########################
+if TESTING:
+    print("Oh " + TESTING + " I'm testing")
+    sys.exit()
 
 
 ###########################
-# Start looping over analyses
-###########################
-
 # Run all HMMs on ORF file
+###########################
 for index, row in hmm_csv.iterrows():
     prot_name = row['protein']
     hmm_id = row['hmmID']
     HMM = HMM_FOLDER + "/" + hmm_id
     print("Searching for " + prot_name)
-    hmm_cmd = 'hmmsearch --tblout ' + HMM_OUTPUT + prot_name + '.out --cpu 4 --cut_tc ' + HMM + " " + ORF_FILE + " > " + HMM_OUTPUT + prot_name + '.txt'
+    hmm_cmd = 'hmmsearch --tblout ' + HMM_OUTPUT + prot_name + '.out --cpu 4 --cut_tc ' + HMM + " " + concat_orf_to_use + " > " + HMM_OUTPUT + prot_name + '.txt'
     os.system(hmm_cmd)
 
 
+###########################
 # Extract amino acid sequences of all hits to each HMMs
+###########################
 for index, row in hmm_csv.iterrows():
     prot_name = row['protein']
     HMMER_OUTPUT_FILE = HMM_OUTPUT + prot_name + '.out'
@@ -104,7 +178,9 @@ for index, row in hmm_csv.iterrows():
     	print('no hits for ' + fasta)
 
 
+###########################
 # Align amino acid sequences to HMM
+###########################
 for index, row in hmm_csv.iterrows():
     prot_name = row['protein']
     hmm_id = row['hmmID']
@@ -121,7 +197,9 @@ for index, row in hmm_csv.iterrows():
     os.remove(sto_output)
 
 
+###########################
 # Generate dataframe with hits against bins
+###########################
 for index, row in hmm_csv.iterrows():
     bin_hits = dict()
     prot_name = row['protein']
@@ -139,11 +217,12 @@ for index, row in hmm_csv.iterrows():
             all_bin_hits
     else:
         print('no hits for ' + prot_name)
-
 # Write out hits folder
 all_bin_hits.to_csv(BIN_COUNTS + "all_bin_hits.tsv", sep = '\t', index = False)
 
 
+###########################
 # Generate counts for hits to each bin
+###########################
 all_bin_counts = all_bin_hits.groupby(["binID", "proteinName"]).size().reset_index(name = "counts")
 all_bin_counts.to_csv(BIN_COUNTS + "all_bin_counts.tsv", sep = '\t', index = False)
