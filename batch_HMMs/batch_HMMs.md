@@ -17,6 +17,26 @@
     5. We'll count the occurrences in this dataframe for each bin and protein, to get a count of the number of hits for each protein.
 
 
+**Other notes**
+
+The output folder must not yet exist, or the script will exit out.
+The main output of interest will be in *output_folder*/bin_counts/all_bin_counts.tsv, which will have a count of the number of HMM eachs for each gene against each bin.
+This dataframe will be exported in the long format.
+
+
+
+### Required conda environment
+
+I'm running this in my 'bioinformatics' conda environment on the GLBRC, but I'm going to here outline the minimum environment needed to run this script.
+
+```
+source /home/GLBRCORG/bpeterson26/miniconda3/etc/profile.d/conda.sh
+conda create -y -n batch_HMMs python=3.7
+conda install -n batch_HMMs -c bioconda biopython
+conda install -n batch_HMMs -c bioconda biopython
+conda install -n batch_HMMs -c bioconda pandas
+conda install -n batch_HMMs hmmer
+```
 
 
 ### Testing
@@ -36,18 +56,21 @@ OUTPUT_LOCATION = 'testing_the_script'
 ```
 
 
-*Trial Run*
+*Example uses*
 
+The first way we can use this is with a folder containing a file for each set of ORFs from a bin.
+The extension of these files must be faa, and the script assumes that the rest of the file name other than `.faa` is the bin names.
+This will save out a file with all the ORFs concatenated into a single file.
 
 ```
 cd ~/testing
 source /home/GLBRCORG/bpeterson26/miniconda3/etc/profile.d/conda.sh
-conda activate bioinformatics
+conda activate batch_HMMs
 PYTHONPATH=""
 
-rm -rf testing_the_script/
+rm -rf testing_the_script
 python batch_HMMs.py --orf_folder ~/5M/dataEdited/binAnalysis/ORFs/ \
-                      --hmm_folder testing_files/metabolic_HMMs\
-                      --hmm_csv testing_files/metabolic_HMMs.csv \
-                      --output testing_the_script 
+                      --hmm_folder ~/testing/testing_files/metabolic_HMMs\
+                      --hmm_csv ~/testing/testing_files/metabolic_HMMs.csv \
+                      --output ~/testing/testing_the_script
 ```
