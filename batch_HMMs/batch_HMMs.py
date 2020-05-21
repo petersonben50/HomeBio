@@ -45,33 +45,40 @@ TESTING = inputs.testing
 ###########################
 # Make sure we're set up properly
 ###########################
-# Check if output directory already exists
-if os.path.isdir(OUTPUT_LOCATION) == True:
-    print("Hey dummy, " + OUTPUT_LOCATION + " is already a directory. You're gonna write over stuff.")
-    sys.exit()
-os.mkdir(OUTPUT_LOCATION)
 
 # Make sure we have either an ORF folder or ORF file + G2B file
 if ORF_FILE is not None:
     if ORF_FOLDER is not None:
         print("You've supplied both an concatenated ORF file and a folder with the ORFs for the bins. Only supply one.")
+        sys.exit()
     elif BIN_FOLDER is not None:
         print("You've supplied both an concatenated ORF file and a folder with the bins. Only supply one.")
+        sys.exit()
     elif G2B is None:
         print("You supplied a concatenated ORF file, you'll also want to supply a gene-to-bin file.")
+        sys.exit()
     else:
         print("Input is concatenated ORFs file")
         input_type = "concat_orfs"
 elif ORF_FOLDER is not None:
     if BIN_FOLDER is not None:
         print("You've supplied both a folder with the bins and a folder with ORFs. Only supply one.")
-    else
+        sys.exit()
+    else:
         print("Input is a folder of ORF files")
         input_type = "folder_of_orfs"
 elif BIN_FOLDER is not None:
     print("Input is a folder of bin files")
     input_type = "folder_of_bins"
+else:
+    print("You haven't supplied an input for the bins")
+    sys.exit()
 
+# Check if output directory already exists
+if os.path.isdir(OUTPUT_LOCATION) == True:
+    print("Hey dummy, " + OUTPUT_LOCATION + " is already a directory. You're gonna write over stuff.")
+    sys.exit()
+os.mkdir(OUTPUT_LOCATION)
 
 
 ###########################
