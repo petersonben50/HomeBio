@@ -22,6 +22,7 @@ import pandas as pd
 # Set up an argument parser
 parser = argparse.ArgumentParser()
 parser.add_argument('--orf_file')
+parser.add_argument('--bin_folder')
 parser.add_argument('--orf_folder')
 parser.add_argument('--g2b')
 parser.add_argument('--hmm_folder')
@@ -32,6 +33,7 @@ parser.add_argument('--testing')
 # Parse names from argument
 inputs = parser.parse_args()
 ORF_FILE = inputs.orf_file
+BIN_FOLDER = inputs.bin_folder
 ORF_FOLDER = inputs.orf_folder
 G2B = inputs.g2b
 HMM_FOLDER = inputs.hmm_folder
@@ -53,14 +55,23 @@ os.mkdir(OUTPUT_LOCATION)
 if ORF_FILE is not None:
     if ORF_FOLDER is not None:
         print("You've supplied both an concatenated ORF file and a folder with the ORFs for the bins. Only supply one.")
+    elif BIN_FOLDER is not None:
+        print("You've supplied both an concatenated ORF file and a folder with the bins. Only supply one.")
     elif G2B is None:
         print("You supplied a concatenated ORF file, you'll also want to supply a gene-to-bin file.")
     else:
         print("Input is concatenated ORFs file")
         input_type = "concat_orfs"
 elif ORF_FOLDER is not None:
-    print("Input is a folder of ORF files")
-    input_type = "folder_of_orfs"
+    if BIN_FOLDER is not None:
+        print("You've supplied both a folder with the bins and a folder with ORFs. Only supply one.")
+    else
+        print("Input is a folder of ORF files")
+        input_type = "folder_of_orfs"
+elif BIN_FOLDER is not None:
+    print("Input is a folder of bin files")
+    input_type = "folder_of_bins"
+
 
 
 ###########################
@@ -70,23 +81,6 @@ elif ORF_FOLDER is not None:
 FAA_INPUTS = OUTPUT_LOCATION + '/faa_inputs/'
 concat_orf_to_use = FAA_INPUTS + 'ORFs.faa'
 os.mkdir(FAA_INPUTS)
-
-###########################
-# Input set-up: using concatenated ORF file
-###########################
-# If we supplied concatenated ORF, move it over:
-if input_type == "concat_orfs":
-    print("Copying " + ORF_FILE + " to " + concat_orf_to_use)
-    cp_command = "cp " + ORF_FILE + " " + concat_orf_to_use
-    os.system(cp_command)
-
-# Set up G2B file
-if input_type == "concat_orfs":
-    g2b = pd.read_csv(G2B, delimiter="\t", names=['gene', 'bin'])
-    g2bkey = dict()
-    for index, row in g2b.iterrows():
-        g2bkey[row.gene] = row.bin
-
 
 ###########################
 # Input set-up: using folder of ORFs
@@ -115,6 +109,23 @@ if input_type == "folder_of_orfs":
             genome_orfs = SeqIO.parse(genome, "fasta")
             for ORF in genome_orfs:
                 g2bkey[ORF.id] = genome_name
+
+
+###########################
+# Input set-up: using concatenated ORF file
+###########################
+# If we supplied concatenated ORF, move it over:
+if input_type == "concat_orfs":
+    print("Copying " + ORF_FILE + " to " + concat_orf_to_use)
+    cp_command = "cp " + ORF_FILE + " " + concat_orf_to_use
+    os.system(cp_command)
+
+# Set up G2B file
+if input_type == "concat_orfs":
+    g2b = pd.read_csv(G2B, delimiter="\t", names=['gene', 'bin'])
+    g2bkey = dict()
+    for index, row in g2b.iterrows():
+        g2bkey[row.gene] = row.bin
 
 
 ###########################
