@@ -1,5 +1,3 @@
-#!/usr/bin/env python3.6
-
 ################################
 # convert_stockholm_fasta.py
 # Written by Benjamin D. Peterson
