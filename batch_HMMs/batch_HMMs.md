@@ -36,7 +36,58 @@ conda install -n batch_HMMs -c bioconda biopython
 conda install -n batch_HMMs -c bioconda biopython
 conda install -n batch_HMMs -c bioconda pandas
 conda install -n batch_HMMs hmmer
+conda install -n batch_HMMs -c bioconda prodigal
 ```
+
+
+
+### Example uses
+
+The first way we can use this is with a folder containing a file for each set of ORFs from a bin.
+The extension of these files must be faa, and the script assumes that the rest of the file name other than `.faa` is the bin names.
+This will save out a file with all the ORFs concatenated into a single file.
+
+```
+source /home/GLBRCORG/bpeterson26/miniconda3/etc/profile.d/conda.sh
+conda activate batch_HMMs
+
+python batch_HMMs.py --orf_folder folder_with_ORFs \
+                      --hmm_folder metabolic_HMMs\
+                      --hmm_csv metabolic_HMMs.csv \
+                      --output output_folder
+```
+
+We can also just supply it with a folder of the bins.
+Bins must be in nucleic acid fasta files with an "fna" extension.
+This script will run Prodigal, in single genome mode, on each of the bins, then concatenate all the ORFs into a single file as above.
+
+```
+source /home/GLBRCORG/bpeterson26/miniconda3/etc/profile.d/conda.sh
+conda activate batch_HMMs
+
+python batch_HMMs.py --bin_folder bins \
+                      --hmm_folder metabolic_HMMs\
+                      --hmm_csv metabolic_HMMs.csv \
+                      --output output_folder
+
+```
+
+Finally, I can also just feed it a concatenated ORF file with the corresponding gene to bin file.
+
+```
+source /home/GLBRCORG/bpeterson26/miniconda3/etc/profile.d/conda.sh
+conda activate batch_HMMs
+
+python batch_HMMs.py --orf_file ORFs.faa \
+                      --g2b ORFs_G2B.tsv \
+                      --hmm_folder metabolic_HMMs\
+                      --hmm_csv metabolic_HMMs.csv \
+                      --output output_folder
+
+```
+
+
+
 
 
 ### Testing
@@ -53,24 +104,4 @@ G2B = 'testing_files/ORFs_G2B.tsv'
 HMM_FOLDER = 'testing_files/metabolic_HMMs'
 HMM_CSV = 'testing_files/metabolic_HMMs.csv'
 OUTPUT_LOCATION = 'testing_the_script'
-```
-
-
-*Example uses*
-
-The first way we can use this is with a folder containing a file for each set of ORFs from a bin.
-The extension of these files must be faa, and the script assumes that the rest of the file name other than `.faa` is the bin names.
-This will save out a file with all the ORFs concatenated into a single file.
-
-```
-cd ~/testing
-source /home/GLBRCORG/bpeterson26/miniconda3/etc/profile.d/conda.sh
-conda activate batch_HMMs
-PYTHONPATH=""
-
-rm -rf testing_the_script
-python batch_HMMs.py --orf_folder ~/5M/dataEdited/binAnalysis/ORFs/ \
-                      --hmm_folder ~/testing/testing_files/metabolic_HMMs\
-                      --hmm_csv ~/testing/testing_files/metabolic_HMMs.csv \
-                      --output ~/testing/testing_the_script
 ```
