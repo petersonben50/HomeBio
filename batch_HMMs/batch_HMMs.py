@@ -12,12 +12,12 @@
 import os
 import sys
 import argparse
-import Bio
 import glob
 from Bio import AlignIO
 from Bio import SearchIO
 from Bio import SeqIO
 import pandas as pd
+import subprocess
 
 # Set up an argument parser
 parser = argparse.ArgumentParser()
@@ -89,6 +89,28 @@ FAA_INPUTS = OUTPUT_LOCATION + '/faa_inputs/'
 concat_orf_to_use = FAA_INPUTS + 'ORFs.faa'
 os.mkdir(FAA_INPUTS)
 
+
+###########################
+# Input set-up: using folder of bins
+###########################
+ORF_FILES = OUTPUT_LOCATION + '/ORF_files/'
+os.mkdir(ORF_FILES)
+if input_type == "folder_of_bins":
+    print("Running ORF prediction for bins")
+    genome_files = BIN_FOLDER + "/**"
+    genomes = glob.glob(genome_files)
+    for genome in genomes:
+        if genome.endswith('.fna'):
+            genome_name = genome.rsplit('.', 1)[0].rsplit('/', 1)[1]
+            prodigal_cmd = 'prodigal -i ' + genome
+            prodigal_cmd = prodigal_cmd + ' -o ' + ORF_FILES + genome_name + '.gff -f gff '
+            prodigal_cmd = prodigal_cmd + '-a ' + ORF_FILES + genome_name + '.faa '
+            prodigal_cmd = prodigal_cmd + ' -p single -q'
+            os.system(prodigal_cmd)
+    input_type = "folder_of_orfs"
+    ORF_FOLDER = ORF_FILES
+
+
 ###########################
 # Input set-up: using folder of ORFs
 ###########################
@@ -101,7 +123,7 @@ if input_type == "folder_of_orfs":
     for genome in genomes:
         if genome.endswith('.faa'):
             concat_cmd = concat_cmd + " " + genome
-    concat_cmd = concat_cmd + " >> " + concat_orf_to_use
+    concat_cmd = concat_cmd + " > " + concat_orf_to_use
     os.system(concat_cmd)
 
 # Generate gene to bin file
@@ -129,6 +151,7 @@ if input_type == "concat_orfs":
 
 # Set up G2B file
 if input_type == "concat_orfs":
+    print("Setting up G2B dictionary")
     g2b = pd.read_csv(G2B, delimiter="\t", names=['gene', 'bin'])
     g2bkey = dict()
     for index, row in g2b.iterrows():
@@ -160,11 +183,8 @@ os.mkdir(BIN_COUNTS)
 
 
 ###########################
-# lines to break script while testing, if needed
+# Lines to break script while testing, if needed
 ###########################
-if TESTING:
-    print("Oh " + TESTING + " I'm testing")
-    sys.exit()
 
 
 ###########################
@@ -185,15 +205,21 @@ for index, row in hmm_csv.iterrows():
 for index, row in hmm_csv.iterrows():
     prot_name = row['protein']
     HMMER_OUTPUT_FILE = HMM_OUTPUT + prot_name + '.out'
-    hmmer_output = SearchIO.read(HMMER_OUTPUT_FILE, 'hmmer3-tab')
-    fasta_output_for_hits = HMM_HITS + prot_name + ".faa"
-    if hmmer_output:
-        print("Extracting AA sequences for " + prot_name)
-        with open(fasta_output_for_hits, 'w') as resultFile:
-            for sampleID in hmmer_output:
-                resultFile.write('>' + str(sampleID.id) + ' ' + str(sampleID.bitscore) + '\n' + str(faadict[sampleID.id]) + '\n')
-    else:
-    	print('no hits for ' + fasta)
+    HMM_OUTPUT_LENGTH = os.system('wc -l ' + HMMER_OUTPUT_FILE)
+    if HMM_OUTPUT_LENGTH > 13:
+        print("Hits found against" + prot_name)
+    #hmmer_output = SearchIO.read(HMMER_OUTPUT_FILE, 'hmmer3-tab')
+    #fasta_output_for_hits = HMM_HITS + prot_name + ".faa"
+    #if hmmer_output:
+    #    print("Extracting AA sequences for " + prot_name)
+    #    with open(fasta_output_for_hits, 'w') as resultFile:
+    #        for sampleID in hmmer_output:
+    #            resultFile.write('>' + str(sampleID.id) + ' ' + str(sampleID.bitscore) + '\n' + str(faadict[sampleID.id]) + '\n')
+    #else:
+    #	print('no hits for ' + fasta)
+if TESTING:
+    print("Oh " + TESTING + " I'm testing")
+    sys.exit()
 
 
 ###########################
