@@ -185,6 +185,9 @@ os.mkdir(BIN_COUNTS)
 ###########################
 # Lines to break script while testing, if needed
 ###########################
+if TESTING:
+    print("Oh " + TESTING + " I'm testing")
+    sys.exit()
 
 
 ###########################
@@ -205,21 +208,16 @@ for index, row in hmm_csv.iterrows():
 for index, row in hmm_csv.iterrows():
     prot_name = row['protein']
     HMMER_OUTPUT_FILE = HMM_OUTPUT + prot_name + '.out'
-    HMM_OUTPUT_LENGTH = os.system('wc -l ' + HMMER_OUTPUT_FILE)
-    if HMM_OUTPUT_LENGTH > 13:
-        print("Hits found against" + prot_name)
-    #hmmer_output = SearchIO.read(HMMER_OUTPUT_FILE, 'hmmer3-tab')
-    #fasta_output_for_hits = HMM_HITS + prot_name + ".faa"
-    #if hmmer_output:
-    #    print("Extracting AA sequences for " + prot_name)
-    #    with open(fasta_output_for_hits, 'w') as resultFile:
-    #        for sampleID in hmmer_output:
-    #            resultFile.write('>' + str(sampleID.id) + ' ' + str(sampleID.bitscore) + '\n' + str(faadict[sampleID.id]) + '\n')
-    #else:
-    #	print('no hits for ' + fasta)
-if TESTING:
-    print("Oh " + TESTING + " I'm testing")
-    sys.exit()
+    HMM_OUTPUT_LENGTH = subprocess.check_output('wc -l < ' + HMMER_OUTPUT_FILE, shell=True)
+    if int(HMM_OUTPUT_LENGTH) > 13:
+        hmmer_output = SearchIO.read(HMMER_OUTPUT_FILE, 'hmmer3-tab')
+        fasta_output_for_hits = HMM_HITS + prot_name + ".faa"
+        print("Extracting AA sequences for " + prot_name)
+        with open(fasta_output_for_hits, 'w') as resultFile:
+            for sampleID in hmmer_output:
+                resultFile.write('>' + str(sampleID.id) + ' ' + str(sampleID.bitscore) + '\n' + str(faadict[sampleID.id]) + '\n')
+    else:
+        print('No hits for ' + prot_name)
 
 
 ###########################
