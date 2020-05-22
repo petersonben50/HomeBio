@@ -230,13 +230,15 @@ for index, row in hmm_csv.iterrows():
     afa_output = ALIGNMENT_OUTPUT + prot_name + '.afa'
     HMM = HMM_FOLDER + "/" + hmm_id
     fasta_output_for_hits = HMM_HITS + prot_name + ".faa"
-    hmmalign_cmd = 'hmmalign -o ' + sto_output + ' ' + HMM + " " + fasta_output_for_hits
-    os.system(hmmalign_cmd)
-    # Read in fasta alignment
-    sto_alignment = AlignIO.read(sto_output, "stockholm")
-    # Write out afa alignment
-    AlignIO.write(sto_alignment, afa_output, "fasta")
-    os.remove(sto_output)
+    if os.path.isfile(fasta_output_for_hits):
+        print("Aligning sequences of " + prot_name + " to HMM")
+        hmmalign_cmd = 'hmmalign -o ' + sto_output + ' ' + HMM + " " + fasta_output_for_hits
+        os.system(hmmalign_cmd)
+        # Read in fasta alignment
+        sto_alignment = AlignIO.read(sto_output, "stockholm")
+        # Write out afa alignment
+        AlignIO.write(sto_alignment, afa_output, "fasta")
+        os.remove(sto_output)
 
 
 ###########################
@@ -246,19 +248,18 @@ for index, row in hmm_csv.iterrows():
     bin_hits = dict()
     prot_name = row['protein']
     HMMER_OUTPUT_FILE = HMM_OUTPUT + prot_name + '.out'
-    hmmer_output = SearchIO.read(HMMER_OUTPUT_FILE, 'hmmer3-tab')
-    if hmmer_output:
+    HMM_OUTPUT_LENGTH = subprocess.check_output('wc -l < ' + HMMER_OUTPUT_FILE, shell=True)
+    if int(HMM_OUTPUT_LENGTH) > 13:
+        hmmer_output = SearchIO.read(HMMER_OUTPUT_FILE, 'hmmer3-tab')
         print("Counting bin hits for " + prot_name)
         for sampleID in hmmer_output:
             bin_hits[sampleID.id] = [sampleID.id, g2bkey[sampleID.id], prot_name]
-        bin_hits_df = pd.DataFrame.from_dict(bin_hits, orient = 'index', columns = ['geneID', 'binID', "proteinName"])
-        if index == 0:
-            all_bin_hits = bin_hits_df
-        elif index > 0:
-            all_bin_hits = all_bin_hits.append(bin_hits_df)
-            all_bin_hits
-    else:
-        print('no hits for ' + prot_name)
+            bin_hits_df = pd.DataFrame.from_dict(bin_hits, orient = 'index', columns = ['geneID', 'binID', "proteinName"])
+            if 'all_bin_hits' in locals():
+                all_bin_hits = all_bin_hits.append(bin_hits_df)
+            else:
+                all_bin_hits = bin_hits_df
+
 # Write out hits folder
 all_bin_hits.to_csv(BIN_COUNTS + "all_bin_hits.tsv", sep = '\t', index = False)
 
