@@ -255,10 +255,10 @@ for index, row in hmm_csv.iterrows():
         for sampleID in hmmer_output:
             bin_hits[sampleID.id] = [sampleID.id, g2bkey[sampleID.id], prot_name]
             bin_hits_df = pd.DataFrame.from_dict(bin_hits, orient = 'index', columns = ['geneID', 'binID', "proteinName"])
-            if 'all_bin_hits' in locals():
-                all_bin_hits = all_bin_hits.append(bin_hits_df)
-            else:
-                all_bin_hits = bin_hits_df
+        if 'all_bin_hits' in locals():
+            all_bin_hits = all_bin_hits.append(bin_hits_df)
+        else:
+            all_bin_hits = bin_hits_df
 
 # Write out hits folder
 all_bin_hits.to_csv(BIN_COUNTS + "all_bin_hits.tsv", sep = '\t', index = False)
