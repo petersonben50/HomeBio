@@ -82,7 +82,7 @@ grep '>' $outputLocation/$binID.faa | \
 ######################
 echo "Cleaning faa file"
 python $cleanFastaLocation $outputLocation/$binID.faa
-mv -f $outputLocation/$binID.faa_temp.fasta $outputLocation/$binID.faa
+mv -f $outputLocation/$binID.faa_tempCleanedFile $outputLocation/$binID.faa
 
 
 ######################
@@ -90,7 +90,7 @@ mv -f $outputLocation/$binID.faa_temp.fasta $outputLocation/$binID.faa
 ######################
 echo "Cleaning fna file"
 python $cleanFastaLocation $outputLocation/$binID.fna
-mv -f $outputLocation/$binID.fna_temp.fasta $outputLocation/$binID.fna
+mv -f $outputLocation/$binID.fna_tempCleanedFile $outputLocation/$binID.fna
 
 echo "Finished with" $binID
 echo ""
