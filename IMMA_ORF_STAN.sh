@@ -47,6 +47,7 @@ done
 # Set up the input arguments
 ######################
 echo ""
+echo "###############################"
 echo "Bin ID:" $binID
 echo "Input file location and name:" $inputFile
 echo "Output location:" $outputLocation
@@ -94,4 +95,4 @@ python $cleanFastaLocation $outputLocation/$binID.fna
 mv -f $outputLocation/$binID.fna_tempCleanedFile $outputLocation/$binID.fna
 
 echo "Finished with" $binID
-echo ""
+echo "###############################"
