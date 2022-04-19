@@ -46,6 +46,7 @@ done
 ######################
 # Set up the input arguments
 ######################
+echo ""
 echo "Bin ID:" $binID
 echo "Input file location and name:" $inputFile
 echo "Output location:" $outputLocation
