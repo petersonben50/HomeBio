@@ -19,7 +19,7 @@ import re
 from Bio import SeqIO
 
 fasta = sys.argv[1]
-output = fasta.rsplit('.fasta')[0] + '_temp.fasta'
+output = fasta + '_tempCleanedFile'
 
 # Add the amended part
 with open(output, 'w') as outputFile:
