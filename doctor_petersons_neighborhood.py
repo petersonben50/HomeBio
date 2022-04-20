@@ -41,6 +41,7 @@
 ####---------------------------------####
 import os
 import sys
+import numpy
 import argparse
 import pandas as pd
 from Bio import SeqIO
@@ -67,13 +68,12 @@ SIZE_OF_BLOCK = inputs.size_of_block
 OUTPUT_LOCATION = inputs.outputLocation
 
 # Testing
-#parser.add_argument('--scaffoldID')
-#BIN_ID = 'GCA_903938125.1'
-#BIN_FILE = 'contigs/GCA_903938125.1.fna'
-#ORF_FASTA_ID = 'CAJACG010000495.1_3'
+#BIN_ID = 'anvio_hgcA_0130'
+#BIN_FILE = 'genomes/anvio_hgcA_0130.fna'
+#ORF_FASTA_ID = 'HC18ME02_000000002532_3'
 #ORF_LOCATION = 'ORFs'
 #SIZE_OF_BLOCK = 5000
-#OUTPUT_LOCATION = 'output'
+#OUTPUT_LOCATION = 'GN_of_hgcA'
 
 
 
@@ -91,7 +91,7 @@ def reversed_string(a_string):
 ####---------------------------------####
 # Identify contig ID
 ####---------------------------------####
-CONTIG_ID = ORF_FASTA_ID.rsplit("_")[0]
+CONTIG_ID = ORF_FASTA_ID.rsplit("_", 1)[0]
 
 
 
@@ -105,7 +105,7 @@ ORF_GFF_ID = orf_key_df.loc[orf_key_df['orf_fasta_id'] == ORF_FASTA_ID, 'orf_gff
 
 del listOfNames
 del ORF_KEY_FILE
-del orf_key_df
+#del orf_key_df
 
 
 
@@ -203,6 +203,8 @@ if endFastaPosition > len(fastaSequence):
 
 fastaSequence = fastaSequence[startFastaPosition:endFastaPosition]
 
+# If it's on reverse strand, we need to pull out
+# the reverse complement sequences
 complement = {'A': 'T', 'C': 'G', 'G': 'C', 'T': 'A', 'N': 'N'}
 if sign == "-":
     listBases = list(fastaSequence)
@@ -211,14 +213,24 @@ if sign == "-":
     fastaSequence = reversed_string(reversedBases)
     fastaSequence = ("N" * back_end_padding) + fastaSequence + ("N" * front_end_padding)
 
+# If it's on the forward strand, we just go ahead
+# with adding the padding as needed.
 if sign == "+":
     fastaSequence = ("N" * front_end_padding) + fastaSequence + ("N" * back_end_padding)
 
 
-# Write out files
+# Write out GFF3 file
 gffOutput = OUTPUT_LOCATION + "/" + ORF_FASTA_ID + "_neighborhood.gff"
 df.to_csv(gffOutput, sep = '\t', index = False, header = False)
 
+# Write out fasta file
 fastaOutput = OUTPUT_LOCATION + "/" + ORF_FASTA_ID + "_neighborhood.fna"
 with open(fastaOutput, 'w') as outFile:
     outFile.write('>' + CONTIG_ID + '\n' + fastaSequence + '\n')
+
+#exit()
+
+####---------------------------------####
+# Get FASTA entries for genes in neighborhood
+####---------------------------------####
+#orf_key_df
