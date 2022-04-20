@@ -69,7 +69,7 @@ print(type(SIZE_OF_BLOCK))
 SIZE_OF_BLOCK = int(SIZE_OF_BLOCK)
 print(type(SIZE_OF_BLOCK))
 OUTPUT_LOCATION = inputs.outputLocation
-
+exit()
 # Testing
 #BIN_ID = 'anvio_hgcA_0130'
 #BIN_FILE = 'genomes/anvio_hgcA_0130.fna'
