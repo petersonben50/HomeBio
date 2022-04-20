@@ -65,11 +65,9 @@ BIN_FILE = inputs.bin_file
 ORF_FASTA_ID = inputs.orf_fasta_id
 ORF_LOCATION = inputs.ORF_location
 SIZE_OF_BLOCK = inputs.size_of_block
-print(type(SIZE_OF_BLOCK))
 SIZE_OF_BLOCK = int(SIZE_OF_BLOCK)
-print(type(SIZE_OF_BLOCK))
 OUTPUT_LOCATION = inputs.outputLocation
-exit()
+
 # Testing
 #BIN_ID = 'anvio_hgcA_0130'
 #BIN_FILE = 'genomes/anvio_hgcA_0130.fna'
