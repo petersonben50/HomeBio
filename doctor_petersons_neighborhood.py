@@ -51,17 +51,17 @@ from Bio import SeqIO
 ####---------------------------------####
 # Set up an argument parser
 parser = argparse.ArgumentParser()
-parser.add_argument('--binID')
+parser.add_argument('--bin_id')
 parser.add_argument('--bin_file')
-parser.add_argument('--orfFastaID')
+parser.add_argument('--orf_fasta_id')
 parser.add_argument('--ORF_location')
 parser.add_argument('--size_of_block')
 parser.add_argument('--outputLocation')
 # Parse names from argument
 inputs = parser.parse_args()
-BIN_ID = inputs.binID
+BIN_ID = inputs.bin_id
 BIN_FILE = inputs.bin_file
-ORF_FASTA_ID = inputs.orfFastaID
+ORF_FASTA_ID = inputs.orf_fasta_id
 ORF_LOCATION = inputs.ORF_location
 SIZE_OF_BLOCK = inputs.size_of_block
 OUTPUT_LOCATION = inputs.outputLocation
