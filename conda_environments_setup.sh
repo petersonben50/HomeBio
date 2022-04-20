@@ -13,6 +13,7 @@ conda install -y -n bioinformatics -c bioconda cd-hit
 conda install -y -n bioinformatics -c bioconda fasttree
 conda install -y -n bioinformatics -c bioconda biopython
 conda install -y -n bioinformatics -c bioconda prodigal
+conda install -y -n bioinformatics -c bioconda pandas
 
 
 
