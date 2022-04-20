@@ -68,12 +68,12 @@ OUTPUT_LOCATION = inputs.outputLocation
 
 # Testing
 #parser.add_argument('--scaffoldID')
-BIN_ID = 'GCA_903938125.1'
-BIN_FILE = 'contigs/GCA_903938125.1.fna'
-ORF_FASTA_ID = 'CAJACG010000495.1_3'
-ORF_LOCATION = 'ORFs'
-SIZE_OF_BLOCK = 5000
-OUTPUT_LOCATION = 'output'
+#BIN_ID = 'GCA_903938125.1'
+#BIN_FILE = 'contigs/GCA_903938125.1.fna'
+#ORF_FASTA_ID = 'CAJACG010000495.1_3'
+#ORF_LOCATION = 'ORFs'
+#SIZE_OF_BLOCK = 5000
+#OUTPUT_LOCATION = 'output'
 
 
 
