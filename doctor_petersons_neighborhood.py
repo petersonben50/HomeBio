@@ -306,15 +306,5 @@ with open(faa_orf_output, 'w') as resultFile:
         if (seq_record.id in genes_in_neighborhood_ORF_IDs.tolist()):
             print(seq_record.id + " is in the neighborhood.")
             resultFile.write('>' + str(seq_record.id) + '\n' + str(seq_record.seq) + '\n')
-
-
-####---------------------------------####
-####---------------------------------####
-# Get FASTA entries for genes in neighborhood
-####---------------------------------####
-####---------------------------------####
-
-
-
 print('##################################################')
 print('')
