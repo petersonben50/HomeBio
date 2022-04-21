@@ -84,9 +84,11 @@ ORF_FASTA_ID = 'HC18ME02_000000002532_3'
 ORF_LOCATION = '/Users/benjaminpeterson/Documents/programs/homemade_bioinformatic_scripts/doctor_petersons_neighborhood/prolixibacteraceae_details/ORFs'
 SIZE_OF_BLOCK = 5000
 SIZE_OF_BLOCK = int(SIZE_OF_BLOCK)
-OUTPUT_LOCATION = 'GN_of_hgcA'
+OUTPUT_LOCATION = '/Users/benjaminpeterson/Documents/programs/homemade_bioinformatic_scripts/doctor_petersons_neighborhood/prolixibacteraceae_details/GN_of_hgcA'
 """
 
+print('')
+print('##################################################')
 print("Pulling out gene neighborhood of " + ORF_FASTA_ID + " from bin " + BIN_ID + ",")
 print("with " + str(SIZE_OF_BLOCK) + " residues on either side.")
 
@@ -281,9 +283,38 @@ fastaOutput = OUTPUT_LOCATION + "/" + ORF_FASTA_ID + "_neighborhood.fna"
 with open(fastaOutput, 'w') as outFile:
     outFile.write('>' + CONTIG_ID + '\n' + fastaSequence + '\n')
 
-#exit()
 
+
+
+####---------------------------------####
 ####---------------------------------####
 # Get FASTA entries for genes in neighborhood
 ####---------------------------------####
-#orf_key_df
+####---------------------------------####
+genes_in_neighborhood_GFF_IDs = df['attributes'].str.split(";", expand = True)[0].str.replace("ID=", "", 1)
+genes_in_neighborhood_ORF_IDs = orf_key_df.loc[orf_key_df['orf_gff_id'].isin(genes_in_neighborhood_GFF_IDs), 'orf_fasta_id']
+ORF_FAA_FILE = ORF_LOCATION + "/" + BIN_ID + ".faa"
+faa_orf_output = OUTPUT_LOCATION + "/" + ORF_FASTA_ID + ".faa"
+
+print("")
+print("Pulling out gene sequences from the neighborhood, saving them to:")
+print(faa_orf_output)
+
+# Save out sequences for genes in the neighborhood
+with open(faa_orf_output, 'w') as resultFile:
+    for seq_record in SeqIO.parse(ORF_FAA_FILE, "fasta"):
+        if (seq_record.id in genes_in_neighborhood_ORF_IDs.tolist()):
+            print(seq_record.id + " is in the neighborhood.")
+            resultFile.write('>' + str(seq_record.id) + '\n' + str(seq_record.seq) + '\n')
+
+
+####---------------------------------####
+####---------------------------------####
+# Get FASTA entries for genes in neighborhood
+####---------------------------------####
+####---------------------------------####
+
+
+
+print('##################################################')
+print('')
