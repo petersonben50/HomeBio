@@ -51,7 +51,7 @@ from Bio import SeqIO
 # Read in variables
 ####---------------------------------####
 # Set up an argument parser
-
+"""
 parser = argparse.ArgumentParser()
 parser.add_argument('--bin_id')
 parser.add_argument('--bin_file')
@@ -85,7 +85,7 @@ ORF_LOCATION = '/Users/benjaminpeterson/Documents/programs/homemade_bioinformati
 SIZE_OF_BLOCK = 5000
 SIZE_OF_BLOCK = int(SIZE_OF_BLOCK)
 OUTPUT_LOCATION = '/Users/benjaminpeterson/Documents/programs/homemade_bioinformatic_scripts/doctor_petersons_neighborhood/prolixibacteraceae_details/GN_of_hgcA'
-"""
+
 
 print('')
 print('##################################################')
@@ -111,7 +111,7 @@ CONTIG_ID = ORF_FASTA_ID.rsplit("_", 1)[0]
 print("Gene of interest is on contig " + CONTIG_ID)
 
 
-
+"""
 ####---------------------------------####
 # Pull out GFF ID for central gene ORF
 ####---------------------------------####
@@ -123,7 +123,7 @@ print("The corresponding GFF ID for the gene of interest is " + ORF_GFF_ID)
 del listOfNames
 del ORF_KEY_FILE
 #del orf_key_df
-
+"""
 
 
 ####---------------------------------####
@@ -159,8 +159,8 @@ for seq_record in SeqIO.parse(BIN_FILE, "fasta"):
 ####---------------------------------####
 #df['start'] = df['start'].astype(int)
 #df['end'] = df['end'].astype(int)
-startcoord_ref = int(df.loc[df['attributes'].str.contains(ORF_GFF_ID),'start'])
-endcoord_ref = int(df.loc[df['attributes'].str.contains(ORF_GFF_ID),'end'])
+startcoord_ref = int(df.loc[df['attributes'].str.contains(ORF_FASTA_ID),'start'])
+endcoord_ref = int(df.loc[df['attributes'].str.contains(ORF_FASTA_ID),'end'])
 print("The gene starts at residue " + str(startcoord_ref) + " and ends at " + str(endcoord_ref) + " on the contig.")
 
 
@@ -168,8 +168,8 @@ print("The gene starts at residue " + str(startcoord_ref) + " and ends at " + st
 ####---------------------------------####
 # Change the coordinates in the GFF file
 ####---------------------------------####
-sign = df.loc[df['attributes'].str.contains(ORF_GFF_ID),'strand'].item()
-print(ORF_GFF_ID + " is on " + sign + "strand")
+sign = df.loc[df['attributes'].str.contains(ORF_FASTA_ID),'strand'].item()
+print(ORF_FASTA_ID + " is on " + sign + "strand")
 
 if sign == "+": # Subtract all coords from initial start coord, then add the size of the block
     strand_key = {"+" : "+", "-" : "-"}
@@ -291,8 +291,7 @@ with open(fastaOutput, 'w') as outFile:
 # Get FASTA entries for genes in neighborhood
 ####---------------------------------####
 ####---------------------------------####
-genes_in_neighborhood_GFF_IDs = df['attributes'].str.split(";", expand = True)[0].str.replace("ID=", "", 1)
-genes_in_neighborhood_ORF_IDs = orf_key_df.loc[orf_key_df['orf_gff_id'].isin(genes_in_neighborhood_GFF_IDs), 'orf_fasta_id']
+genes_in_neighborhood_ORF_IDs = df['attributes'].str.split("fasta_ID=", "", 1).str.split(";", expand = True)[0]
 ORF_FAA_FILE = ORF_LOCATION + "/" + BIN_ID + ".faa"
 faa_orf_output = OUTPUT_LOCATION + "/" + ORF_FASTA_ID + ".faa"
 
