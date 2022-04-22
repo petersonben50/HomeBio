@@ -51,7 +51,6 @@ import matplotlib.pyplot as plt
 # Set up input files
 ####---------------------------------####
 # Set up an argument parser
-"""
 parser = argparse.ArgumentParser()
 parser.add_argument('--gff_file')
 parser.add_argument('--orf_data')
@@ -61,8 +60,15 @@ inputs = parser.parse_args()
 GFF_FILE = inputs.gff_file
 ORF_DATA = inputs.orf_data
 OUTPUT_LOCATION = inputs.output_location
-
 """
+####---------------------------------####
+# Test data
+####---------------------------------####
+GFF_FILE = '/Users/benjaminpeterson/Documents/research/HellsCanyon/dataEdited/bins/binAnalysis/prolixibacteraceae_details/GN/hgcA_geneNeighborhood_all.gff'
+ORF_DATA = '/Users/benjaminpeterson/Documents/research/HellsCanyon/dataEdited/bins/binAnalysis/prolixibacteraceae_details/GN/hgcA_geneNeighborhood_info.txt'
+OUTPUT_LOCATION = '/Users/benjaminpeterson/Documents/research/HellsCanyon/dataEdited/bins/binAnalysis/prolixibacteraceae_details/GN'
+"""
+
 
 
 ####---------------------------------####
@@ -78,14 +84,6 @@ def unique(list1):
             unique_list.append(x)
     # print list
     return unique_list
-
-
-####---------------------------------####
-# Test data
-####---------------------------------####
-GFF_FILE = '/Users/benjaminpeterson/Documents/research/HellsCanyon/dataEdited/bins/binAnalysis/prolixibacteraceae_details/GN/hgcA_geneNeighborhood_all.gff'
-ORF_DATA = '/Users/benjaminpeterson/Documents/research/HellsCanyon/dataEdited/bins/binAnalysis/prolixibacteraceae_details/GN/hgcA_geneNeighborhood_info.txt'
-OUTPUT_LOCATION = '/Users/benjaminpeterson/Documents/research/HellsCanyon/dataEdited/bins/binAnalysis/prolixibacteraceae_details/GN'
 
 
 
@@ -224,5 +222,5 @@ def plot_gene_clusters(PLOTTING_DF):
 #HEIGHT_OF_PDF = len(unique(PLOTTING_DF['scaffold_id']))*0.05
 
 #plt.figure(figsize = (15, HEIGHT_OF_PDF))
-PDF_OUTPUT_LOCATION = OUTPUT_LOCATION + "/gene_neighborhood.pdf"
+PDF_OUTPUT_LOCATION = OUTPUT_LOCATION
 plot_gene_clusters(PLOTTING_DF)
