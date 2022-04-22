@@ -51,7 +51,6 @@ from Bio import SeqIO
 # Read in variables
 ####---------------------------------####
 # Set up an argument parser
-"""
 parser = argparse.ArgumentParser()
 parser.add_argument('--bin_id')
 parser.add_argument('--bin_file')
@@ -79,13 +78,13 @@ OUTPUT_LOCATION = inputs.outputLocation
 
 """
 BIN_ID = 'anvio_hgcA_0130'
-BIN_FILE = '/Users/benjaminpeterson/Documents/programs/homemade_bioinformatic_scripts/doctor_petersons_neighborhood/prolixibacteraceae_details/genomes/anvio_hgcA_0130.fna'
+BIN_FILE = '/Users/benjaminpeterson/Documents/programs/HomeBio/testing/doctor_petersons_neighborhood/anvio_hgcA_0130.fna'
 ORF_FASTA_ID = 'HC18ME02_000000002532_3'
-ORF_LOCATION = '/Users/benjaminpeterson/Documents/programs/homemade_bioinformatic_scripts/doctor_petersons_neighborhood/prolixibacteraceae_details/ORFs'
+ORF_LOCATION = '/Users/benjaminpeterson/Documents/programs/HomeBio/testing/doctor_petersons_neighborhood/ORFs'
 SIZE_OF_BLOCK = 5000
 SIZE_OF_BLOCK = int(SIZE_OF_BLOCK)
-OUTPUT_LOCATION = '/Users/benjaminpeterson/Documents/programs/homemade_bioinformatic_scripts/doctor_petersons_neighborhood/prolixibacteraceae_details/GN_of_hgcA'
-
+OUTPUT_LOCATION = '/Users/benjaminpeterson/Documents/programs/HomeBio/testing/doctor_petersons_neighborhood/output'
+"""
 
 print('')
 print('##################################################')
@@ -291,7 +290,7 @@ with open(fastaOutput, 'w') as outFile:
 # Get FASTA entries for genes in neighborhood
 ####---------------------------------####
 ####---------------------------------####
-genes_in_neighborhood_ORF_IDs = df['attributes'].str.split("fasta_ID=", "", 1).str.split(";", expand = True)[0]
+genes_in_neighborhood_ORF_IDs = df['attributes'].str.split("fasta_ID=", expand = True)[1].str.split(";", expand = True)[0]
 ORF_FAA_FILE = ORF_LOCATION + "/" + BIN_ID + ".faa"
 faa_orf_output = OUTPUT_LOCATION + "/" + ORF_FASTA_ID + ".faa"
 
