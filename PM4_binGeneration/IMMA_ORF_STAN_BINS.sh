@@ -78,6 +78,17 @@ grep '>' $outputLocation/$binID.faa | \
 
 
 ######################
+# Change unique IDs in GFF to match the fasta headers
+######################
+cat $outputLocation/$binID\_ORF_key.tsv | while IFS=$'\t' read ORF_ID GFF_ID
+do
+  echo "Swapping GFF ID: " $GFF_ID "for ORF ID:" $ORF_ID
+  sed -i "s/ID=$GFF_ID;/ID=$ORF_ID;/" $outputLocation/$binID.gff
+done
+rm $outputLocation/$binID\_ORF_key.tsv
+
+
+######################
 # Clean faa file
 ######################
 echo "Cleaning faa file"
