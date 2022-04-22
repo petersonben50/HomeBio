@@ -169,7 +169,7 @@ def plot_legend():
         y_box = y_box - y_spacing
         coordinates = [x_box_left, x_box_right, y_box, y_height, COLOR_DICTIONARY[color_code_to_plot], "none" ]
         add_a_gene(coordinates)
-        plt.text(x_text, y_box-y_height, color_code_to_plot, size = 8, verticalalignment='bottom')
+        plt.text(x_text, y_box, color_code_to_plot, size = 8, verticalalignment='center')
 
 
 
@@ -211,7 +211,7 @@ def plot_gene_clusters(PLOTTING_DF):
     plot_legend()
     plt.axis('scaled')
     plt.axis('off')
-    return plt.savefig(PDF_OUTPUT_LOCATION)
+    return plt.savefig(OUTPUT_LOCATION)
 
 
 
@@ -219,8 +219,7 @@ def plot_gene_clusters(PLOTTING_DF):
 ####---------------------------------####
 # Set size and location of PDF output
 ####---------------------------------####
-#HEIGHT_OF_PDF = len(unique(PLOTTING_DF['scaffold_id']))*0.05
+HEIGHT_OF_PDF = len(unique(PLOTTING_DF['scaffold_id']))*0.05
 
-#plt.figure(figsize = (15, HEIGHT_OF_PDF))
-PDF_OUTPUT_LOCATION = OUTPUT_LOCATION
+plt.figure(figsize=(8,8))
 plot_gene_clusters(PLOTTING_DF)
