@@ -102,20 +102,6 @@ CONTIG_ID = ORF_FASTA_ID.rsplit("_", 1)[0]
 print("Gene of interest is on contig " + CONTIG_ID)
 
 
-"""
-####---------------------------------####
-# Pull out GFF ID for central gene ORF
-####---------------------------------####
-ORF_KEY_FILE = ORF_LOCATION + "/" + BIN_ID + "_ORF_key.tsv"
-listOfNames = ['orf_fasta_id', 'orf_gff_id']
-orf_key_df = pd.read_csv(ORF_KEY_FILE, sep = '\t', names = listOfNames)
-ORF_GFF_ID = orf_key_df.loc[orf_key_df['orf_fasta_id'] == ORF_FASTA_ID, 'orf_gff_id'].item()
-print("The corresponding GFF ID for the gene of interest is " + ORF_GFF_ID)
-del listOfNames
-del ORF_KEY_FILE
-#del orf_key_df
-"""
-
 
 ####---------------------------------####
 # Read in GFF3 input with specific column
