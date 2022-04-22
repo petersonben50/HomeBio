@@ -38,10 +38,11 @@ python -m ipykernel install
 # kofamscan environment set up
 ####---------------------------------####
 # Download the reference databases
-"""
+
+
 cd ~/references
-mkdir kofamscan_DBs
-cd kofamscan_DBs
+mkdir kofamscan_files
+cd ~/references/kofamscan_files
 # download the ko list
 wget ftp://ftp.genome.jp/pub/db/kofam/ko_list.gz
 # download the hmm profiles
@@ -54,8 +55,12 @@ wget ftp://ftp.genome.jp/pub/tools/kofamscan/README.md
 gunzip ko_list.gz
 tar -xf profiles.tar.gz
 tar -xf kofam_scan-1.3.0.tar.gz
-"""
+cd ~/references/kofamscan_files/kofam_scan-1.3.0
+sed "s/\# profile: \/path\/to\/your\/profile\/db/profile: \/home\/GLBRCORG\/bpeterson26\/references\/kofamscan_files\/profiles\/prokaryote.hal/" config-template.yml | \
+    sed 's/\# ko_list: \/path\/to\/your\/kolist\/file/ko_list: \/home\/GLBRCORG\/bpeterson26\/references\/kofamscan_files\/ko_list/' \
+    > config.yml
 
+#conda env remove -n kofamscan
 conda create -y -n kofamscan hmmer parallel
 conda activate kofamscan
 conda install -y -c conda-forge ruby
