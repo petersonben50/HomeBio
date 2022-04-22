@@ -85,7 +85,7 @@ do
   #echo "Swapping GFF ID:" $GFF_ID "for ORF ID:" $ORF_ID
   sed -i "s/ID=$GFF_ID;/ID=$ORF_ID;/" $outputLocation/$binID.gff
 done
-rm $outputLocation/$binID\_ORF_key.tsv
+rm -f $outputLocation/$binID\_ORF_key.tsv
 
 
 ######################
