@@ -68,14 +68,6 @@ SIZE_OF_BLOCK = inputs.size_of_block
 SIZE_OF_BLOCK = int(SIZE_OF_BLOCK)
 OUTPUT_LOCATION = inputs.outputLocation
 
-BIN_ID = inputs.bin_id
-BIN_FILE = inputs.bin_file
-ORF_FASTA_ID = inputs.orf_fasta_id
-ORF_LOCATION = inputs.ORF_location
-SIZE_OF_BLOCK = inputs.size_of_block
-SIZE_OF_BLOCK = int(SIZE_OF_BLOCK)
-OUTPUT_LOCATION = inputs.outputLocation
-
 """
 BIN_ID = 'anvio_hgcA_0130'
 BIN_FILE = '/Users/benjaminpeterson/Documents/programs/HomeBio/testing/doctor_petersons_neighborhood/anvio_hgcA_0130.fna'
