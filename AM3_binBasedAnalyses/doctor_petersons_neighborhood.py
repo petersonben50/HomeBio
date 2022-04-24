@@ -145,7 +145,7 @@ print("The gene starts at residue " + str(startcoord_ref) + " and ends at " + st
 ####---------------------------------####
 # Change the coordinates in the GFF file
 ####---------------------------------####
-sign = df.loc[df['attributes'].str.contains(ORF_FASTA_ID),'strand'].item()
+sign = df.loc[df['attributes'].str.contains(ORF_FASTA_ID+";"),'strand'].item()
 print(ORF_FASTA_ID + " is on " + sign + "strand")
 
 if sign == "+": # Subtract all coords from initial start coord, then add the size of the block
