@@ -69,13 +69,13 @@ SIZE_OF_BLOCK = int(SIZE_OF_BLOCK)
 OUTPUT_LOCATION = inputs.outputLocation
 
 """
-BIN_ID = 'anvio_hgcA_0130'
-BIN_FILE = '/Users/benjaminpeterson/Documents/programs/HomeBio/testing/doctor_petersons_neighborhood/anvio_hgcA_0130.fna'
-ORF_FASTA_ID = 'HC18ME02_000000002532_3'
-ORF_LOCATION = '/Users/benjaminpeterson/Documents/programs/HomeBio/testing/doctor_petersons_neighborhood/ORFs'
-SIZE_OF_BLOCK = 5000
+BIN_ID = 'GCF_001618385.1'
+BIN_FILE = 'genomes/GCF_001618385.1.fna'
+ORF_FASTA_ID = 'NZ_BDCR01000003.1_65'
+ORF_LOCATION = 'ORFs'
+SIZE_OF_BLOCK = 20000
 SIZE_OF_BLOCK = int(SIZE_OF_BLOCK)
-OUTPUT_LOCATION = '/Users/benjaminpeterson/Documents/programs/HomeBio/testing/doctor_petersons_neighborhood/output'
+OUTPUT_LOCATION = 'GN_of_hgcA'
 """
 
 print('')
@@ -136,8 +136,8 @@ for seq_record in SeqIO.parse(BIN_FILE, "fasta"):
 ####---------------------------------####
 #df['start'] = df['start'].astype(int)
 #df['end'] = df['end'].astype(int)
-startcoord_ref = int(df.loc[df['attributes'].str.contains(ORF_FASTA_ID),'start'])
-endcoord_ref = int(df.loc[df['attributes'].str.contains(ORF_FASTA_ID),'end'])
+startcoord_ref = int(df.loc[df['attributes'].str.contains(ORF_FASTA_ID+";"),])
+endcoord_ref = int(df.loc[df['attributes'].str.contains(ORF_FASTA_ID+";"),'end'])
 print("The gene starts at residue " + str(startcoord_ref) + " and ends at " + str(endcoord_ref) + " on the contig.")
 
 
