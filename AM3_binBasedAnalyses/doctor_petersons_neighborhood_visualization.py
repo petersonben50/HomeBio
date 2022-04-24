@@ -48,6 +48,14 @@ import matplotlib.pyplot as plt
 
 
 ####---------------------------------####
+# Set up defaults
+####---------------------------------####
+PDF_HEIGHT = 8
+PDF_WIDTH = 8
+
+
+
+####---------------------------------####
 # Set up input files
 ####---------------------------------####
 # Set up an argument parser
@@ -55,11 +63,22 @@ parser = argparse.ArgumentParser()
 parser.add_argument('--gff_file')
 parser.add_argument('--orf_data')
 parser.add_argument('--output_location')
+parser.add_argument('--pdf_height')
+parser.add_argument('--pdf_width')
+
 # Parse names from argument
 inputs = parser.parse_args()
 GFF_FILE = inputs.gff_file
 ORF_DATA = inputs.orf_data
 OUTPUT_LOCATION = inputs.output_location
+
+# Parse options with defaults
+PDF_HEIGHT = inputs.pdf_height
+PDF_HEIGHT = int(PDF_HEIGHT)
+PDF_WIDTH = inputs.pdf_width
+PDF_WIDTH = int(PDF_WIDTH)
+
+
 """
 ####---------------------------------####
 # Test data
@@ -221,5 +240,5 @@ def plot_gene_clusters(PLOTTING_DF):
 ####---------------------------------####
 HEIGHT_OF_PDF = len(unique(PLOTTING_DF['scaffold_id']))*0.05
 
-plt.figure(figsize=(8,8))
+plt.figure(figsize=(PDF_WIDTH,PDF_HEIGHT))
 plot_gene_clusters(PLOTTING_DF)
