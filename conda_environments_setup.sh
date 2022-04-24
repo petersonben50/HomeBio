@@ -24,14 +24,12 @@ conda create -y --name py_viz python=3.9
 conda install -y -n py_viz pandas
 conda install -y -n py_viz -c anaconda argparse
 conda install -y -n py_viz biopython
-#conda install -y -n py_viz ipykernel
 conda install -y -n py_viz -c anaconda jupyter
+conda install -y -n py_viz matplotlib
 
 conda activate py_viz
 python -m ipykernel install
-#conda install -y -n py_viz hmmer
-#conda install -y -n py_viz matplotlib
-#conda install -y -n py_viz -c bioconda gffutils
+
 
 
 ####---------------------------------####
