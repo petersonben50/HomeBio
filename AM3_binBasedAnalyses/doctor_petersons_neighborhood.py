@@ -136,7 +136,7 @@ for seq_record in SeqIO.parse(BIN_FILE, "fasta"):
 ####---------------------------------####
 #df['start'] = df['start'].astype(int)
 #df['end'] = df['end'].astype(int)
-startcoord_ref = int(df.loc[df['attributes'].str.contains(ORF_FASTA_ID+";"),])
+startcoord_ref = int(df.loc[df['attributes'].str.contains(ORF_FASTA_ID+";"),'start'])
 endcoord_ref = int(df.loc[df['attributes'].str.contains(ORF_FASTA_ID+";"),'end'])
 print("The gene starts at residue " + str(startcoord_ref) + " and ends at " + str(endcoord_ref) + " on the contig.")
 
