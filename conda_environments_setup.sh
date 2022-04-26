@@ -27,6 +27,7 @@ conda install -y -n py_viz biopython
 conda install -y -n py_viz -c anaconda jupyter
 conda install -y -n py_viz matplotlib
 conda install -y -n py_viz -c conda-forge pdfminer
+conda install -y -n py_viz -c conda-forge gdal
 conda activate py_viz
 python -m ipykernel install
 
