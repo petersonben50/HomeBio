@@ -45,6 +45,12 @@ import pandas as pd
 from Bio import SeqIO
 import matplotlib.pyplot as plt
 
+from pdfminer.layout import LAParams, LTTextBox
+from pdfminer.pdfpage import PDFPage
+from pdfminer.pdfinterp import PDFResourceManager
+from pdfminer.pdfinterp import PDFPageInterpreter
+from pdfminer.converter import PDFPageAggregator
+
 
 
 ####---------------------------------####
@@ -58,6 +64,7 @@ PDF_WIDTH = 8
 ####---------------------------------####
 # Set up input files
 ####---------------------------------####
+
 # Set up an argument parser
 parser = argparse.ArgumentParser()
 parser.add_argument('--gff_file')
@@ -65,14 +72,17 @@ parser.add_argument('--orf_data')
 parser.add_argument('--output_location')
 parser.add_argument('--pdf_height')
 parser.add_argument('--pdf_width')
+parser.add_argument('--gene_tree_file')
 
 # Parse names from argument
 inputs = parser.parse_args()
 GFF_FILE = inputs.gff_file
 ORF_DATA = inputs.orf_data
 OUTPUT_LOCATION = inputs.output_location
+GENE_TREE_FILE = inputs.gene_tree_file
 
 # Parse options with defaults
+
 PDF_HEIGHT = inputs.pdf_height
 PDF_HEIGHT = int(PDF_HEIGHT)
 PDF_WIDTH = inputs.pdf_width
@@ -85,7 +95,8 @@ PDF_WIDTH = int(PDF_WIDTH)
 ####---------------------------------####
 GFF_FILE = '/Users/benjaminpeterson/Documents/research/HellsCanyon/dataEdited/bins/binAnalysis/prolixibacteraceae_details/GN/hgcA_geneNeighborhood_all.gff'
 ORF_DATA = '/Users/benjaminpeterson/Documents/research/HellsCanyon/dataEdited/bins/binAnalysis/prolixibacteraceae_details/GN/hgcA_geneNeighborhood_info.txt'
-OUTPUT_LOCATION = '/Users/benjaminpeterson/Documents/research/HellsCanyon/dataEdited/bins/binAnalysis/prolixibacteraceae_details/GN'
+OUTPUT_LOCATION = '/Users/benjaminpeterson/Documents/research/HellsCanyon/dataEdited/bins/binAnalysis/prolixibacteraceae_details/GN/hgcA_geneNeighborhood_plot.pdf'
+GENE_TREE_FILE = '/Users/benjaminpeterson/Documents/research/HellsCanyon/results/bins/binAnalysis/prolixibacteraceae_details/hgcA_tree.pdf'
 """
 
 
@@ -130,8 +141,37 @@ ORF_DF = pd.read_csv(ORF_DATA, sep = '\t')
 PLOTTING_DF = GFF_DF.merge(ORF_DF, how='inner', on = "orf_fasta_id")
 
 
-#def get_element(my_list, position):
-    #return my_list[position]
+####---------------------------------####
+# Get list of focal gene indices
+####---------------------------------####
+
+
+
+####---------------------------------####
+# Set up text box id
+####---------------------------------####
+if GENE_TREE_FILE is not None:
+    print("A gene tree has been provided, and the y-coordinates will be generated to match up with it.")
+    fp = open('/Users/benjaminpeterson/Documents/research/HellsCanyon/results/bins/binAnalysis/prolixibacteraceae_details/hgcA_tree.pdf', 'rb')
+    rsrcmgr = PDFResourceManager()
+    laparams = LAParams()
+    device = PDFPageAggregator(rsrcmgr, laparams=laparams)
+    interpreter = PDFPageInterpreter(rsrcmgr, device)
+    pages = PDFPage.get_pages(fp)
+    # Set up list of bins
+    PLOTTING_DF_SUBSET = PLOTTING_DF[(PLOTTING_DF['focal_gene'] == "yes")]
+    LIST_OF_BINS = PLOTTING_DF_SUBSET['binID'].tolist()
+    del PLOTTING_DF_SUBSET
+    BIN_ID_Y_LOCATION = dict()
+    for page in pages:
+        interpreter.process_page(page)
+        layout = device.get_result()
+        for lobj in layout:
+            if isinstance(lobj, LTTextBox):
+                Y_LOCATION, TEXT_BOX_CONTENT = lobj.bbox[3], lobj.get_text()
+                for BIN_ID in LIST_OF_BINS:
+                    if BIN_ID in TEXT_BOX_CONTENT:
+                        BIN_ID_Y_LOCATION[BIN_ID] = Y_LOCATION
 
 
 
@@ -192,9 +232,6 @@ def plot_legend():
 
 
 
-unique(PLOTTING_DF['color_code'])
-
-
 ####---------------------------------####
 # Define plot gene clusters function
 ####---------------------------------####
@@ -204,15 +241,18 @@ def plot_gene_clusters(PLOTTING_DF):
     x_binName = 100
     h = 200 # height of genes
     spacing_vertical = 1.5 # aspect ratio between scaffolds
-    # Plot genes centered on these genes
-    focal_genes = PLOTTING_DF[(PLOTTING_DF['focal_gene'] == "yes")].sort_values(by='scaffold_id').index.tolist()
-    for FOCAL_GENE in focal_genes:
+    # Plot genes centered on focal genes
+    FOCAL_GENE_INDICES = PLOTTING_DF[(PLOTTING_DF['focal_gene'] == "yes")].sort_values(by='scaffold_id').index.tolist()
+    for FOCAL_GENE_INDEX in FOCAL_GENE_INDICES:
         # Assign new y-coordinate
-        y = y + (h * spacing_vertical)
         xs = []
-        scaffoldID = PLOTTING_DF.at[FOCAL_GENE,'scaffold_id']
+        scaffoldID = PLOTTING_DF.at[FOCAL_GENE_INDEX,'scaffold_id']
         # Plot bin ID
-        BIN_ID = PLOTTING_DF.at[FOCAL_GENE,'binID']
+        BIN_ID = PLOTTING_DF.at[FOCAL_GENE_INDEX,'binID']
+        if GENE_TREE_FILE is None:
+            y = y + (h * spacing_vertical)
+        if GENE_TREE_FILE is not None:
+            y = BIN_ID_Y_LOCATION[BIN_ID] * 50
         plt.text(x_binName, y, BIN_ID, size=6, verticalalignment='center', horizontalalignment='right')
         # Subset data frame to only include the scaffold of interest
         PLOTTING_DF_FOR_SCAFFOLD = PLOTTING_DF[PLOTTING_DF['scaffold_id'] == scaffoldID]
@@ -228,7 +268,7 @@ def plot_gene_clusters(PLOTTING_DF):
             add_a_gene(coordinates)
     # Add legend if multiple colors are used
     plot_legend()
-    plt.axis('scaled')
+    #plt.axis('scaled')
     plt.axis('off')
     return plt.savefig(OUTPUT_LOCATION)
 
