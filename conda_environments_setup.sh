@@ -26,8 +26,6 @@ conda install -y -n py_viz -c anaconda argparse
 conda install -y -n py_viz biopython
 conda install -y -n py_viz -c anaconda jupyter
 conda install -y -n py_viz matplotlib
-conda install -y -n py_viz -c conda-forge pyproj
-conda install -y -n py_viz -c anaconda shapely
 conda install -y -n py_viz -c conda-forge pdfminer
 conda activate py_viz
 python -m ipykernel install
