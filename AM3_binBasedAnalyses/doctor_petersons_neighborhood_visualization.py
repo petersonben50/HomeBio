@@ -82,14 +82,14 @@ OUTPUT_LOCATION = inputs.output_location
 GENE_TREE_FILE = inputs.gene_tree_file
 
 # Parse options with defaults
-
+"""
 PDF_HEIGHT = inputs.pdf_height
 PDF_HEIGHT = int(PDF_HEIGHT)
 PDF_WIDTH = inputs.pdf_width
 PDF_WIDTH = int(PDF_WIDTH)
 
 
-"""
+
 ####---------------------------------####
 # Test data
 ####---------------------------------####
@@ -268,7 +268,7 @@ def plot_gene_clusters(PLOTTING_DF):
             add_a_gene(coordinates)
     # Add legend if multiple colors are used
     plot_legend()
-    #plt.axis('scaled')
+    plt.axis('scaled')
     plt.axis('off')
     return plt.savefig(OUTPUT_LOCATION)
 
@@ -278,7 +278,7 @@ def plot_gene_clusters(PLOTTING_DF):
 ####---------------------------------####
 # Set size and location of PDF output
 ####---------------------------------####
-HEIGHT_OF_PDF = len(unique(PLOTTING_DF['scaffold_id']))*0.05
+#HEIGHT_OF_PDF = len(unique(PLOTTING_DF['scaffold_id']))*0.05
 
-plt.figure(figsize=(PDF_WIDTH,PDF_HEIGHT))
+#plt.figure(figsize=(PDF_WIDTH,PDF_HEIGHT))
 plot_gene_clusters(PLOTTING_DF)
