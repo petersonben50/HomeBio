@@ -40,11 +40,15 @@
 ####---------------------------------####
 import os
 import sys
+import glob
 import numpy
 import argparse
 import pandas as pd
 from Bio import SearchIO
 from Bio import SeqIO
+from Bio import AlignIO
+from Bio import Nexus
+from Bio.Nexus import Nexus
 
 
 ####---------------------------------####
@@ -185,7 +189,13 @@ with open(HMM_LIST) as OPENED_HMM_LIST:
 
 
 ####---------------------------------####
-# Set up and run HMM commands
+# Function to convert alignment files to nexus alignments
 ####---------------------------------####
-
-AFA_OUTPUT_FILE = TEMP_FOLDER + "/" + HMM_TO_USE.rsplit(".")[0] + ".afa"
+FASTA_ALIGNMENT_FILES = glob.glob(TEMP_FOLDER + "/*.afa")
+for FASTA_ALIGNMENT_FILE in FASTA_ALIGNMENT_FILES:
+    with open(FASTA_ALIGNMENT_FILE) as opened_fasta_alig:
+        FASTA_ALIGNMENT = AlignIO.read(opened_fasta_alig, "fasta")
+        for alignment in FASTA_ALIGNMENT:
+            alignment.annotations['molecule_type'] = "protein"
+        NEXUS_ALIGNMENT_FILE = FASTA_ALIGNMENT_FILE.rstrip('afa') + "nex"
+        AlignIO.write(FASTA_ALIGNMENT, NEXUS_ALIGNMENT_FILE, "nexus")
