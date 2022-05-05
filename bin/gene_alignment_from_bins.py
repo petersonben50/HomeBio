@@ -47,41 +47,57 @@ import pandas as pd
 from Bio import SearchIO
 from Bio import SeqIO
 from Bio import AlignIO
-from Bio import Nexus
-from Bio.Nexus import Nexus
+from Bio.Seq import UnknownSeq, Seq
+from Bio.SeqRecord import SeqRecord
+from collections import defaultdict, Counter
+from Bio.Align import MultipleSeqAlignment
 
 
-####---------------------------------####
-# Read in variables
-####---------------------------------####
 """
+####---------------------------------####
+# Set up parser
+####---------------------------------####
 # Set up an argument parser
 parser = argparse.ArgumentParser()
+parser.add_argument('--analysis_name')
 parser.add_argument('--orf_file')
 parser.add_argument('--g2b_file')
 parser.add_argument('--hmm_list')
 parser.add_argument('--hmm_location')
 parser.add_argument('--output_location')
 parser.add_argument('--threads_to_use')
+parser.add_argument('--minimum_hits')
+parser.add_argument('--masking_threshold')
+parser.add_argument('--tree_program')
+
+####---------------------------------####
+# Parse input variables
+####---------------------------------####
 # Parse names from argument
 inputs = parser.parse_args()
+ANALYSIS_NAME = inputs.analysis_name
 ORF_FILE = inputs.orf_file
 G2B_FILE = inputs.g2b_file
 HMM_LIST = inputs.hmm_list
 HMM_LOCATION = inputs.hmm_location
 OUTPUT_LOCATION = inputs.output_location
 THREADS_TO_USE = inputs.threads_to_use
+MINIMUM_HITS = inputs.minimum_hits
+MASKING_THRESHOLD = inputs.masking_threshold
+TREE_PROGRAM = inputs.tree_program
 
 """
+ANALYSIS_NAME = "testing_it"
 ORF_FILE = "/Users/benjaminpeterson/Documents/programs/HomeBio/testing/ORFs.faa"
 G2B_FILE = "/Users/benjaminpeterson/Documents/programs/HomeBio/testing/ORFs_G2B.tsv"
 HMM_LIST = "/Users/benjaminpeterson/Documents/programs/HomeBio/testing/hmm_list.txt"
 HMM_LOCATION = "/Users/benjaminpeterson/Documents/programs/HomeBio/testing"
 OUTPUT_LOCATION = "/Users/benjaminpeterson/Documents/programs/HomeBio/testing"
 THREADS_TO_USE = str(4)
-
-
-
+MINIMUM_HITS = str(4)
+MINIMUM_RESIDUES = None
+MASKING_THRESHOLD = 0.5
+TREE_PROGRAM = "FastTree"
 
 print('')
 print('##################################################')
@@ -95,6 +111,30 @@ print("in " + ORF_FILE)
 if THREADS_TO_USE is None:
     print("Setting threads to use to 4, the default")
     THREADS_TO_USE = str(4)
+if MASKING_THRESHOLD is None:
+    print("Setting masking threshold to 0.5, the default")
+    MASKING_THRESHOLD = str(0.5)
+
+if TREE_PROGRAM is not "FastTree":
+    if TREE_PROGRAM is not "RAxML":
+        if TREE_PROGRAM is None:
+            print("Tree program was not set, setting to FastTree as default")
+            TREE_PROGRAM = "FastTree"
+        else:
+            print("Tree program was set, but not to FastTree or RAxML, so defaulting to FastTree")
+            TREE_PROGRAM = "FastTree"
+
+
+
+
+####---------------------------------####
+# Ensure we don't have conflicting thresholds
+####---------------------------------####
+if MINIMUM_HITS is not None:
+    if MINIMUM_RESIDUES is not None:
+        print("You've set both MINIMUM_RESIDUES and MINIMUM_HITS. Only one should be set.")
+        sys.exit()
+
 
 
 ####---------------------------------####
@@ -103,11 +143,7 @@ if THREADS_TO_USE is None:
 TEMP_FOLDER = OUTPUT_LOCATION + "/temp"
 if os.path.exists(TEMP_FOLDER):
    print("Temporary folder exists, needs deletion")
-   os.system("rm -f " + TEMP_FOLDER + "/*afa")
-   os.system("rm -f " + TEMP_FOLDER + "/*faa")
-   os.system("rm -f " + TEMP_FOLDER + "/*txt")
-   os.system("rm -f " + TEMP_FOLDER + "/*out")
-   os.rmdir(TEMP_FOLDER)
+   sys.exit()
 
 os.mkdir(TEMP_FOLDER)
 
@@ -189,13 +225,77 @@ with open(HMM_LIST) as OPENED_HMM_LIST:
 
 
 ####---------------------------------####
-# Function to convert alignment files to nexus alignments
+# Concatenate alignments
 ####---------------------------------####
-FASTA_ALIGNMENT_FILES = glob.glob(TEMP_FOLDER + "/*.afa")
-for FASTA_ALIGNMENT_FILE in FASTA_ALIGNMENT_FILES:
-    with open(FASTA_ALIGNMENT_FILE) as opened_fasta_alig:
-        FASTA_ALIGNMENT = AlignIO.read(opened_fasta_alig, "fasta")
-        for alignment in FASTA_ALIGNMENT:
-            alignment.annotations['molecule_type'] = "protein"
-        NEXUS_ALIGNMENT_FILE = FASTA_ALIGNMENT_FILE.rstrip('afa') + "nex"
-        AlignIO.write(FASTA_ALIGNMENT, NEXUS_ALIGNMENT_FILE, "nexus")
+AFA_FILES = glob.glob(TEMP_FOLDER + "/*.afa")
+CONCATENATED_ALIGNMENT_OUTPUT = TEMP_FOLDER + "/concatenated_output_raw.afa"
+alignments = [AlignIO.read(open(AFA_FILE, "r"), "fasta") for AFA_FILE in AFA_FILES]
+all_seq_ids = set(seq.id for aln in alignments for seq in aln)
+tmp = defaultdict(list)
+for aln in alignments:
+    length = aln.get_alignment_length()
+    these_labels = set(rec.id for rec in aln)
+    missing = all_seq_ids - these_labels
+    for label in missing:
+        new_seq = UnknownSeq(length) # prints ? marks for missing
+        tmp[label].append(str(new_seq))
+    for rec in aln:
+        tmp[rec.id].append(str(rec.seq))
+MSA_CONCATENATED = MultipleSeqAlignment(SeqRecord(Seq(''.join(SEQs)), id=IDs) for (IDs,SEQs) in tmp.items())
+AlignIO.write(MSA_CONCATENATED, CONCATENATED_ALIGNMENT_OUTPUT, "fasta")
+
+
+
+####---------------------------------####
+# Clean up fasta alignment by total hits
+####---------------------------------####
+if MINIMUM_HITS is not None:
+    hit_counts = dict()
+    for file in AFA_FILES:
+        with open(file) as f:
+            for line in f:
+                if line.startswith(">"):
+                    id = line.strip('\n').strip('>')
+                    hit_counts[id] = hit_counts.get(id, 0) + 1
+    bins_included = pd.Series(dtype = 'str')
+    trimmed_output_file = CONCATENATED_ALIGNMENT_OUTPUT.rstrip("_raw.afa") + ".afa"
+    with open(trimmed_output_file, 'w') as trimmed_output:
+        for seq_record in SeqIO.parse(CONCATENATED_ALIGNMENT_OUTPUT, "fasta"):
+            if int(hit_counts[seq_record.id]) >= int(MINIMUM_HITS):
+                trimmed_output.write('>' + seq_record.id + '\n')
+                trimmed_output.write(str(seq_record.seq) + '\n')
+            else:
+                print("Bin " + seq_record.id + " was not included, it only had " + str(hit_counts[seq_record.id]) + " hits.")
+
+
+
+####---------------------------------####
+# Run trimal to clean alignment
+####---------------------------------####
+masked_output_file = OUTPUT_LOCATION + "/" + ANALYSIS_NAME + "_alignment.afa"
+trimal_cmd = "trimal -in " + trimmed_output_file
+trimal_cmd = trimal_cmd + " -out " + masked_output_file
+trimal_cmd = trimal_cmd + " -gt " + str(MASKING_THRESHOLD)
+os.system(trimal_cmd)
+
+
+
+####---------------------------------####
+# Run tree generation with FastTree
+####---------------------------------####
+if TREE_PROGRAM == "FastTree":
+    tree_file = OUTPUT_LOCATION + "/" + ANALYSIS_NAME + "_fasttree.tree"
+    fasttree_cmd = "FastTree -quiet " + masked_output_file
+    fasttree_cmd = fasttree_cmd + " > " + tree_file
+    os.system(fasttree_cmd)
+
+
+####---------------------------------####
+# Run tree generation with RAxML
+####---------------------------------####
+if TREE_PROGRAM == "RAxML":
+    raxml_cmd = "raxmlHPC-PTHREADS -quiet -f a -p 283976 -m PROTGAMMAAUTO -N autoMRE -x 2381 -T " + THREADS_TO_USE
+    raxml_cmd = raxml_cmd + " -w " + OUTPUT_LOCATION
+    raxml_cmd = raxml_cmd + " -s " + masked_output_file
+    raxml_cmd = raxml_cmd + " -n " + ANALYSIS_NAME
+    os.system(raxml_cmd)
