@@ -46,6 +46,6 @@ OUTPUT_FILE = inputs.output_file
 ####---------------------------------####
 with open(OUTPUT_FILE, "w") as outputFile, open(HEADERS_TO_REMOVE, "r") as remover:
     remove = remover.read().split("\n")
-    for seq in SeqIO.parse(FASTA_FILE, 'fasta'):
-        if seq.id not in remove:
-            SeqIO.write(seq, outputFile, "fasta")
+    for sequence in SeqIO.parse(FASTA_FILE, 'fasta'):
+        if sequence.id not in remove:
+            SeqIO.write('>' + sequence.id + '\n' + sequence.seq + '\n')
