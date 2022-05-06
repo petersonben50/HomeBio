@@ -53,7 +53,7 @@ from collections import defaultdict, Counter
 from Bio.Align import MultipleSeqAlignment
 
 
-"""
+
 ####---------------------------------####
 # Set up parser
 ####---------------------------------####
@@ -87,6 +87,9 @@ MASKING_THRESHOLD = inputs.masking_threshold
 TREE_PROGRAM = inputs.tree_program
 
 """
+####---------------------------------####
+# Inputs for testing
+####---------------------------------####
 ANALYSIS_NAME = "testing_it"
 ORF_FILE = "/Users/benjaminpeterson/Documents/programs/HomeBio/testing/ORFs.faa"
 G2B_FILE = "/Users/benjaminpeterson/Documents/programs/HomeBio/testing/ORFs_G2B.tsv"
@@ -98,6 +101,7 @@ MINIMUM_HITS = str(4)
 MINIMUM_RESIDUES = None
 MASKING_THRESHOLD = 0.5
 TREE_PROGRAM = "FastTree"
+"""
 
 print('')
 print('##################################################')
@@ -215,6 +219,7 @@ def align_faa_seqs(HMM_TO_USE):
 ####---------------------------------####
 # Set up and run HMM commands
 ####---------------------------------####
+print("Running scripts to identify rp16 genes.")
 with open(HMM_LIST) as OPENED_HMM_LIST:
     for HMM_ID_NEWLINE in OPENED_HMM_LIST:
         HMM_ID = HMM_ID_NEWLINE.rstrip('\n')
@@ -227,6 +232,7 @@ with open(HMM_LIST) as OPENED_HMM_LIST:
 ####---------------------------------####
 # Concatenate alignments
 ####---------------------------------####
+print("Concatenating alignments.")
 AFA_FILES = glob.glob(TEMP_FOLDER + "/*.afa")
 CONCATENATED_ALIGNMENT_OUTPUT = TEMP_FOLDER + "/concatenated_output_raw.afa"
 alignments = [AlignIO.read(open(AFA_FILE, "r"), "fasta") for AFA_FILE in AFA_FILES]
@@ -272,6 +278,7 @@ if MINIMUM_HITS is not None:
 ####---------------------------------####
 # Run trimal to clean alignment
 ####---------------------------------####
+print("Masking alignment with Trimal")
 masked_output_file = OUTPUT_LOCATION + "/" + ANALYSIS_NAME + "_alignment.afa"
 trimal_cmd = "trimal -in " + trimmed_output_file
 trimal_cmd = trimal_cmd + " -out " + masked_output_file
@@ -279,6 +286,8 @@ trimal_cmd = trimal_cmd + " -gt " + str(MASKING_THRESHOLD)
 os.system(trimal_cmd)
 
 
+
+print("Generating tree with " + TREE_PROGRAM)
 
 ####---------------------------------####
 # Run tree generation with FastTree
