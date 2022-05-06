@@ -1,0 +1,16 @@
+rpL14_bact.HMM
+rpL15_bact.HMM
+rpL16_bact.HMM
+rpL18_bact.HMM
+rpL22_bact.HMM
+rpL24_bact.HMM
+rpL2_bact.HMM
+rpL3_bact.HMM
+rpL4_bact.HMM
+rpL5_bact.HMM
+rpL6_bact.HMM
+rpS10_bact.HMM
+rpS17_bact.HMM
+rpS19_bact.HMM
+rpS3_bact.HMM
+rpS8_bact.HMM
