@@ -1,5 +1,3 @@
-#!/usr/bin/env python3.6
-
 ################################
 # remove_fasta_seqs_using_list_of_headers.py
 # Written by Benjamin D. Peterson
@@ -12,25 +10,42 @@
 # usage 'remove_fasta_seqs_using_list_of_headers.py <fasta.file> <list_of_headers> <desired_output_name'
 ################################
 
-################################
+
+####---------------------------------####
 # Load libraries
-################################
+####---------------------------------####
 import os
 import sys
+import argparse
 from Bio import SeqIO
 
-################################
-# Read command line input
-################################
-fastaFileName = sys.argv[1]
-headerFileName = sys.argv[2]
-outputFileName = sys.argv[3]
 
-################################
+
+####---------------------------------####
+# Set up parser
+####---------------------------------####
+parser = argparse.ArgumentParser()
+parser.add_argument('--fasta_file')
+parser.add_argument('--headers_to_remove')
+parser.add_argument('--output_file')
+
+
+
+####---------------------------------####
+# Parse input variables
+####---------------------------------####
+inputs = parser.parse_args()
+FASTA_FILE = inputs.fasta_file
+HEADERS_TO_REMOVE = inputs.headers_to_remove
+OUTPUT_FILE = inputs.output_file
+
+
+
+####---------------------------------####
 # Pull out needed fasta sequences
-################################
-with open(outputFileName, "w") as outputFile, open(headerFileName, "r") as remover:
+####---------------------------------####
+with open(OUTPUT_FILE, "w") as outputFile, open(HEADERS_TO_REMOVE, "r") as remover:
     remove = remover.read().split("\n")
-    for seq in SeqIO.parse(fastaFileName, 'fasta'):
+    for seq in SeqIO.parse(FASTA_FILE, 'fasta'):
         if seq.id not in remove:
             SeqIO.write(seq, outputFile, "fasta")
