@@ -47,9 +47,9 @@ import pandas as pd
 from Bio import SearchIO
 from Bio import SeqIO
 from Bio import AlignIO
-from Bio.Seq import UnknownSeq, Seq
+from Bio.Seq import Seq
 from Bio.SeqRecord import SeqRecord
-from collections import defaultdict, Counter
+from collections import defaultdict
 from Bio.Align import MultipleSeqAlignment
 
 
@@ -243,7 +243,7 @@ for aln in alignments:
     these_labels = set(rec.id for rec in aln)
     missing = all_seq_ids - these_labels
     for label in missing:
-        new_seq = UnknownSeq(length) # prints ? marks for missing
+        new_seq = Seq(None, length) # prints ? marks for missing
         tmp[label].append(str(new_seq))
     for rec in aln:
         tmp[rec.id].append(str(rec.seq))
@@ -303,7 +303,7 @@ if TREE_PROGRAM == "FastTree":
 ####---------------------------------####
 if TREE_PROGRAM == "RAxML":
     print("Generating tree with " + TREE_PROGRAM)
-    raxml_cmd = "raxmlHPC-PTHREADS -quiet -f a -p 283976 -m PROTGAMMAAUTO -N autoMRE -x 2381 -T " + THREADS_TO_USE
+    raxml_cmd = "raxmlHPC-PTHREADS -f a -p 54457 -m PROTGAMMAAUTO -N autoMRE -x 2381 -T " + THREADS_TO_USE
     raxml_cmd = raxml_cmd + " -w " + OUTPUT_LOCATION
     raxml_cmd = raxml_cmd + " -s " + masked_output_file
     raxml_cmd = raxml_cmd + " -n " + ANALYSIS_NAME
