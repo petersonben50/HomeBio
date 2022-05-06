@@ -122,12 +122,9 @@ if MASKING_THRESHOLD is None:
     print("Setting masking threshold to 0.5, the default")
     MASKING_THRESHOLD = str(0.5)
 
-if TREE_PROGRAM is not "FastTree":
-    if TREE_PROGRAM is not "RAxML":
-        if TREE_PROGRAM is None:
-            print("Tree program was not set, setting to FastTree as default")
-            TREE_PROGRAM = "FastTree"
-        else:
+if TREE_PROGRAM != "FastTree":
+    if TREE_PROGRAM != "RAxML":
+        if TREE_PROGRAM is not None:
             print("Tree program was set, but not to FastTree or RAxML, so defaulting to FastTree")
             TREE_PROGRAM = "FastTree"
 
@@ -290,12 +287,11 @@ os.system(trimal_cmd)
 
 
 
-print("Generating tree with " + TREE_PROGRAM)
-
 ####---------------------------------####
 # Run tree generation with FastTree
 ####---------------------------------####
 if TREE_PROGRAM == "FastTree":
+    print("Generating tree with " + TREE_PROGRAM)
     tree_file = OUTPUT_LOCATION + "/" + ANALYSIS_NAME + "_fasttree.tree"
     fasttree_cmd = "FastTree -quiet " + masked_output_file
     fasttree_cmd = fasttree_cmd + " > " + tree_file
@@ -306,6 +302,7 @@ if TREE_PROGRAM == "FastTree":
 # Run tree generation with RAxML
 ####---------------------------------####
 if TREE_PROGRAM == "RAxML":
+    print("Generating tree with " + TREE_PROGRAM)
     raxml_cmd = "raxmlHPC-PTHREADS -quiet -f a -p 283976 -m PROTGAMMAAUTO -N autoMRE -x 2381 -T " + THREADS_TO_USE
     raxml_cmd = raxml_cmd + " -w " + OUTPUT_LOCATION
     raxml_cmd = raxml_cmd + " -s " + masked_output_file
