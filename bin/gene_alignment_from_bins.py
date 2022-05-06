@@ -67,6 +67,7 @@ parser.add_argument('--hmm_location')
 parser.add_argument('--output_location')
 parser.add_argument('--threads_to_use')
 parser.add_argument('--minimum_hits')
+parser.add_argument('--minimum_residues')
 parser.add_argument('--masking_threshold')
 parser.add_argument('--tree_program')
 
@@ -83,6 +84,7 @@ HMM_LOCATION = inputs.hmm_location
 OUTPUT_LOCATION = inputs.output_location
 THREADS_TO_USE = inputs.threads_to_use
 MINIMUM_HITS = inputs.minimum_hits
+MINIMUM_RESIDUES = inputs.minimum_residues
 MASKING_THRESHOLD = inputs.masking_threshold
 TREE_PROGRAM = inputs.tree_program
 
