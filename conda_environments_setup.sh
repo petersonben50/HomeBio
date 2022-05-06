@@ -16,6 +16,7 @@ conda install -y -n bioinformatics -c bioconda prodigal
 conda install -y -n bioinformatics -c bioconda pandas
 conda install -y -n bioinformatics -c bioconda trimal
 conda install -y -n bioinformatics -c bioconda raxml
+conda install -y -n bioinformatics -c bioconda pandas
 
 
 ####---------------------------------####
