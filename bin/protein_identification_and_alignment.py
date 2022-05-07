@@ -151,7 +151,7 @@ os.system(hmmer_cmd)
 ####---------------------------------####
 # Extract ORFs that hit HMMS
 ####---------------------------------####
-hmm_output_object = SearchIO.read(HMM_OUTPUT_FILE, 'hmmer3-tab')
+hmm_output_object = SearchIO.read(hmm_output_file, 'hmmer3-tab')
 DICT_OF_HIT = dict()
 for seq_record in SeqIO.parse(ORF_FILE, "fasta"):
     for hit in hmm_output_object:
