@@ -263,7 +263,6 @@ if MINIMUM_HITS is not None:
                 if line.startswith(">"):
                     id = line.strip('\n').strip('>')
                     hit_counts[id] = hit_counts.get(id, 0) + 1
-    bins_included = pd.Series(dtype = 'str')
     trimmed_output_file = CONCATENATED_ALIGNMENT_OUTPUT.rstrip("_raw.afa") + ".afa"
     with open(trimmed_output_file, 'w') as trimmed_output:
         for seq_record in SeqIO.parse(CONCATENATED_ALIGNMENT_OUTPUT, "fasta"):
