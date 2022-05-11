@@ -49,10 +49,10 @@ OUTPUT_FILE = inputs.output_file
 ####---------------------------------####
 # Testing
 ####---------------------------------####
-GENE_LIST_NAME = 'PVC_hgcA_geneID_list.txt'
-GFF_FILE = 'GN_of_hgcA/hgcA_geneNeighborhood_all.gff'
-ORF_FILE = 'GN_of_hgcA/hgcA_geneNeighborhood_all_orfs.faa'
-OUTPUT_FILE = 'GN_of_hgcA/testing.faa'
+GENE_LIST_NAME = '/Users/benjaminpeterson/Documents/programs/HomeBio_testing/retrieve_downstream_genes/PVC_hgcA_geneID_list.txt'
+GFF_FILE = '/Users/benjaminpeterson/Documents/programs/HomeBio_testing/retrieve_downstream_genes/HCC_PVC_ORFs.gff'
+ORF_FILE = '/Users/benjaminpeterson/Documents/programs/HomeBio_testing/retrieve_downstream_genes/hgcA_geneNeighborhood_all_orfs.faa'
+OUTPUT_FILE = '/Users/benjaminpeterson/Documents/programs/HomeBio_testing/retrieve_downstream_genes/testing.faa'
 """
 
 
@@ -70,18 +70,22 @@ gff_df['fasta_id'] = gff_df['attributes'].str.split("fasta_ID=", 1, expand = Tru
 # Get list of downstream gene IDs
 ####---------------------------------####
 # Find names
+
 downstream_gene_list = list()
 for id_raw_newLine in open(GENE_LIST_NAME).readlines():
     id_raw = id_raw_newLine.rstrip("\n")
-    strand_value = list(gff_df.loc[gff_df['fasta_id'] == id_raw]['strand'])
+    strand_value = list(gff_df.loc[gff_df['fasta_id'] == id_raw]['strand'])[0]
     gene_location_info = id_raw.rsplit("_", 1)
     # Retrieve downstream gene ID
-    if strand_value == "-":
+    if strand_value == '-':
         print(id_raw + " is on the reverse strand")
         downstream_location = int(gene_location_info[1]) - 1
-    else:
+    elif strand_value == '+':
         print(id_raw + " is on the forward strand")
         downstream_location = int(gene_location_info[1]) + 1
+    else:
+        print("Something is breaking")
+        system.exit()
     # Get downstream gene name
     downstream_gene_id = gene_location_info[0] + "_" + str(downstream_location)
     downstream_gene_list.append(downstream_gene_id)
