@@ -301,7 +301,7 @@ if TREE_PROGRAM == "FastTree":
 ####---------------------------------####
 if TREE_PROGRAM == "RAxML":
     print("Generating tree with " + TREE_PROGRAM)
-    raxml_cmd = "raxmlHPC-PTHREADS -f a -p 54457 -m PROTGAMMAAUTO -N autoMRE -x 2381 -T " + THREADS_TO_USE
+    raxml_cmd = "raxmlHPC-PTHREADS -f a -p 54457 -m PROTGAMMAAUTO -N autoMRE -x 2381 -T " + str(THREADS_TO_USE)
     raxml_cmd = raxml_cmd + " -w " + OUTPUT_LOCATION
     raxml_cmd = raxml_cmd + " -s " + masked_output_file
     raxml_cmd = raxml_cmd + " -n " + ANALYSIS_NAME
