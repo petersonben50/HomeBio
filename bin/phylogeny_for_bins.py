@@ -243,8 +243,7 @@ for aln in alignments:
     these_labels = set(rec.id for rec in aln)
     missing = all_seq_ids - these_labels
     for label in missing:
-        new_seq = Seq(None, length) # prints ? marks for missing
-        tmp[label].append(str(new_seq))
+        tmp[label].append(str("-" * length))
     for rec in aln:
         tmp[rec.id].append(str(rec.seq))
 MSA_CONCATENATED = MultipleSeqAlignment(SeqRecord(Seq(''.join(SEQs)), id=IDs) for (IDs,SEQs) in tmp.items())
