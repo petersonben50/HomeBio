@@ -17,6 +17,7 @@ conda install -y -n bioinformatics -c bioconda pandas
 conda install -y -n bioinformatics -c bioconda trimal
 conda install -y -n bioinformatics -c bioconda raxml
 conda install -y -n bioinformatics -c bioconda pandas
+conda install -y -n bioinformatics -c bioconda mash
 
 
 ####---------------------------------####
@@ -29,11 +30,10 @@ conda install -y -n py_viz -c anaconda argparse
 conda install -y -n py_viz biopython
 conda install -y -n py_viz -c anaconda jupyter
 conda install -y -n py_viz matplotlib
-conda install -y -n py_viz -c conda-forge pdfminer
 conda install -y -n py_viz -c conda-forge gdal
 conda activate py_viz
 python -m ipykernel install
-
+pip install pdfminer.six
 
 
 ####---------------------------------####
