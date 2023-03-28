@@ -53,7 +53,7 @@ parser.add_argument('--testing', action='store_true')
 # Skip commands
 parser.add_argument('--skip_new_directory', action='store_true')
 parser.add_argument('--skip_orf_concat', action='store_true')
-parser.add_argument('--skip_HMM_search', action='store_true')
+parser.add_argument('--skip_hmm_search', action='store_true')
 parser.add_argument('--skip_pull_out_aa', action='store_true')
 parser.add_argument('--skip_aa_alignment', action='store_true')
 parser.add_argument('--skip_clustering_seqs', action='store_true')
@@ -84,7 +84,7 @@ TESTING = inputs.testing
 # Skip commands
 SKIP_NEW_DIRECTORY = inputs.skip_new_directory
 SKIP_ORF_CONCAT = inputs.skip_orf_concat
-SKIP_HMM_SEARCH = inputs.skip_HMM_search
+SKIP_HMM_SEARCH = inputs.skip_hmm_search
 SKIP_PULL_OUT_AA = inputs.skip_pull_out_aa
 SKIP_AA_ALIGNMENT = inputs.skip_aa_alignment
 SKIP_CLUSTERING_SEQS = inputs.skip_clustering_seqs
