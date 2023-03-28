@@ -230,7 +230,7 @@ else:
                 for sampleID in hmmer_output:
                     if sampleID.id == seq_record.id:
                         print("writing" + seq_record.id)
-                        resultFile.write('>' + str(sampleID.id) + ' ' + str(sampleID.bitscore) + '\n' + str(seq_record.seq) + '\n')
+                        resultFile.write('>' + str(sampleID.id) + ' ' + str(sampleID.bitscore) + '\n' + str(seq_record.seq).replace("*","") + '\n')
     else:
         print('No hits for ' + OUTPUT_PREFIX + '. Ending the script now.')
         sys.exit()
