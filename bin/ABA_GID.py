@@ -47,7 +47,7 @@ parser.add_argument('--output_location')
 parser.add_argument('--gene_name')
 
 # Other
-parser.add_argument('--testing')
+parser.add_argument('--testing', action='store_true')
 
 # Skip commands
 parser.add_argument('--skip_HMM_search', action='store_true')
@@ -197,7 +197,8 @@ else:
             for sampleID in hmmer_output:
                 resultFile.write('>' + str(sampleID.id) + ' ' + str(sampleID.bitscore) + '\n' + str(faadict[sampleID.id]) + '\n')
     else:
-        print('No hits for ' + prot_name)
+        print('No hits for ' + OUTPUT_PREFIX + '. Ending the script now.')
+        sys.exit()
 
 
 ######################################################
@@ -214,22 +215,19 @@ if TESTING:
 ###########################
 # Align amino acid sequences to HMM
 ###########################
-for index, row in hmm_csv.iterrows():
-    prot_name = row['protein']
-    hmm_id = row['hmmID']
-    sto_output = ALIGNMENT_OUTPUT + prot_name + '.sto'
-    afa_output = ALIGNMENT_OUTPUT + prot_name + '.afa'
-    HMM = HMM_FOLDER + "/" + hmm_id
-    fasta_output_for_hits = HMM_HITS + prot_name + ".faa"
-    if os.path.isfile(fasta_output_for_hits):
-        print("Aligning sequences of " + prot_name + " to HMM")
-        hmmalign_cmd = 'hmmalign -o ' + sto_output + ' ' + HMM + " " + fasta_output_for_hits
-        os.system(hmmalign_cmd)
-        # Read in fasta alignment
-        sto_alignment = AlignIO.read(sto_output, "stockholm")
-        # Write out afa alignment
-        AlignIO.write(sto_alignment, afa_output, "fasta")
-        os.remove(sto_output)
+sto_output = ALIGNMENT_OUTPUT + prot_name + '.sto'
+afa_output = ALIGNMENT_OUTPUT + prot_name + '.afa'
+HMM = HMM_FOLDER + "/" + hmm_id
+fasta_output_for_hits = HMM_HITS + prot_name + ".faa"
+if os.path.isfile(fasta_output_for_hits):
+    print("Aligning sequences of " + prot_name + " to HMM")
+    hmmalign_cmd = 'hmmalign -o ' + sto_output + ' ' + HMM + " " + fasta_output_for_hits
+    os.system(hmmalign_cmd)
+    # Read in fasta alignment
+    sto_alignment = AlignIO.read(sto_output, "stockholm")
+    # Write out afa alignment
+    AlignIO.write(sto_alignment, afa_output, "fasta")
+    os.remove(sto_output)
 
 
 ###########################
