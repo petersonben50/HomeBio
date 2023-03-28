@@ -244,8 +244,8 @@ if SKIP_AA_ALIGNMENT:
 else:
     if os.path.isfile(fasta_output_for_hits):
         sto_output = working_directory + OUTPUT_PREFIX + '.sto'
-        afa_output = working_directory + OUTPUT_PREFIX + '.afa'
-        print("Aligning sequences of " + prot_name + " to HMM")
+        afa_output = OUTPUT_LOCATION + OUTPUT_PREFIX + '.afa'
+        print("Aligning sequences of " + OUTPUT_PREFIX + " to HMM")
         hmmalign_cmd = 'hmmalign -o ' + sto_output + ' ' + HMM + " " + fasta_output_for_hits
         os.system(hmmalign_cmd)
         # Read in stockholm alignment
