@@ -44,7 +44,7 @@ parser.add_argument('--hmm')
 
 # Output info
 parser.add_argument('--output_location')
-parser.add_argument('--gene_name')
+parser.add_argument('--output_prefix')
 
 # Other
 parser.add_argument('--testing', action='store_true')
