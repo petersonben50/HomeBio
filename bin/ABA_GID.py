@@ -124,6 +124,7 @@ os.mkdir(working_directory)
 
 # Variable for ORFs to use:
 concat_orf_to_use = working_directory + OUTPUT_PREFIX + '_ORFs.faa'
+g2a_file = working_directory + OUTPUT_PREFIX + '_ORFs_G2A.tsv'
 
 
 ###########################
@@ -140,13 +141,18 @@ if input_type == "orf_folder":
         if genome.endswith('.faa'):
             # Add assembly to list for concatenation
             concat_cmd = concat_cmd + " " + genome
+    concat_cmd = concat_cmd + " > " + concat_orf_to_use
+    os.system(concat_cmd)
+    # Generate gene-to-assembly file
+    g2a_cmd = "FM_fa_to_E2L.sh -e faa -i " + ORF_FOLDER + " > " + g2a_file
+    os.system(g2a_cmd)
+"""
             # Populate the G2A key
             genome_name = genome.rsplit("/", 1)[1].rsplit(".faa", 1)[0]
             genome_orfs = SeqIO.parse(genome, "fasta")
             for ORF in genome_orfs:
                 g2akey[ORF.id] = genome_name
-    concat_cmd = concat_cmd + " > " + concat_orf_to_use
-    os.system(concat_cmd)
+"""
 
 
 ###########################
