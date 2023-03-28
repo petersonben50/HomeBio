@@ -41,6 +41,7 @@ parser.add_argument('--orf_folder')
 
 # Read in other inputs
 parser.add_argument('--hmm')
+parser.add_argument('--cluster_cutoff', default='0.97')
 
 # Output info
 parser.add_argument('--output_location')
@@ -53,6 +54,9 @@ parser.add_argument('--testing', action='store_true')
 parser.add_argument('--skip_new_directory', action='store_true')
 parser.add_argument('--skip_orf_concat', action='store_true')
 parser.add_argument('--skip_HMM_search', action='store_true')
+parser.add_argument('--skip_pull_out_aa', action='store_true')
+parser.add_argument('--skip_aa_alignment', action='store_true')
+parser.add_argument('--skip_clustering_seqs', action='store_true')
 
 
 ###########################
@@ -66,10 +70,11 @@ ORF_FOLDER = inputs.orf_folder
 
 # Read in other inputs
 HMM = inputs.hmm
-
+CLUSTER_CUTOFF = inputs.cluster_cutoff
 
 # Output info
 OUTPUT_LOCATION = inputs.output_location
+OUTPUT_LOCATION = OUTPUT_LOCATION + '/'
 OUTPUT_PREFIX = inputs.output_prefix
 
 
@@ -80,6 +85,9 @@ TESTING = inputs.testing
 SKIP_NEW_DIRECTORY = inputs.skip_new_directory
 SKIP_ORF_CONCAT = inputs.skip_orf_concat
 SKIP_HMM_SEARCH = inputs.skip_HMM_search
+SKIP_PULL_OUT_AA = inputs.skip_pull_out_aa
+SKIP_AA_ALIGNMENT = inputs.skip_aa_alignment
+SKIP_CLUSTERING_SEQS = inputs.skip_clustering_seqs
 
 ######################################################
 ######################################################
@@ -172,6 +180,9 @@ if input_type == "single_orf":
     print("Copying " + ORF_FILE + " to " + concat_orf_to_use)
     cp_command = "cp " + ORF_FILE + " " + concat_orf_to_use
     os.system(cp_command)
+    # Still going to make the gene-to-assembly file
+    g2a_cmd = "FM_fa_to_E2L.sh -e faa -i " + working_directory + " > " + g2a_file
+    os.system(g2a_cmd)
 
 
 
@@ -183,21 +194,36 @@ if input_type == "single_orf":
 ######################################################
 
 ###########################
-# Run all HMMs on ORF file and pull out amino acid sequences
+# Run all HMMs on ORF file
 ###########################
+hmmer_results_file_name = working_directory + OUTPUT_PREFIX + '_HMM.out'
 if SKIP_HMM_SEARCH:
     print("Simon says skip the HMM run")
 else:
     print("Running HMM-based search for " + OUTPUT_PREFIX)
-    hmmer_results_file_name = OUTPUT_LOCATION + '/' + OUTPUT_PREFIX + '_HMM.out'
     hmmer_log_file_name = working_directory + OUTPUT_PREFIX + '_HMM.txt'
     hmm_cmd = 'hmmsearch --tblout ' + hmmer_results_file_name + ' --cpu 4 --cut_tc ' + HMM + " " + concat_orf_to_use + " > " + hmmer_log_file_name 
     os.system(hmm_cmd)
-    # Check for hits to HMM
+
+
+###########################
+# Save out tsv file with the gene-to-assembly information
+###########################
+hmmer_output = SearchIO.read(hmmer_results_file_name, 'hmmer3-tab')
+g2a_for_gene = OUTPUT_LOCATION + OUTPUT_PREFIX + '_G2A.tsv'
+for sampleID in hmmer_output:
+    "awk -F '\t' '$1 == " + sampleID.id + " { print $0 }'" + g2a_file + " >> " + g2a_for_gene
+
+
+###########################
+# Pull out amino acid sequences
+###########################
+fasta_output_for_hits = OUTPUT_LOCATION + '/' + OUTPUT_PREFIX + '.faa'
+if SKIP_PULL_OUT_AA:
+    print("Simon says skip the HMM run")
+else:
     hmmer_results_file_length = subprocess.check_output('wc -l < ' + hmmer_results_file_name, shell=True)
     if int(hmmer_results_file_length) > 13:
-        hmmer_output = SearchIO.read(hmmer_results_file_name, 'hmmer3-tab')
-        fasta_output_for_hits = OUTPUT_LOCATION + '/' + OUTPUT_PREFIX + '.faa'
         print("Extracting AA sequences for " + OUTPUT_PREFIX)
         with open(fasta_output_for_hits, 'w') as resultFile:
             for seq_record in SeqIO.parse(concat_orf_to_use, "fasta"):
@@ -210,63 +236,62 @@ else:
         sys.exit()
 
 
+###########################
+# Align amino acid sequences to HMM
+###########################
+if SKIP_AA_ALIGNMENT:
+    print("Simon says skip the AA alignment")
+else:
+    if os.path.isfile(fasta_output_for_hits):
+        sto_output = working_directory + OUTPUT_PREFIX + '.sto'
+        afa_output = working_directory + OUTPUT_PREFIX + '.afa'
+        print("Aligning sequences of " + prot_name + " to HMM")
+        hmmalign_cmd = 'hmmalign -o ' + sto_output + ' ' + HMM + " " + fasta_output_for_hits
+        os.system(hmmalign_cmd)
+        # Read in stockholm alignment
+        sto_alignment = AlignIO.read(sto_output, "stockholm")
+        # Write out afa alignment
+        AlignIO.write(sto_alignment, afa_output, "fasta")
+        os.remove(sto_output)
+    else:
+        print("No fasta file with the HMM hits in it")
+        sys.exit()
+
+
+
+
 ######################################################
 ######################################################
 # Lines to break script while testing, if needed
 ######################################################
 ######################################################
 if TESTING:
-    print("Oh " + TESTING + " I'm testing")
+    print(str(TESTING) + ", I'm testing")
     sys.exit()
 
 
 
-###########################
-# Align amino acid sequences to HMM
-###########################
-if SKIP_HMM_SEARCH:
-    print("Simon says skip the AA alignment")
+######################################################
+######################################################
+# Cluster sequences
+######################################################
+######################################################
+if SKIP_CLUSTERING_SEQS:
+    print("Simon says skip clustering seqs")
 else:
-    sto_output = working_directory + OUTPUT_PREFIX + '.sto'
-    afa_output = working_directory + OUTPUT_PREFIX + '.afa'
-    HMM = HMM_FOLDER + "/" + hmm_id
-    fasta_output_for_hits = HMM_HITS + prot_name + ".faa"
-    if os.path.isfile(fasta_output_for_hits):
-        print("Aligning sequences of " + prot_name + " to HMM")
-        hmmalign_cmd = 'hmmalign -o ' + sto_output + ' ' + HMM + " " + fasta_output_for_hits
-        os.system(hmmalign_cmd)
-        # Read in fasta alignment
-        sto_alignment = AlignIO.read(sto_output, "stockholm")
-        # Write out afa alignment
-        AlignIO.write(sto_alignment, afa_output, "fasta")
-        os.remove(sto_output)
+    derep_fasta = working_directory + OUTPUT_PREFIX + '_derep.faa'
+    cdhit_cmd = "cd-hit -g 0 -i " + fasta_output_for_hits
+    cdhit_cmd = cdhit_cmd + " -o " + derep_fasta
+    cdhit_cmd = cdhit_cmd + " -c " + cluster_cutoff
+    cdhit_cmd = cdhit_cmd + " -n "
+    cdhit_cmd = cdhit_cmd + " -d 0 "
+    clstr2txt.pl dereplication/hgcA_good_acrossYear.faa.clstr \
+    > dereplication/hgcA_good_acrossYear.tsv
 
 
-###########################
-# Generate dataframe with hits against bins
-###########################
-for index, row in hmm_csv.iterrows():
-    bin_hits = dict()
-    prot_name = row['protein']
-    HMMER_OUTPUT_FILE = HMM_OUTPUT + prot_name + '.out'
-    HMM_OUTPUT_LENGTH = subprocess.check_output('wc -l < ' + HMMER_OUTPUT_FILE, shell=True)
-    if int(HMM_OUTPUT_LENGTH) > 13:
-        hmmer_output = SearchIO.read(HMMER_OUTPUT_FILE, 'hmmer3-tab')
-        print("Counting bin hits for " + prot_name)
-        for sampleID in hmmer_output:
-            bin_hits[sampleID.id] = [sampleID.id, g2bkey[sampleID.id], prot_name]
-            bin_hits_df = pd.DataFrame.from_dict(bin_hits, orient = 'index', columns = ['geneID', 'binID', "proteinName"])
-        if 'all_bin_hits' in locals():
-            all_bin_hits = all_bin_hits.append(bin_hits_df)
-        else:
-            all_bin_hits = bin_hits_df
 
-# Write out hits folder
-all_bin_hits.to_csv(BIN_COUNTS + "all_bin_hits.tsv", sep = '\t', index = False)
-
-
-###########################
-# Generate counts for hits to each bin
-###########################
-all_bin_counts = all_bin_hits.groupby(["binID", "proteinName"]).size().reset_index(name = "counts")
-all_bin_counts.to_csv(BIN_COUNTS + "all_bin_counts.tsv", sep = '\t', index = False)
+######################################################
+######################################################
+# Pull out MG depth information
+######################################################
+######################################################
