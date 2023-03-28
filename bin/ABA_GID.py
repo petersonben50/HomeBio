@@ -174,17 +174,6 @@ if input_type == "single_orf":
     os.system(cp_command)
 
 
-
-###########################
-# Read in needed files
-###########################
-# Set up dictionary for fasta sequences
-faadict = dict()
-for seq_record in SeqIO.parse(concat_orf_to_use, "fasta"):
-	faadict[seq_record.id] = seq_record.seq
-
-
-
 ######################################################
 ######################################################
 # Run HMM search
@@ -203,8 +192,8 @@ else:
     hmm_cmd = 'hmmsearch --tblout ' + hmmer_results_file_name + ' --cpu 4 --cut_tc ' + HMM + " " + concat_orf_to_use + " > " + hmmer_log_file_name 
     os.system(hmm_cmd)
     # Extract amino acid sequences of all hits to each HMMs
-    hmm_results_file_length = subprocess.check_output('wc -l < ' + hmmer_results_file_name, shell=True)
-    if int(hmm_results_file_length) > 13:
+    hmmer_results_file_length = subprocess.check_output('wc -l < ' + hmmer_results_file_name, shell=True)
+    if int(hmmer_results_file_length) > 13:
         hmmer_output = SearchIO.read(hmmer_results_file_name, 'hmmer3-tab')
         fasta_output_for_hits = OUTPUT_LOCATION + '/' + OUTPUT_PREFIX + '.faa'
         print("Extracting AA sequences for " + OUTPUT_PREFIX)
@@ -230,19 +219,22 @@ if TESTING:
 ###########################
 # Align amino acid sequences to HMM
 ###########################
-sto_output = working_directory + OUTPUT_PREFIX + '.sto'
-afa_output = working_directory + OUTPUT_PREFIX + '.afa'
-HMM = HMM_FOLDER + "/" + hmm_id
-fasta_output_for_hits = HMM_HITS + prot_name + ".faa"
-if os.path.isfile(fasta_output_for_hits):
-    print("Aligning sequences of " + prot_name + " to HMM")
-    hmmalign_cmd = 'hmmalign -o ' + sto_output + ' ' + HMM + " " + fasta_output_for_hits
-    os.system(hmmalign_cmd)
-    # Read in fasta alignment
-    sto_alignment = AlignIO.read(sto_output, "stockholm")
-    # Write out afa alignment
-    AlignIO.write(sto_alignment, afa_output, "fasta")
-    os.remove(sto_output)
+if SKIP_HMM_SEARCH:
+    print("Simon says skip the AA alignment")
+else:
+    sto_output = working_directory + OUTPUT_PREFIX + '.sto'
+    afa_output = working_directory + OUTPUT_PREFIX + '.afa'
+    HMM = HMM_FOLDER + "/" + hmm_id
+    fasta_output_for_hits = HMM_HITS + prot_name + ".faa"
+    if os.path.isfile(fasta_output_for_hits):
+        print("Aligning sequences of " + prot_name + " to HMM")
+        hmmalign_cmd = 'hmmalign -o ' + sto_output + ' ' + HMM + " " + fasta_output_for_hits
+        os.system(hmmalign_cmd)
+        # Read in fasta alignment
+        sto_alignment = AlignIO.read(sto_output, "stockholm")
+        # Write out afa alignment
+        AlignIO.write(sto_alignment, afa_output, "fasta")
+        os.remove(sto_output)
 
 
 ###########################
