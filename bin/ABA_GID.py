@@ -248,10 +248,11 @@ else:
         print("Aligning sequences of " + OUTPUT_PREFIX + " to HMM")
         hmmalign_cmd = 'hmmalign -o ' + sto_output + ' ' + HMM + " " + fasta_output_for_hits
         os.system(hmmalign_cmd)
-        # Read in stockholm alignment
-        sto_alignment = AlignIO.read(sto_output, "stockholm")
         # Write out afa alignment
-        AlignIO.write(sto_alignment, afa_output, "fasta")
+        with open(afa_output, 'w') as alignOut:
+            for align_record in AlignIO.read(sto_output, "stockholm"):
+                alignOut.write('>' + align_record.id + '\n')
+                alignOut.write(str(align_record.seq) + '\n')
         os.remove(sto_output)
     else:
         print("No fasta file with the HMM hits in it")
