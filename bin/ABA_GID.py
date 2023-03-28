@@ -202,7 +202,8 @@ else:
         with open(fasta_output_for_hits, 'w') as resultFile:
             for seq_record in SeqIO.parse(concat_orf_to_use, "fasta"):
                 for sampleID in hmmer_output:
-                    if seq_record == seq_record:
+                    if sampleID.id == seq_record.id:
+                        print("writing" + seq_record.id)
                         resultFile.write('>' + str(sampleID.id) + ' ' + str(sampleID.bitscore) + '\n' + str(seq_record.seq) + '\n')
     else:
         print('No hits for ' + OUTPUT_PREFIX + '. Ending the script now.')
