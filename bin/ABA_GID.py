@@ -50,6 +50,8 @@ parser.add_argument('--output_prefix')
 parser.add_argument('--testing', action='store_true')
 
 # Skip commands
+parser.add_argument('--skip_new_directory', action='store_true')
+parser.add_argument('--skip_orf_concat', action='store_true')
 parser.add_argument('--skip_HMM_search', action='store_true')
 
 
@@ -75,6 +77,8 @@ OUTPUT_PREFIX = inputs.output_prefix
 TESTING = inputs.testing
 
 # Skip commands
+SKIP_NEW_DIRECTORY = inputs.skip_new_directory
+SKIP_ORF_CONCAT = inputs.skip_orf_concat
 SKIP_HMM_SEARCH = inputs.skip_HMM_search
 
 ######################################################
@@ -103,17 +107,19 @@ else:
 ###########################
 # Check if output directory already exists
 ###########################
-if os.path.isdir(OUTPUT_LOCATION) == True:
-    print("Hey dummy, " + OUTPUT_LOCATION + " is already a directory. Please give me an empty directory")
-    sys.exit()
-os.mkdir(OUTPUT_LOCATION)
-
-
-###########################
-# Set up temporary working directory
-###########################
+# Set location for temporary working directory
 working_directory = OUTPUT_LOCATION + '/working_directory/'
-os.mkdir(working_directory)
+if os.path.isdir(OUTPUT_LOCATION) == True:
+    if SKIP_NEW_DIRECTORY:
+        print("Directory exists, but you said that's okay")
+        if os.path.isdir(working_directory) == False:
+            os.mkdir(working_directory)
+    else:
+        print("Hey dummy, " + OUTPUT_LOCATION + " is already a directory. Please give me an empty directory")
+        sys.exit()
+else:
+    os.mkdir(OUTPUT_LOCATION)
+    os.mkdir(working_directory)
 
 
 ######################################################
@@ -131,21 +137,24 @@ g2a_file = working_directory + OUTPUT_PREFIX + '_ORFs_G2A.tsv'
 # Input set-up: using folder of ORFs
 ###########################
 # If we supplied folder of ORFs, concatenate them to a folder
-if input_type == "orf_folder":
-    print("Concatenating ORFs and generating G2A file from all assemblies")
-    concat_cmd = "cat "
-    g2akey = dict()
-    genome_files = ORF_FOLDER + "/**"
-    genomes = glob.glob(genome_files)
-    for genome in genomes:
-        if genome.endswith('.faa'):
-            # Add assembly to list for concatenation
-            concat_cmd = concat_cmd + " " + genome
-    concat_cmd = concat_cmd + " > " + concat_orf_to_use
-    os.system(concat_cmd)
-    # Generate gene-to-assembly file
-    g2a_cmd = "FM_fa_to_E2L.sh -e faa -i " + ORF_FOLDER + " > " + g2a_file
-    os.system(g2a_cmd)
+if SKIP_ORF_CONCAT:
+    print("Skipping ORF concatenation")
+else:
+    if input_type == "orf_folder":
+        print("Concatenating ORFs and generating G2A file from all assemblies")
+        concat_cmd = "cat "
+        g2akey = dict()
+        genome_files = ORF_FOLDER + "/**"
+        genomes = glob.glob(genome_files)
+        for genome in genomes:
+            if genome.endswith('.faa'):
+                # Add assembly to list for concatenation
+                concat_cmd = concat_cmd + " " + genome
+        concat_cmd = concat_cmd + " > " + concat_orf_to_use
+        os.system(concat_cmd)
+        # Generate gene-to-assembly file
+        g2a_cmd = "FM_fa_to_E2L.sh -e faa -i " + ORF_FOLDER + " > " + g2a_file
+        os.system(g2a_cmd)
 """
             # Populate the G2A key
             genome_name = genome.rsplit("/", 1)[1].rsplit(".faa", 1)[0]
@@ -188,7 +197,7 @@ for seq_record in SeqIO.parse(concat_orf_to_use, "fasta"):
 if SKIP_HMM_SEARCH:
     print("Simon says skip the HMM run")
 else:
-    print("Running HMM-based search for " + prot_name)
+    print("Running HMM-based search for " + OUTPUT_PREFIX)
     hmm_results_file_name = OUTPUT_LOCATION + '/' + OUTPUT_PREFIX + '_HMM.out'
     hmmer_output_file_name = working_directory + OUTPUT_PREFIX + '_HMM.txt'
     hmm_cmd = 'hmmsearch --tblout ' + hmm_output_file_name + ' --cpu 4 --cut_tc ' + HMM + " " + concat_orf_to_use + " > " + hmmer_output_file_name 
@@ -221,8 +230,8 @@ if TESTING:
 ###########################
 # Align amino acid sequences to HMM
 ###########################
-sto_output = ALIGNMENT_OUTPUT + prot_name + '.sto'
-afa_output = ALIGNMENT_OUTPUT + prot_name + '.afa'
+sto_output = working_directory + OUTPUT_PREFIX + '.sto'
+afa_output = working_directory + OUTPUT_PREFIX + '.afa'
 HMM = HMM_FOLDER + "/" + hmm_id
 fasta_output_for_hits = HMM_HITS + prot_name + ".faa"
 if os.path.isfile(fasta_output_for_hits):
