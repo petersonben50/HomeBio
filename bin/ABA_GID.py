@@ -270,14 +270,14 @@ if SKIP_CLUSTERING_SEQS:
     print("Simon says skip clustering seqs")
 else:
     derep_fasta = working_directory + OUTPUT_PREFIX + '_derep.faa'
+    clustering_info_output = OUTPUT_LOCATION + OUTPUT_PREFIX + '_cluster_data.tsv'
     cdhit_cmd = "cd-hit -g 0 -i " + fasta_output_for_hits
     cdhit_cmd = cdhit_cmd + " -o " + derep_fasta
     cdhit_cmd = cdhit_cmd + " -c " + CLUSTER_CUTOFF
     cdhit_cmd = cdhit_cmd + " -n " + N_VALUE_CDHIT
     cdhit_cmd = cdhit_cmd + " -d 0 "
     os.system(cdhit_cmd)
-#    clstr2txt.pl dereplication/hgcA_good_acrossYear.faa.clstr \
-#    > dereplication/hgcA_good_acrossYear.tsv
+    cdhit_parsing_cmd = "clstr2txt.pl " + derep_fasta + ".clstr > " + clustering_info_output
 
 
 ######################################################
