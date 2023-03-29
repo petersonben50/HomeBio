@@ -42,6 +42,7 @@ parser.add_argument('--orf_folder')
 # Read in other inputs
 parser.add_argument('--hmm')
 parser.add_argument('--cluster_cutoff', default='0.97')
+parser.add_argument('--n_value_cdhit', default='5')
 
 # Output info
 parser.add_argument('--output_location')
@@ -71,6 +72,7 @@ ORF_FOLDER = inputs.orf_folder
 # Read in other inputs
 HMM = inputs.hmm
 CLUSTER_CUTOFF = inputs.cluster_cutoff
+N_VALUE_CDHIT = inputs.n_value_cdhit
 
 # Output info
 OUTPUT_LOCATION = inputs.output_location
@@ -270,8 +272,8 @@ else:
     derep_fasta = working_directory + OUTPUT_PREFIX + '_derep.faa'
     cdhit_cmd = "cd-hit -g 0 -i " + fasta_output_for_hits
     cdhit_cmd = cdhit_cmd + " -o " + derep_fasta
-    cdhit_cmd = cdhit_cmd + " -c " + cluster_cutoff
-    cdhit_cmd = cdhit_cmd + " -n "
+    cdhit_cmd = cdhit_cmd + " -c " + CLUSTER_CUTOFF
+    cdhit_cmd = cdhit_cmd + " -n " + N_VALUE_CDHIT
     cdhit_cmd = cdhit_cmd + " -d 0 "
     os.system(cdhit_cmd)
 #    clstr2txt.pl dereplication/hgcA_good_acrossYear.faa.clstr \
