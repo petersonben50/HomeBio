@@ -214,7 +214,7 @@ else:
 hmmer_output = SearchIO.read(hmmer_results_file_name, 'hmmer3-tab')
 g2a_for_gene = OUTPUT_LOCATION + OUTPUT_PREFIX + '_G2A.tsv'
 for sampleID in hmmer_output:
-    g2b_for_gene_cmd = "awk -F '\t' '$1 == " + sampleID.id + " { print $0 }'" + g2a_file + " >> " + g2a_for_gene
+    g2b_for_gene_cmd = "awk -F '\t' '$1 == " + sampleID.id + " { print $0 }' " + g2a_file + " >> " + g2a_for_gene
     os.system(g2b_for_gene_cmd)
 
 
