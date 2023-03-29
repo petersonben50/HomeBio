@@ -278,6 +278,7 @@ else:
     cdhit_cmd = cdhit_cmd + " -d 0 "
     os.system(cdhit_cmd)
     cdhit_parsing_cmd = "clstr2txt.pl " + derep_fasta + ".clstr > " + clustering_info_output
+    os.system(cdhit_parsing_cmd)
 
 
 ######################################################
