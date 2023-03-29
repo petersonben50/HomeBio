@@ -259,19 +259,6 @@ else:
         sys.exit()
 
 
-
-
-######################################################
-######################################################
-# Lines to break script while testing, if needed
-######################################################
-######################################################
-if TESTING:
-    print(str(TESTING) + ", I'm testing")
-    sys.exit()
-
-
-"""
 ######################################################
 ######################################################
 # Cluster sequences
@@ -286,8 +273,19 @@ else:
     cdhit_cmd = cdhit_cmd + " -c " + cluster_cutoff
     cdhit_cmd = cdhit_cmd + " -n "
     cdhit_cmd = cdhit_cmd + " -d 0 "
-    clstr2txt.pl dereplication/hgcA_good_acrossYear.faa.clstr \
-    > dereplication/hgcA_good_acrossYear.tsv
+    os.system(cdhit_cmd)
+#    clstr2txt.pl dereplication/hgcA_good_acrossYear.faa.clstr \
+#    > dereplication/hgcA_good_acrossYear.tsv
+
+
+######################################################
+######################################################
+# Lines to break script while testing, if needed
+######################################################
+######################################################
+if TESTING:
+    print(str(TESTING) + ", I'm testing")
+    sys.exit()
 
 
 
@@ -296,4 +294,3 @@ else:
 # Pull out MG depth information
 ######################################################
 ######################################################
-"""
