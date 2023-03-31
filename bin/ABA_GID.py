@@ -312,7 +312,8 @@ if METAGENOME_LIST != "Do_not_run" and METAGENOMES_LOCATION != "Do_not_run":
         scaffold_of_interest = row.gene.rsplit("_", 1)[0]
         print("Mapping data for " + scaffold_of_interest)
         with open(METAGENOME_LIST, 'r') as mg_list:
-            for metagenome in mg_list.readlines():
+            for metagenome_nl in mg_list.readlines():
+                metagenome = metagenome_nl.strip()
                 mapping_file = METAGENOMES_LOCATION + "/" + metagenome + "_to_" + row.assembly + ".bam"
                 if os.path.isfile(mapping_file):
                     print("Calculating coverage of" + metagenome + "over" + scaffold_of_interest)
