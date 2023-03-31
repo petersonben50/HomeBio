@@ -45,7 +45,7 @@ parser.add_argument('--cluster_cutoff', default='0.97')
 parser.add_argument('--n_value_cdhit', default='5')
 parser.add_argument('--metagenome_list', default='Do_not_run')
 parser.add_argument('--metagenomes_location', default='Do_not_run')
-
+parser.add_argument('--read_depth_cutoff', default=150)
 
 
 
@@ -81,6 +81,7 @@ CLUSTER_CUTOFF = inputs.cluster_cutoff
 N_VALUE_CDHIT = inputs.n_value_cdhit
 METAGENOME_LIST = inputs.metagenome_list
 METAGENOMES_LOCATION = inputs.metagenomes_location
+READ_DEPTH_CUTOFF = inputs.read_depth_cutoff
 
 
 # Output info
@@ -316,12 +317,42 @@ if METAGENOME_LIST != "Do_not_run" and METAGENOMES_LOCATION != "Do_not_run":
                 mg_cov_out_raw = working_directory + metagenome + "_" + OUTPUT_PREFIX + "_coverage_raw.tsv"
                 mapping_file = METAGENOMES_LOCATION + "/" + metagenome + "_to_" + row.assembly + ".bam"
                 if os.path.isfile(mapping_file):
-                    print("   Calculating coverage of " + metagenome + "over" + scaffold_of_interest)
+                    print("   Calculating coverage of " + metagenome + " over " + scaffold_of_interest)
                     sam_cmd = "samtools depth -a -r " + scaffold_of_interest + " " + mapping_file + " >> " + mg_cov_out_raw
-                    #print(sam_cmd)
-                    os.system(sam_cmd)
+                    print(sam_cmd)
+                    #os.system(sam_cmd)
                 else:
                     print("   " + metagenome + " not mapped to " + row.assembly)
+    # Aggregate the coverage within metagenomes
+    with open(METAGENOME_LIST, 'r') as mg_list:
+        for metagenome_nl in mg_list.readlines():
+            metagenome = metagenome_nl.strip()
+            mg_cov_out_raw = working_directory + metagenome + "_" + OUTPUT_PREFIX + "_coverage_raw.tsv"
+            mg_cov_out = OUTPUT_LOCATION + metagenome + "_" + OUTPUT_PREFIX + "_coverage_raw.tsv"
+            # Open up coverage table
+            mg_cov_data_raw = pd.read_table(mg_cov_out_raw, names = ['contigs', 'locus', 'depth'])
+            mg_cov_data_raw = mg_cov_data_raw[mg_cov_data_raw['locus'] >= READ_DEPTH_CUTOFF]
+            # Filter out residues at end of contig
+            lengthOfContig = mg_cov_data_raw[['contigs', 'locus']].groupby('contigs').max()
+            lengthOfContig.rename(columns = {'locus':'lengthOfContig'}, inplace = True)
+            # Save out original length
+            lengthOfContigOriginal = lengthOfContig
+            # Substract the length to filter out
+            lengthOfContig['maxLengthToInclude'] = lengthOfContig['lengthOfContig'] - filteredLength
+            # Then, join max contig length DF with depth table
+            mg_cov_data_raw = pd.merge(mg_cov_data_raw, lengthOfContig, on='contigs', how='outer')
+            # Filter out end of contig
+            mg_cov_data_raw = mg_cov_data_raw[mg_cov_data_raw['locus'] <= mg_cov_data_raw['maxLengthToInclude']]
+            mg_cov_data_raw = mg_cov_data_raw[['contigs', 'depth', 'lengthOfContig']]
+            # Aggregate depth by contig
+            mg_cov_data = mg_cov_data_raw.groupby('contigs').mean()
+            # Read out data
+            mg_cov_data.to_csv(mg_cov_out, sep='\t', header = False)
+
+
+
+
+
 
 
 ######################################################
@@ -334,30 +365,16 @@ if TESTING:
     sys.exit()
 
 
+
+
+#####################################
+
+
+
+
+
+
 """
-
-screen -S BLI_hgcA_depth
-cd ~/BLiMMP/dataEdited/hgcA_analysis
-mkdir depth
-source /home/GLBRCORG/bpeterson26/miniconda3/etc/profile.d/conda.sh
-conda activate bioinformatics
-PERL5LIB=""
-PYTHONPATH=""
-
-cat /home/GLBRCORG/bpeterson26/BLiMMP/dataEdited/metagenomes/reports/metagenome_list.txt | while read metagenome
-do
-  cat identification/hgcA_good.txt | while read gene
-  do
-    scaffold=$(echo $gene | awk -F '_' '{ print $1"_"$2"_"$3 }')
-    assembly=$(echo $gene | awk -F '_' '{ print $1"_"$2 }')
-    if [ -e ~/BLiMMP/dataEdited/mapping/$metagenome\_to_$assembly.bam ]; then
-      echo "Calculating coverage of" $metagenome "over" $scaffold
-      samtools depth -a -r $scaffold ~/BLiMMP/dataEdited/mapping/$metagenome\_to_$assembly.bam \
-          >> depth/$metagenome\_hgcA_depth_raw.tsv
-    else
-      echo $metagenome "not from same year as" $assembly "and" $gene "won't be found there"
-    fi
-  done
 
   echo "Aggregating hgcA depth information for" $metagenome
   python ~/BLiMMP/code/calculate_depth_length_contigs.py \
