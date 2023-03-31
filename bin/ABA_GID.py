@@ -307,11 +307,12 @@ if METAGENOMES_LOCATION == "Do_not_run":
 if METAGENOME_LIST != "Do_not_run" and METAGENOMES_LOCATION != "Do_not_run":
     print("Pulling out mapping information for" + OUTPUT_PREFIX)
     # Set up G2A key
-    g2a_data = pd.read_csv(g2a_for_gene, delimiter="\t", names=['gene', 'bin'])
-    g2a_dict = dict()
+    g2a_data = pd.read_csv(g2a_for_gene, delimiter="\t", names=['gene', 'assembly'])
     for index, row in g2a_data.iterrows():
-        g2a_dict[row.gene] = row.bin
-    print(g2a_dict)
+        print(row.gen)
+        print(row.assembly)
+        print(index)
+        print("")
     
 
 
