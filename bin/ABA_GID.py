@@ -338,7 +338,7 @@ if METAGENOME_LIST != "Do_not_run" and METAGENOMES_LOCATION != "Do_not_run":
             # Save out original length
             lengthOfContigOriginal = lengthOfContig
             # Substract the length to filter out
-            lengthOfContig['maxLengthToInclude'] = lengthOfContig['lengthOfContig'] - filteredLength
+            lengthOfContig['maxLengthToInclude'] = lengthOfContig['lengthOfContig'] - READ_DEPTH_CUTOFF
             # Then, join max contig length DF with depth table
             mg_cov_data_raw = pd.merge(mg_cov_data_raw, lengthOfContig, on='contigs', how='outer')
             # Filter out end of contig
