@@ -309,16 +309,16 @@ if METAGENOME_LIST != "Do_not_run" and METAGENOMES_LOCATION != "Do_not_run":
     # Set up G2A key
     g2a_data = pd.read_csv(g2a_for_gene, delimiter="\t", names=['gene', 'assembly'])
     for index, row in g2a_data.iterrows():
-        scaffold_of_interest = row.gene.rsplit("_")[0]
+        scaffold_of_interest = row.gene.rsplit("_", 1)[0]
         print("Mapping data for " + scaffold_of_interest)
         with open(METAGENOME_LIST, 'r') as mg_list:
             for metagenome in mg_list.readlines():
-                mapping_file = METAGENOMES_LOCATION + "/" + metagenome + "_to_" + assembly + ".bam"
+                mapping_file = METAGENOMES_LOCATION + "/" + metagenome + "_to_" + row.assembly + ".bam"
                 if os.path.isfile(mapping_file):
                     print("Calculating coverage of" + metagenome + "over" + scaffold_of_interest)
                     print(mapping_file)
                 else:
-                    print(mapping_file + "does not exist, " + metagenome + " not mapped to " + assembly)
+                    print(mapping_file + "does not exist, " + metagenome + " not mapped to " + row.assembly)
 
 ######################################################
 ######################################################
