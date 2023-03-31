@@ -309,7 +309,7 @@ if METAGENOME_LIST != "Do_not_run" and METAGENOMES_LOCATION != "Do_not_run":
     # Set up G2A key
     g2a_data = pd.read_csv(g2a_for_gene, delimiter="\t", names=['gene', 'assembly'])
     for row in g2a_data.iterrows():
-        print(row)
+        print(row.gene)
         """
         scaffold_of_interest = row.gene.rsplit("_")[0]
         print("Mapping data for " + scaffold_of_interest)
