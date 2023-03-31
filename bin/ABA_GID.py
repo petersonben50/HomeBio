@@ -318,7 +318,7 @@ if METAGENOME_LIST != "Do_not_run" and METAGENOMES_LOCATION != "Do_not_run":
                     print("Calculating coverage of" + metagenome + "over" + scaffold_of_interest)
                     print(mapping_file)
                 else:
-                    print(mapping_file + "does not exist, " + metagenome " not mapped to " + assembly)
+                    print(mapping_file + "does not exist, " + metagenome + " not mapped to " + assembly)
 
 
 ######################################################
