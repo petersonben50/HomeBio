@@ -43,7 +43,6 @@ parser.add_argument('--orf_folder')
 parser.add_argument('--hmm')
 parser.add_argument('--cluster_cutoff', default='0.97')
 parser.add_argument('--n_value_cdhit', default='5')
-parser.add_argument('--hmm')
 parser.add_argument('--metagenome_list', default='Do_not_run')
 parser.add_argument('--metagenomes_location', default='Do_not_run')
 
