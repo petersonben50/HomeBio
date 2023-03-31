@@ -43,6 +43,12 @@ parser.add_argument('--orf_folder')
 parser.add_argument('--hmm')
 parser.add_argument('--cluster_cutoff', default='0.97')
 parser.add_argument('--n_value_cdhit', default='5')
+parser.add_argument('--hmm')
+parser.add_argument('--metagenome_list', default='Do_not_run')
+parser.add_argument('--metagenomes_location', default='Do_not_run')
+
+
+
 
 # Output info
 parser.add_argument('--output_location')
@@ -58,6 +64,7 @@ parser.add_argument('--skip_hmm_search', action='store_true')
 parser.add_argument('--skip_pull_out_aa', action='store_true')
 parser.add_argument('--skip_aa_alignment', action='store_true')
 parser.add_argument('--skip_clustering_seqs', action='store_true')
+parser.add_argument('--skip_generate_g2A', action='store_true')
 
 
 ###########################
@@ -73,6 +80,9 @@ ORF_FOLDER = inputs.orf_folder
 HMM = inputs.hmm
 CLUSTER_CUTOFF = inputs.cluster_cutoff
 N_VALUE_CDHIT = inputs.n_value_cdhit
+METAGENOME_LIST = inputs.metagenome_list
+METAGENOMES_LOCATION = inputs.metagenomes_location
+
 
 # Output info
 OUTPUT_LOCATION = inputs.output_location
@@ -90,6 +100,7 @@ SKIP_HMM_SEARCH = inputs.skip_hmm_search
 SKIP_PULL_OUT_AA = inputs.skip_pull_out_aa
 SKIP_AA_ALIGNMENT = inputs.skip_aa_alignment
 SKIP_CLUSTERING_SEQS = inputs.skip_clustering_seqs
+SKIP_GENERATE_G2A = inputs.skip_generate_g2A
 
 ######################################################
 ######################################################
@@ -113,6 +124,7 @@ elif ORF_FOLDER is not None:
 else:
     print("You haven't supplied an input for the bins")
     sys.exit()
+
 
 ###########################
 # Check if output directory already exists
@@ -165,13 +177,6 @@ else:
         # Generate gene-to-assembly file
         g2a_cmd = "FM_fa_to_E2L.sh -e faa -i " + ORF_FOLDER + " > " + g2a_file
         os.system(g2a_cmd)
-"""
-            # Populate the G2A key
-            genome_name = genome.rsplit("/", 1)[1].rsplit(".faa", 1)[0]
-            genome_orfs = SeqIO.parse(genome, "fasta")
-            for ORF in genome_orfs:
-                g2akey[ORF.id] = genome_name
-"""
 
 
 ###########################
@@ -211,11 +216,14 @@ else:
 ###########################
 # Save out tsv file with the gene-to-assembly information
 ###########################
-hmmer_output = SearchIO.read(hmmer_results_file_name, 'hmmer3-tab')
 g2a_for_gene = OUTPUT_LOCATION + OUTPUT_PREFIX + '_G2A.tsv'
-for sampleID in hmmer_output:
-    g2b_for_gene_cmd = "awk '$1 == \"" + sampleID.id + "\" { print $0 }' " + g2a_file + " >> " + g2a_for_gene
-    os.system(g2b_for_gene_cmd)
+if SKIP_GENERATE_G2A:
+    print("Simon say skip the G2A file generation")
+else:
+    hmmer_output = SearchIO.read(hmmer_results_file_name, 'hmmer3-tab')
+    for sampleID in hmmer_output:
+        g2b_for_gene_cmd = "awk '$1 == \"" + sampleID.id + "\" { print $0 }' " + g2a_file + " >> " + g2a_for_gene
+        os.system(g2b_for_gene_cmd)
 
 
 ###########################
@@ -282,12 +290,6 @@ else:
     os.system(cdhit_parsing_cmd)
 
 
-######################################################
-######################################################
-# Pull out MG depth information
-######################################################
-######################################################
-
 
 
 ######################################################
@@ -299,3 +301,68 @@ if TESTING:
     print(str(TESTING) + ", I'm testing")
     sys.exit()
 
+
+
+
+######################################################
+######################################################
+# Pull out MG depth information
+######################################################
+######################################################
+
+if metagenome_list == "Do_not_run":
+    print("List of metagenomes not provided"):
+if metagenome_location == "Do_not_run":
+    print("Folder of metagenomes not provided")
+if metagenome_list != "Do_not_run" and metagenome_location != "Do_not_run":
+    print("Pulling out mapping information for" + OUTPUT_PREFIX)
+    # Set up G2A key
+    g2a_data = pd.read_csv(g2a_for_gene, delimiter="\t", names=['gene', 'bin'])
+    g2a_dict = dict()
+    for index, row in g2a_data.iterrows():
+        g2a_dict[row.gene] = row.bin
+    g2a_dict
+    
+"""
+    # Populate the G2A key
+    genome_name = genome.rsplit("/", 1)[1].rsplit(".faa", 1)[0]
+    genome_orfs = SeqIO.parse(genome, "fasta")
+    for ORF in genome_orfs:
+        g2akey[ORF.id] = genome_name
+"""
+
+
+
+"""
+
+screen -S BLI_hgcA_depth
+cd ~/BLiMMP/dataEdited/hgcA_analysis
+mkdir depth
+source /home/GLBRCORG/bpeterson26/miniconda3/etc/profile.d/conda.sh
+conda activate bioinformatics
+PERL5LIB=""
+PYTHONPATH=""
+
+cat /home/GLBRCORG/bpeterson26/BLiMMP/dataEdited/metagenomes/reports/metagenome_list.txt | while read metagenome
+do
+  cat identification/hgcA_good.txt | while read gene
+  do
+    scaffold=$(echo $gene | awk -F '_' '{ print $1"_"$2"_"$3 }')
+    assembly=$(echo $gene | awk -F '_' '{ print $1"_"$2 }')
+    if [ -e ~/BLiMMP/dataEdited/mapping/$metagenome\_to_$assembly.bam ]; then
+      echo "Calculating coverage of" $metagenome "over" $scaffold
+      samtools depth -a -r $scaffold ~/BLiMMP/dataEdited/mapping/$metagenome\_to_$assembly.bam \
+          >> depth/$metagenome\_hgcA_depth_raw.tsv
+    else
+      echo $metagenome "not from same year as" $assembly "and" $gene "won't be found there"
+    fi
+  done
+
+  echo "Aggregating hgcA depth information for" $metagenome
+  python ~/BLiMMP/code/calculate_depth_length_contigs.py \
+            depth/$metagenome\_hgcA_depth_raw.tsv \
+            150 \
+            depth/$metagenome\_hgcA_depth.tsv
+  rm -f depth/$metagenome\_hgcA_depth_raw.tsv
+done
+"""
