@@ -311,7 +311,7 @@ if METAGENOME_LIST != "Do_not_run" and METAGENOMES_LOCATION != "Do_not_run":
     g2a_dict = dict()
     for index, row in g2a_data.iterrows():
         g2a_dict[row.gene] = row.bin
-    g2a_dict
+    print(g2a_dict)
     
 
 
