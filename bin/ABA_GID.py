@@ -315,10 +315,10 @@ if METAGENOME_LIST != "Do_not_run" and METAGENOMES_LOCATION != "Do_not_run":
             for metagenome in mg_list.readlines():
                 mapping_file = METAGENOMES_LOCATION + "/" + metagenome + "_to_" + assembly + ".bam"
                 if os.path.isfile(mapping_file):
-                    print("Calculating coverage of" metagenome "over" scaffold_of_interest)
+                    print("Calculating coverage of" + metagenome + "over" + scaffold_of_interest)
                     print(mapping_file)
                 else:
-                    print(mapping_file + "does not exist, " + metagenome "over" scaffold_of_interest)
+                    print(mapping_file + "does not exist, " + metagenome " not mapped to " + assembly)
 
 
 ######################################################
