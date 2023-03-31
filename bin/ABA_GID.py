@@ -309,7 +309,7 @@ if METAGENOME_LIST != "Do_not_run" and METAGENOMES_LOCATION != "Do_not_run":
     # Set up G2A key
     g2a_data = pd.read_csv(g2a_for_gene, delimiter="\t", names=['gene', 'assembly'])
     for index, row in g2a_data.iterrows():
-        print(row.gen)
+        print(row.gene)
         print(row.assembly)
         print(index)
         print("")
