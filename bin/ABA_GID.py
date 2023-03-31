@@ -318,8 +318,8 @@ if METAGENOME_LIST != "Do_not_run" and METAGENOMES_LOCATION != "Do_not_run":
                 if os.path.isfile(mapping_file):
                     print("   Calculating coverage of " + metagenome + "over" + scaffold_of_interest)
                     sam_cmd = "samtools depth -a -r " + scaffold_of_interest + " " + mapping_file + " >> " + mg_cov_out_raw
-                    print(sam_cmd)
-                    #os.system(sam_cmd)
+                    #print(sam_cmd)
+                    os.system(sam_cmd)
                 else:
                     print("   " + metagenome + " not mapped to " + row.assembly)
 
