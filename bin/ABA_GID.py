@@ -311,7 +311,7 @@ if TESTING:
 ######################################################
 
 if metagenome_list == "Do_not_run":
-    print("List of metagenomes not provided"):
+    print("List of metagenomes not provided")
 if metagenome_location == "Do_not_run":
     print("Folder of metagenomes not provided")
 if metagenome_list != "Do_not_run" and metagenome_location != "Do_not_run":
@@ -323,13 +323,6 @@ if metagenome_list != "Do_not_run" and metagenome_location != "Do_not_run":
         g2a_dict[row.gene] = row.bin
     g2a_dict
     
-"""
-    # Populate the G2A key
-    genome_name = genome.rsplit("/", 1)[1].rsplit(".faa", 1)[0]
-    genome_orfs = SeqIO.parse(genome, "fasta")
-    for ORF in genome_orfs:
-        g2akey[ORF.id] = genome_name
-"""
 
 
 
