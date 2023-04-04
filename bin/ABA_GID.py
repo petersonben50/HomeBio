@@ -350,23 +350,6 @@ if METAGENOME_LIST != "Do_not_run" and METAGENOMES_LOCATION != "Do_not_run":
             mg_cov_data.to_csv(mg_cov_out, sep='\t', header = False)
 
 
-
-
-
-
-
-######################################################
-######################################################
-# Lines to break script while testing, if needed
-######################################################
-######################################################
-if TESTING:
-    print(str(TESTING) + ", I'm testing")
-    sys.exit()
-
-
-
-
 ######################################################
 ######################################################
 # Generate rough tree with reference amino acid dataset
@@ -380,23 +363,25 @@ else:
         tree_orfs_to_use = working_directory + OUTPUT_PREFIX + "_orfs_for_tree.faa"
         tree_align_to_use = working_directory + OUTPUT_PREFIX + "_orfs_for_tree.afa"
         tree_align_to_use_cleaned = working_directory + OUTPUT_PREFIX + "_orfs_for_tree_cleaned.afa"
+        tree_output = OUTPUT_LOCATION + OUTPUT_PREFIX + ".tree"
         cat_cmd = "cat " + concat_orf_to_use + " " + REFERENCE_AA_DATASET + " > " + tree_orfs_to_use
         align_cmd = "muscle -align " + tree_orfs_to_use + " -output " + tree_align_to_use
         clean_cmd = "trimal -in " + tree_align_to_use + " -out " + tree_align_to_use_cleaned + " -gt 0.5"
+        tree_cmd = "FastTree " + tree_align_to_use_cleaned + " > " + tree_output
         os.system(cat_cmd)
         os.system(align_cmd)
         os.system(align_cmd)
+        os.system(tree_cmd)
     else:
         print("Provided file doesn't exist.")
 
 
-"""
 
-  echo "Aggregating hgcA depth information for" $metagenome
-  python ~/BLiMMP/code/calculate_depth_length_contigs.py \
-            depth/$metagenome\_hgcA_depth_raw.tsv \
-            150 \
-            depth/$metagenome\_hgcA_depth.tsv
-  rm -f depth/$metagenome\_hgcA_depth_raw.tsv
-done
-"""
+######################################################
+######################################################
+# Lines to break script while testing, if needed
+######################################################
+######################################################
+if TESTING:
+    print(str(TESTING) + ", I'm testing")
+    sys.exit()
