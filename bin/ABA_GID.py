@@ -47,7 +47,7 @@ parser.add_argument('--metagenome_list', default='Do_not_run')
 parser.add_argument('--metagenomes_location', default='Do_not_run')
 parser.add_argument('--read_depth_cutoff', default=150)
 parser.add_argument('--reference_aa_dataset', default='none_provided')
-parser.add_argument('--do_not_use_super5_for_alignment', default=' -super5 ', action=' -align ', const='')
+parser.add_argument('--do_not_use_super5_for_alignment', default='super5', action='store_const', const='align')
 
 # Output info
 parser.add_argument('--output_location')
@@ -362,18 +362,18 @@ if REFERENCE_AA_DATASET == 'none_provided':
     print("No reference dataset provided")
 else:
     if os.path.isfile(REFERENCE_AA_DATASET):
-        print("Generating a rough tree for " + OUTPUT_PREFIX)
         tree_orfs_to_use = working_directory + OUTPUT_PREFIX + "_orfs_for_tree.faa"
         tree_align_to_use = working_directory + OUTPUT_PREFIX + "_orfs_for_tree.afa"
         tree_align_to_use_cleaned = working_directory + OUTPUT_PREFIX + "_orfs_for_tree_cleaned.afa"
         tree_output = OUTPUT_LOCATION + OUTPUT_PREFIX + ".tree"
         cat_cmd = "cat " + concat_orf_to_use + " " + REFERENCE_AA_DATASET + " > " + tree_orfs_to_use
-        align_cmd = "muscle " + SUPER5_INPUT + tree_orfs_to_use + " -output " + tree_align_to_use
+        align_cmd = "muscle -" + SUPER5_INPUT + " " tree_orfs_to_use + " -output " + tree_align_to_use
         clean_cmd = "trimal -in " + tree_align_to_use + " -out " + tree_align_to_use_cleaned + " -gt 0.5"
         tree_cmd = "FastTree " + tree_align_to_use_cleaned + " > " + tree_output
         os.system(cat_cmd)
         os.system(align_cmd)
         os.system(align_cmd)
+        print("Generating a rough tree for " + OUTPUT_PREFIX)
         os.system(tree_cmd)
     else:
         print("Provided file doesn't exist.")
