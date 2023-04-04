@@ -46,7 +46,7 @@ parser.add_argument('--n_value_cdhit', default='5')
 parser.add_argument('--metagenome_list', default='Do_not_run')
 parser.add_argument('--metagenomes_location', default='Do_not_run')
 parser.add_argument('--read_depth_cutoff', default=150)
-
+parser.add_argument('--reference_aa_dataset', default='none_provided')
 
 
 # Output info
@@ -82,7 +82,7 @@ N_VALUE_CDHIT = inputs.n_value_cdhit
 METAGENOME_LIST = inputs.metagenome_list
 METAGENOMES_LOCATION = inputs.metagenomes_location
 READ_DEPTH_CUTOFF = inputs.read_depth_cutoff
-
+REFERENCE_AA_DATASET = inputs.reference_aa_dataset
 
 # Output info
 OUTPUT_LOCATION = inputs.output_location
@@ -367,11 +367,27 @@ if TESTING:
 
 
 
-#####################################
+######################################################
+######################################################
+# Generate rough tree with reference amino acid dataset
+######################################################
+######################################################
 
-
-
-
+if REFERENCE_AA_DATASET == 'none_provided':
+    print("No reference dataset provided")
+else:
+    if os.path.isfile(REFERENCE_AA_DATASET):
+        tree_orfs_to_use = working_directory + OUTPUT_PREFIX + "_orfs_for_tree.faa"
+        tree_align_to_use = working_directory + OUTPUT_PREFIX + "_orfs_for_tree.afa"
+        tree_align_to_use_cleaned = working_directory + OUTPUT_PREFIX + "_orfs_for_tree_cleaned.afa"
+        cat_cmd = "cat " + concat_orf_to_use + " " + REFERENCE_AA_DATASET + " > " + tree_orfs_to_use
+        align_cmd = "muscle -align " + tree_orfs_to_use + " -output " + tree_align_to_use
+        clean_cmd = "trimal -in " + tree_align_to_use + " -out " + tree_align_to_use_cleaned + " -gt 0.5"
+        os.system(cat_cmd)
+        os.system(align_cmd)
+        os.system(align_cmd)
+    else:
+        print("Provided file doesn't exist.")
 
 
 """
