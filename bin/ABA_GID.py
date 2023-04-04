@@ -367,7 +367,7 @@ else:
         tree_align_to_use_cleaned = working_directory + OUTPUT_PREFIX + "_orfs_for_tree_cleaned.afa"
         tree_output = OUTPUT_LOCATION + OUTPUT_PREFIX + ".tree"
         cat_cmd = "cat " + concat_orf_to_use + " " + REFERENCE_AA_DATASET + " > " + tree_orfs_to_use
-        align_cmd = "muscle -" + SUPER5_INPUT + " " tree_orfs_to_use + " -output " + tree_align_to_use
+        align_cmd = "muscle -" + SUPER5_INPUT + " " + tree_orfs_to_use + " -output " + tree_align_to_use
         clean_cmd = "trimal -in " + tree_align_to_use + " -out " + tree_align_to_use_cleaned + " -gt 0.5"
         tree_cmd = "FastTree " + tree_align_to_use_cleaned + " > " + tree_output
         os.system(cat_cmd)
