@@ -292,10 +292,6 @@ else:
 
 
 
-
-
-
-
 ######################################################
 ######################################################
 # Pull out MG depth information
@@ -331,6 +327,7 @@ if METAGENOME_LIST != "Do_not_run" and METAGENOMES_LOCATION != "Do_not_run":
             mg_cov_out_raw = working_directory + metagenome + "_" + OUTPUT_PREFIX + "_coverage_raw.tsv"
             mg_cov_out = OUTPUT_LOCATION + metagenome + "_" + OUTPUT_PREFIX + "_coverage_raw.tsv"
             # Open up coverage table
+            """
             mg_cov_data_raw = pd.read_table(mg_cov_out_raw, names = ['contigs', 'locus', 'depth'])
             mg_cov_data_raw = mg_cov_data_raw[mg_cov_data_raw['locus'] >= READ_DEPTH_CUTOFF]
             # Filter out residues at end of contig
@@ -349,7 +346,19 @@ if METAGENOME_LIST != "Do_not_run" and METAGENOMES_LOCATION != "Do_not_run":
             mg_cov_data = mg_cov_data_raw.groupby('contigs').mean()
             # Read out data
             mg_cov_data.to_csv(mg_cov_out, sep='\t', header = False)
+            # Add column with metagenome name
+            """
+            add_name_column = 'sed -i "s/$/,' + metagenome + '/" ' + mg_cov_out
+            print(add_name_column)
 
+######################################################
+######################################################
+# Lines to break script while testing, if needed
+######################################################
+######################################################
+if TESTING:
+    print(str(TESTING) + ", I'm testing")
+    sys.exit()
 
 
 ######################################################
@@ -362,6 +371,7 @@ if REFERENCE_AA_DATASET == 'none_provided':
     print("No reference dataset provided")
 else:
     if os.path.isfile(REFERENCE_AA_DATASET):
+        print(" Generating a rough tree for " + OUTPUT_PREFIX)
         tree_orfs_to_use = working_directory + OUTPUT_PREFIX + "_orfs_for_tree.faa"
         tree_align_to_use = working_directory + OUTPUT_PREFIX + "_orfs_for_tree.afa"
         tree_align_to_use_cleaned = working_directory + OUTPUT_PREFIX + "_orfs_for_tree_cleaned.afa"
@@ -370,29 +380,23 @@ else:
         align_cmd = "muscle -" + SUPER5_INPUT + " " + tree_orfs_to_use + " -output " + tree_align_to_use
         clean_cmd = "trimal -in " + tree_align_to_use + " -out " + tree_align_to_use_cleaned + " -gt 0.5"
         tree_cmd = "FastTree " + tree_align_to_use_cleaned + " > " + tree_output
+        print(" Concatenating " + OUTPUT_PREFIX + " sequences.")
         os.system(cat_cmd)
+        print(" Aligning " + OUTPUT_PREFIX + " sequences.")
         os.system(align_cmd)
-        os.system(align_cmd)
-        print("Generating a rough tree for " + OUTPUT_PREFIX)
+        os.system(clean_cmd)
+        print(" Running FastTree on " + OUTPUT_PREFIX + " sequences.")
         os.system(tree_cmd)
     else:
-        print("Provided file doesn't exist.")
+        print("Provided file doesn't exist. No tree will be generated.")
 
 
 
 ######################################################
 ######################################################
-# Generate rough tree with reference amino acid dataset
+# Pull out gene neighborhood
 ######################################################
 ######################################################
 
 
 
-######################################################
-######################################################
-# Lines to break script while testing, if needed
-######################################################
-######################################################
-if TESTING:
-    print(str(TESTING) + ", I'm testing")
-    sys.exit()
