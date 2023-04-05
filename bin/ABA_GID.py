@@ -351,6 +351,8 @@ if METAGENOME_LIST != "Do_not_run" and METAGENOMES_LOCATION != "Do_not_run":
             os.system(add_name_column)
     all_mg_cov = OUTPUT_LOCATION + OUTPUT_PREFIX + "_coverage.tsv"
     concat_cov_cmd = "cat " + working_directory + "*" + OUTPUT_PREFIX + "_coverage.tsv > " + all_mg_cov
+    print(concat_cov_cmd)
+    os.system(concat_cov_cmd)
 
 ######################################################
 ######################################################
