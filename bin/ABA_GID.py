@@ -349,6 +349,8 @@ if METAGENOME_LIST != "Do_not_run" and METAGENOMES_LOCATION != "Do_not_run":
             """
             add_name_column = 'sed -i "s/$/\t' + metagenome + '/" ' + mg_cov_out
             print(add_name_column)
+    all_mg_cov = OUTPUT_LOCATION + OUTPUT_PREFIX + "_coverage.tsv"
+    concat_cov_cmd = "cat " + working_directory + "*" + OUTPUT_PREFIX + "_coverage.tsv > " + 
 
 ######################################################
 ######################################################
