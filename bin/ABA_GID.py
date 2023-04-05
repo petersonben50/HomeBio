@@ -316,7 +316,6 @@ if METAGENOME_LIST != "Do_not_run" and METAGENOMES_LOCATION != "Do_not_run":
                 if os.path.isfile(mapping_file):
                     print("   Calculating coverage of " + metagenome + " over " + scaffold_of_interest)
                     sam_cmd = "samtools depth -a -r " + scaffold_of_interest + " " + mapping_file + " >> " + mg_cov_out_raw
-                    print(sam_cmd)
                     #os.system(sam_cmd)
                 else:
                     print("   " + metagenome + " not mapped to " + row.assembly)
@@ -325,7 +324,7 @@ if METAGENOME_LIST != "Do_not_run" and METAGENOMES_LOCATION != "Do_not_run":
         for metagenome_nl in mg_list.readlines():
             metagenome = metagenome_nl.strip()
             mg_cov_out_raw = working_directory + metagenome + "_" + OUTPUT_PREFIX + "_coverage_raw.tsv"
-            mg_cov_out = OUTPUT_LOCATION + metagenome + "_" + OUTPUT_PREFIX + "_coverage_raw.tsv"
+            mg_cov_out = working_directory + metagenome + "_" + OUTPUT_PREFIX + "_coverage.tsv"
             # Open up coverage table
             """
             mg_cov_data_raw = pd.read_table(mg_cov_out_raw, names = ['contigs', 'locus', 'depth'])
@@ -348,7 +347,7 @@ if METAGENOME_LIST != "Do_not_run" and METAGENOMES_LOCATION != "Do_not_run":
             mg_cov_data.to_csv(mg_cov_out, sep='\t', header = False)
             # Add column with metagenome name
             """
-            add_name_column = 'sed -i "s/$/,' + metagenome + '/" ' + mg_cov_out
+            add_name_column = 'sed -i "s/$/\t' + metagenome + '/" ' + mg_cov_out
             print(add_name_column)
 
 ######################################################
