@@ -18,7 +18,11 @@ conda install -y -n bioinformatics -c bioconda trimal
 conda install -y -n bioinformatics -c bioconda raxml
 conda install -y -n bioinformatics -c bioconda pandas
 conda install -y -n bioinformatics -c bioconda mash
-
+conda install -y -n bioinformatics -c bioconda spades=3.15.5
+conda install -y -n bioinformatics -c conda-forge biopython
+conda install -y -n bioinformatics -c bioconda samtools=1.16
+conda install -y -n bioinformatics -c bioconda bowtie2
+conda update spade
 
 ####---------------------------------####
 # Py-viz environment set-up
@@ -34,6 +38,13 @@ conda install -y -n py_viz -c conda-forge gdal
 conda activate py_viz
 python -m ipykernel install
 pip install pdfminer.six
+
+
+####---------------------------------####
+# SAVr environment set-up
+####---------------------------------####
+conda create -y --name SAVr python=3.9
+conda install -y -n SAVr jupyter biopython panel bokeh
 
 
 ####---------------------------------####
