@@ -326,7 +326,6 @@ if METAGENOME_LIST != "Do_not_run" and METAGENOMES_LOCATION != "Do_not_run":
             mg_cov_out_raw = working_directory + metagenome + "_" + OUTPUT_PREFIX + "_coverage_raw.tsv"
             mg_cov_out = working_directory + metagenome + "_" + OUTPUT_PREFIX + "_coverage.tsv"
             # Open up coverage table
-            """
             mg_cov_data_raw = pd.read_table(mg_cov_out_raw, names = ['contigs', 'locus', 'depth'])
             mg_cov_data_raw = mg_cov_data_raw[mg_cov_data_raw['locus'] >= READ_DEPTH_CUTOFF]
             # Filter out residues at end of contig
@@ -346,7 +345,6 @@ if METAGENOME_LIST != "Do_not_run" and METAGENOMES_LOCATION != "Do_not_run":
             # Read out data
             mg_cov_data.to_csv(mg_cov_out, sep='\t', header = False)
             # Add column with metagenome name
-            """
             add_name_column = 'sed -i "s/$/\t' + metagenome + '/" ' + mg_cov_out
             os.system(add_name_column)
     all_mg_cov = OUTPUT_LOCATION + OUTPUT_PREFIX + "_coverage.tsv"
@@ -354,14 +352,6 @@ if METAGENOME_LIST != "Do_not_run" and METAGENOMES_LOCATION != "Do_not_run":
     print(concat_cov_cmd)
     os.system(concat_cov_cmd)
 
-######################################################
-######################################################
-# Lines to break script while testing, if needed
-######################################################
-######################################################
-if TESTING:
-    print(str(TESTING) + ", I'm testing")
-    sys.exit()
 
 
 ######################################################
@@ -402,4 +392,11 @@ else:
 ######################################################
 
 
-
+######################################################
+######################################################
+# Lines to break script while testing, if needed
+######################################################
+######################################################
+if TESTING:
+    print(str(TESTING) + ", I'm testing")
+    sys.exit()
