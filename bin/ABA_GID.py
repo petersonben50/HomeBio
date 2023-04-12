@@ -152,7 +152,7 @@ else:
 ######################################################
 
 # Variable for ORFs to use:
-concat_orf_to_use = working_directory + OUTPUT_PREFIX + '_ORFs.faa'
+concat_orf_to_use = working_directory + 'all_ORFs_concat.faa'
 g2a_file = working_directory + OUTPUT_PREFIX + '_ORFs_G2A.tsv'
 
 
@@ -241,7 +241,6 @@ else:
             for seq_record in SeqIO.parse(concat_orf_to_use, "fasta"):
                 for sampleID in hmmer_output:
                     if sampleID.id == seq_record.id:
-                        print("writing" + seq_record.id)
                         resultFile.write('>' + str(sampleID.id) + ' ' + str(sampleID.bitscore) + '\n' + str(seq_record.seq).replace("*","") + '\n')
     else:
         print('No hits for ' + OUTPUT_PREFIX + '. Ending the script now.')
