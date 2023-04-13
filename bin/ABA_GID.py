@@ -266,7 +266,7 @@ else:
                 alignOut.write(str(align_record.seq) + '\n')
         os.remove(sto_output)
     else:
-        print("No fasta file with the HMM hits in it")
+        print("No fasta file with the HMM hits in it.")
         sys.exit()
 
 
@@ -280,11 +280,13 @@ if SKIP_CLUSTERING_SEQS:
 else:
     derep_fasta = working_directory + OUTPUT_PREFIX + '_derep.faa'
     clustering_info_output = OUTPUT_LOCATION + OUTPUT_PREFIX + '_cluster_data.tsv'
+    clustering_info_output_log = OUTPUT_LOCATION + OUTPUT_PREFIX + '_cluster_data_log.txt'
     cdhit_cmd = "cd-hit -g 0 -i " + fasta_output_for_hits
     cdhit_cmd = cdhit_cmd + " -o " + derep_fasta
     cdhit_cmd = cdhit_cmd + " -c " + CLUSTER_CUTOFF
     cdhit_cmd = cdhit_cmd + " -n " + N_VALUE_CDHIT
     cdhit_cmd = cdhit_cmd + " -d 0 "
+    cdhit_cmd = cdhit_cmd + " > " + clustering_info_output_log
     os.system(cdhit_cmd)
     cdhit_parsing_cmd = "clstr2txt.pl " + derep_fasta + ".clstr > " + clustering_info_output
     os.system(cdhit_parsing_cmd)
@@ -301,21 +303,20 @@ if METAGENOME_LIST == "Do_not_run":
 if METAGENOMES_LOCATION == "Do_not_run":
     print("Folder of metagenomes not provided")
 if METAGENOME_LIST != "Do_not_run" and METAGENOMES_LOCATION != "Do_not_run":
-    print("Pulling out mapping information for" + OUTPUT_PREFIX)
+    print("Pulling out mapping information for " + OUTPUT_PREFIX)
     # Set up G2A key
     g2a_data = pd.read_csv(g2a_for_gene, delimiter="\t", names=['gene', 'assembly'])
     for index, row in g2a_data.iterrows():
         scaffold_of_interest = row.gene.rsplit("_", 1)[0]
-        print("Mapping data for " + scaffold_of_interest)
+        #print("Mapping data for " + scaffold_of_interest)
         with open(METAGENOME_LIST, 'r') as mg_list:
             for metagenome_nl in mg_list.readlines():
                 metagenome = metagenome_nl.strip()
                 mg_cov_out_raw = working_directory + metagenome + "_" + OUTPUT_PREFIX + "_coverage_raw.tsv"
                 mapping_file = METAGENOMES_LOCATION + "/" + metagenome + "_to_" + row.assembly + ".bam"
                 if os.path.isfile(mapping_file):
-                    print("   Calculating coverage of " + metagenome + " over " + scaffold_of_interest)
                     sam_cmd = "samtools depth -a -r " + scaffold_of_interest + " " + mapping_file + " >> " + mg_cov_out_raw
-                    #os.system(sam_cmd)
+                    os.system(sam_cmd)
                 else:
                     print("   " + metagenome + " not mapped to " + row.assembly)
     # Aggregate the coverage within metagenomes
