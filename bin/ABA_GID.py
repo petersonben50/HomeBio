@@ -1,11 +1,6 @@
 #################################
 # ABA_GID.py
 # Benjamin D. Peterson
-
-# This python script will run a set
-# of HMMs, as defined by a csv file,
-# against a set of ORFs concatentated
-# from a set of bins.
 #################################
 
 
