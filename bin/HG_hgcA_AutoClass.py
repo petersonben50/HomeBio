@@ -58,6 +58,8 @@ elif os.path.isfile(FASTA_FILE):
     print("Fasta input to use: " + FASTA_FILE)
 else:
     print("The fasta input provided is not a file")
+    sys.exit()
+
 
 
 if REF_PACKAGE is None:
@@ -76,9 +78,16 @@ else:
             sys.exit()
         else:
             stockholm_file = stockholm_file_list[0]
-
-        stockholm_file = glob.glob(REF_PACKAGE + "*.stockholm")
-
+            print("Reference stockholm file to use: " + stockholm_file)
+        hmm_file_list = glob.glob(REF_PACKAGE + "*.hmm")
+        if len(hmm_file_list) > 1:
+            print("Multiple HMM files are present in the reference package, there should only be one.")
+            sys.exit()
+        elif len(hmm_file_list) = 0:
+            print("There is no HMM file in the reference package.")
+            sys.exit()
+        else:
+            hmm_file = hmm_file_list[0]
     else:
         print("Reference package provided is not a folder")
         sys.exit()
