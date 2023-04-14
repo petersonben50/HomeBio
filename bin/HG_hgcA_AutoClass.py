@@ -73,7 +73,7 @@ else:
         if len(stockholm_file_list) > 1:
             print("Multiple stockholm files are present in the reference package, there should only be one.")
             sys.exit()
-        elif len(stockholm_file_list) = 0:
+        elif len(stockholm_file_list) == 0:
             print("There is no stockhold file in the reference package. One is needed.")
             sys.exit()
         else:
@@ -83,7 +83,7 @@ else:
         if len(hmm_file_list) > 1:
             print("Multiple HMM files are present in the reference package, there should only be one.")
             sys.exit()
-        elif len(hmm_file_list) = 0:
+        elif len(hmm_file_list) == 0:
             print("There is no HMM file in the reference package.")
             sys.exit()
         else:
