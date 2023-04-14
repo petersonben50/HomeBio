@@ -112,16 +112,47 @@ else:
 print("")
 print("")
 
+# Set other variables
+ALIGNMENT = OUTPUT_LOCATION + OUTPUT_NAME + ".sto"
+SQLITE_FILE = OUTPUT_LOCATION + OUTPUT_NAME + ".sqlite"
+JPLACE_FILE = OUTPUT_LOCATION + OUTPUT_NAME + ".jplace"
+
+
 ######################################################
 ######################################################
-# Run alignment
+# Define functions
 ######################################################
 ######################################################
 def run_alignment():
-    ALIGNMENT = OUTPUT_LOCATION + OUTPUT_NAME + ".sto"
     align_cmd = "hmmalign -o " + ALIGNMENT
     align_cmd = align_cmd + " --mapali " + stockholm_file
     align_cmd = align_cmd + " " + hmm_file + " " + FASTA_FILE
     print(align_cmd)
+def pplacer_run():
+    pplacer_cmd = "pplacer -p --keep-at-most 1 --max-pend 1"
+    pplacer_cmd = pplacer_cmd + " -c " + REF_PACKAGE \
+    pplacer_cmd = pplacer_cmd + " -o " + JPLACE_FILE 
+    pplacer_cmd = pplacer_cmd + " " + ALIGNMENT
+    print(pplacer_cmd)
+def rppr_run():
+    rppr_cmd = "rppr prep_db "
+    rppr_cmd = rppr_cmd + " --sqlite " + SQLITE_FILE
+    rppr_cmd = rppr_cmd + " -c " + REF_PACKAGE
+    print(rppr_cmd)
 
+def guppy_run():
+    guppy_cmd = "guppy classify --pp -c " + REF_PACKAGE
+    guppy_cmd = guppy_cmd + " --sqlite " + SQLITE_FILE
+    guppy_cmd = guppy_cmd + " " + JPLACE_FILE
+    print(guppy_cmd)
+
+
+######################################################
+######################################################
+# Run functions
+######################################################
+######################################################
 run_alignment()
+pplacer_run()
+rppr_run()
+guppy_run()
