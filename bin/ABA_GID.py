@@ -275,7 +275,7 @@ if SKIP_CLUSTERING_SEQS:
 else:
     derep_fasta = working_directory + OUTPUT_PREFIX + '_derep.faa'
     clustering_info_output = OUTPUT_LOCATION + OUTPUT_PREFIX + '_cluster_data.tsv'
-    clustering_info_output_log = OUTPUT_LOCATION + OUTPUT_PREFIX + '_cluster_data_log.txt'
+    clustering_info_output_log = working_directory + OUTPUT_PREFIX + '_cluster_data_log.txt'
     cdhit_cmd = "cd-hit -g 0 -i " + fasta_output_for_hits
     cdhit_cmd = cdhit_cmd + " -o " + derep_fasta
     cdhit_cmd = cdhit_cmd + " -c " + CLUSTER_CUTOFF
