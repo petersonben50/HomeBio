@@ -109,15 +109,19 @@ if os.path.isdir(OUTPUT_LOCATION):
 else:
     print(OUTPUT_LOCATION + " is not a directory.")
 
+print("")
+print("")
 
 ######################################################
 ######################################################
-# Set up other variable
+# Run alignment
 ######################################################
 ######################################################
-ALIGNMENT = OUTPUT_LOCATION + OUTPUT_NAME + ".sto"
+def run_alignment():
+    ALIGNMENT = OUTPUT_LOCATION + OUTPUT_NAME + ".sto"
+    align_cmd = "hmmalign -o " + ALIGNMENT
+    align_cmd = align_cmd + " --mapali " + stockholm_file
+    align_cmd = align_cmd + " " + hmm_file + " " + FASTA_FILE
+    print(align_cmd)
 
-align_cmd = "hmmalign -o " + ALIGNMENT
-align_cmd = align_cmd + " --mapali " + stockholm_file
-align_cmd = align_cmd + " " + hmm_file + " " + FASTA_FILE
-print(align_cmd)
+run_alignment()
