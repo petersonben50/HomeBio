@@ -41,10 +41,18 @@ pip install pdfminer.six
 
 
 ####---------------------------------####
-# SAVr environment set-up
-####---------------------------------####
-conda create -y --name SAVr python=3.9
-conda install -y -n SAVr jupyter biopython panel bokeh
+# hgcA_classifier environment set-up
+####---------------------------------####=
+conda create -y -n hgcA_classifier python=2.7
+
+conda install -y -n hgcA_classifier -c bioconda trimmomatic
+conda install -y -n hgcA_classifier -c bioconda vsearch
+conda install -y -n hgcA_classifier -c bioconda cd-hit
+conda install -y -n hgcA_classifier -c bioconda emboss
+conda install -y -n hgcA_classifier -c bioconda hmmer
+conda install -y -n hgcA_classifier -c bioconda pplacer
+conda install -y -n hgcA_classifier -c bioconda muscle
+
 
 
 ####---------------------------------####
