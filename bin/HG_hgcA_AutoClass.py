@@ -31,6 +31,8 @@ parser = argparse.ArgumentParser()
 # Input data
 parser.add_argument('--fasta_file')
 parser.add_argument('--ref_package')
+parser.add_argument('--output_name')
+parser.add_argument('--output_location')
 
 
 
@@ -43,6 +45,8 @@ inputs = parser.parse_args()
 FASTA_FILE = inputs.fasta_file
 REF_PACKAGE = inputs.ref_package
 #REF_PACKAGE = "/home/GLBRCORG/bpeterson26/BLiMMP/references/hgcA/Hg-MATE-Db.v1.ISOCELMAG_HgcA_full.refpkg"
+OUTPUT_NAME = inputs.output_name
+OUTPUT_LOCATION = inputs.output_location
 
 
 
@@ -59,8 +63,6 @@ elif os.path.isfile(FASTA_FILE):
 else:
     print("The fasta input provided is not a file")
     sys.exit()
-
-
 
 if REF_PACKAGE is None:
     print("A reference package is required.")
@@ -92,9 +94,30 @@ else:
         print("Reference package provided is not a folder")
         sys.exit()
 
+if OUTPUT_NAME is None:
+    print("Need to set --output_name")
+    sys.exit()
+else:
+    print("Output name will be: " + OUTPUT_NAME)
+
+if OUTPUT_LOCATION is None:
+    print("Need to set --output_location")
+    sys.exit()
+if os.path.isdir(OUTPUT_LOCATION):
+    print("Output location: " + OUTPUT_LOCATION)
+    OUTPUT_LOCATION = OUTPUT_LOCATION + "/"
+else:
+    print(OUTPUT_LOCATION + " is not a directory.")
+
 
 ######################################################
 ######################################################
 # Set up other variable
 ######################################################
 ######################################################
+ALIGNMENT = OUTPUT_LOCATION + OUTPUT_NAME + ".sto"
+
+align_cmd = "hmmalign -o " + ALIGNMENT
+align_cmd = align_cmd + " --mapali " + stockholm_file
+align_cmd = align_cmd + " " + hmm_file + " " + FASTA_FILE
+print(align_cmd)
