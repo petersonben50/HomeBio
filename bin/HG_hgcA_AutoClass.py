@@ -130,7 +130,7 @@ def run_alignment():
     print(align_cmd)
 def pplacer_run():
     pplacer_cmd = "pplacer -p --keep-at-most 1 --max-pend 1"
-    pplacer_cmd = pplacer_cmd + " -c " + REF_PACKAGE \
+    pplacer_cmd = pplacer_cmd + " -c " + REF_PACKAGE
     pplacer_cmd = pplacer_cmd + " -o " + JPLACE_FILE 
     pplacer_cmd = pplacer_cmd + " " + ALIGNMENT
     print(pplacer_cmd)
