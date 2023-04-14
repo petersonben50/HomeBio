@@ -124,22 +124,26 @@ JPLACE_FILE = OUTPUT_LOCATION + OUTPUT_NAME + ".jplace"
 ######################################################
 ######################################################
 def run_alignment():
+    print("Running alignment")
     align_cmd = "hmmalign -o " + ALIGNMENT
     align_cmd = align_cmd + " --mapali " + stockholm_file
     align_cmd = align_cmd + " " + hmm_file + " " + FASTA_FILE
     os.system(align_cmd)
 def pplacer_run():
+    print("Running pplacer")
     pplacer_cmd = "pplacer -p --keep-at-most 1 --max-pend 1"
     pplacer_cmd = pplacer_cmd + " -c " + REF_PACKAGE
     pplacer_cmd = pplacer_cmd + " -o " + JPLACE_FILE 
     pplacer_cmd = pplacer_cmd + " " + ALIGNMENT
     os.system(pplacer_cmd)
 def rppr_run():
+    print("Generating sqlite")
     rppr_cmd = "rppr prep_db "
     rppr_cmd = rppr_cmd + " --sqlite " + SQLITE_FILE
     rppr_cmd = rppr_cmd + " -c " + REF_PACKAGE
     os.system(rppr_cmd)
 def guppy_run():
+    print("Classifying seqs with guppy")
     guppy_cmd = "guppy classify --pp -c " + REF_PACKAGE
     guppy_cmd = guppy_cmd + " --sqlite " + SQLITE_FILE
     guppy_cmd = guppy_cmd + " " + JPLACE_FILE
