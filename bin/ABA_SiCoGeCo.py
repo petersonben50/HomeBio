@@ -19,7 +19,7 @@ import glob
 # Parse commands
 ######################################################
 ######################################################
-"""
+
 ###########################
 # Set up an argument parser
 ###########################
@@ -67,7 +67,7 @@ ASSEMBLY_LOCATION = "/home/GLBRCORG/bpeterson26/BLiMMP/dataEdited/assemblies/ORF
 METAGENOME_LIST = "/home/GLBRCORG/bpeterson26/BLiMMP/dataEdited/metagenomes/reports/metagenome_list.txt"
 METAGENOME_LOCATION = "/home/GLBRCORG/bpeterson26/BLiMMP/dataEdited/mapping"
 OUTPUT_DIRECTORY = "/home/GLBRCORG/bpeterson26/BLiMMP/dataEdited/scg_abundance"
-
+"""
 
 ###########################
 # Check if output directory already exists
