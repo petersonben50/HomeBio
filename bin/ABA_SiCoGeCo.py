@@ -11,7 +11,7 @@ import os
 import sys
 import argparse
 import glob
-
+import pandas as pd
 
 
 ######################################################
@@ -70,9 +70,9 @@ OUTPUT_DIRECTORY = "/home/GLBRCORG/bpeterson26/BLiMMP/dataEdited/scg_abundance"
 """
 
 ###########################
-# Check if output directory already exists
+# Check inputs
 ###########################
-# Set location for temporary working directory
+# Check if output directory already exists
 output_folder = OUTPUT_DIRECTORY + "/" + GENE_NAME + "/"
 working_directory = output_folder + 'working_directory/'
 if os.path.isdir(OUTPUT_DIRECTORY) == True:
@@ -85,8 +85,23 @@ if os.path.isdir(OUTPUT_DIRECTORY) == True:
             print("Hey dummy, " + OUTPUT_DIRECTORY + " is already a directory. Please give me an empty directory")
             sys.exit()
     else:
+        print("Making new directory: " + output_folder)
         os.mkdir(output_folder)
         os.mkdir(working_directory)
 else:
     print(OUTPUT_DIRECTORY + " does not exist.")
     sys.exit()
+
+# Check assembly inputs
+if os.path.isdir(ASSEMBLY_LOCATION):
+    print("Searching for rp16 genes in the ORFs from the assemblies found here: " + ASSEMBLY_LOCATION)
+else:
+    print("Provided directory for assemblies does not exist: " + ASSEMBLY_LOCATION)
+    sys.exit()
+
+
+
+###########################
+# Set up HMMs to use
+###########################
+pd.read_csv(SCG_HMMS_KEY, delimiter="\t", names=['gene_name', 'hmm_id'])
