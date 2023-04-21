@@ -104,5 +104,6 @@ else:
 ###########################
 # Set up HMMs to use
 ###########################
-hmm_key = pd.read_csv(SCG_HMMS_KEY, delimiter="\t", names=['gene_name', 'hmm_id'])
-print(hmm_key)
+hmm_key = pd.read_csv(SCG_HMMS_KEY, delimiter=",", names=['gene_name', 'hmm_id'])
+hmms_to_use = hmm_key[hmm_key['gene_name'] = GENE_NAME]
+print(hmms_to_use)
