@@ -133,20 +133,15 @@ def concat_orfs():
 ###########################
 # Search for SCGs in all assemblies
 ###########################
-hmmer_results_file_name = working_directory + GENE_NAME + '_HMM.out'
-def hmm_search(HMM):
-    hmmer_log_file_name = working_directory + GENE_NAME + '_HMM.txt'
-    hmm_cmd = 'hmmsearch --tblout ' + hmmer_results_file_name + ' --cpu 4 --cut_tc ' + HMM + " " + concat_orf_to_use + " > " + hmmer_log_file_name 
+g2a_for_gene = OUTPUT_LOCATION + OUTPUT_PREFIX + '_G2A.tsv'
+def hmm_search(hmm_file_name):
+    hmm_for_search = SCG_HMMS_LOCATION + "/" + hmm_file_name
+    hmmer_results_file_name = working_directory + hmm_file_name + '_HMM.out'
+    hmmer_log_file_name = working_directory + hmm_file_name + '_HMM.txt'
+    hmm_cmd = 'hmmsearch --tblout ' + hmmer_results_file_name + ' --cpu 4 --cut_tc ' + hmm_for_search + " " + concat_orf_to_use + " > " + hmmer_log_file_name 
     print(hmm_cmd)
     #os.system(hmm_cmd)
-"""
-###########################
-# Save out tsv file with the gene-to-assembly information
-###########################
-g2a_for_gene = OUTPUT_LOCATION + OUTPUT_PREFIX + '_G2A.tsv'
-if SKIP_GENERATE_G2A:
-    print("Simon say skip the G2A file generation")
-else:
+    print("")
     hmmer_output = SearchIO.read(hmmer_results_file_name, 'hmmer3-tab')
     for sampleID in hmmer_output:
         g2b_for_gene_cmd = "awk '$1 == \"" + sampleID.id + "\" { print $0 }' " + g2a_file + " >> " + g2a_for_gene
@@ -157,9 +152,8 @@ else:
 # Pull out amino acid sequences
 ###########################
 fasta_output_for_hits = OUTPUT_LOCATION + '/' + OUTPUT_PREFIX + '.faa'
-if SKIP_PULL_OUT_AA:
-    print("Simon says skip the HMM run")
-else:
+
+def extract_aa_seqs():
     hmmer_results_file_length = subprocess.check_output('wc -l < ' + hmmer_results_file_name, shell=True)
     if int(hmmer_results_file_length) > 13:
         print("Extracting AA sequences for " + OUTPUT_PREFIX)
@@ -173,7 +167,6 @@ else:
         sys.exit()
 
 """
-
 ###########################
 # Set up HMMs to use
 ###########################
@@ -184,5 +177,13 @@ hmms_to_use = hmm_key[hmm_key['gene_name'] == GENE_NAME].hmm_id
 
 print("Running HMM-based search for " + GENE_NAME)
 for hmm_to_use in hmms_to_use:
-    hmm_for_search = SCG_HMMS_LOCATION + "/" + hmm_to_use
-    hmm_search(hmm_for_search)
+    hmm_search(hmm_to_use)
+"""
+
+
+######################################################
+######################################################
+# Run functions
+######################################################
+######################################################
+concat_orfs()
