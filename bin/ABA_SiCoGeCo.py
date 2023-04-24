@@ -122,18 +122,18 @@ def concat_orfs():
             concat_cmd = concat_cmd + " " + genome
     concat_cmd = concat_cmd + " > " + concat_orf_to_use
     print(concat_cmd)
-    #os.system(concat_cmd)
+    os.system(concat_cmd)
     # Generate gene-to-assembly file
     g2a_cmd = "FM_fa_to_E2L.sh -e faa -i " + ORF_FOLDER + " > " + g2a_file
     print(g2a_cmd)
-    #os.system(g2a_cmd)
+    os.system(g2a_cmd)
     print("")
 
 
 ###########################
 # Search for SCGs in all assemblies
 ###########################
-g2a_for_gene = OUTPUT_LOCATION + OUTPUT_PREFIX + '_G2A.tsv'
+g2a_for_gene = OUTPUT_DIRECTORY + OUTPUT_PREFIX + '_G2A.tsv'
 def hmm_search(hmm_file_name):
     hmm_for_search = SCG_HMMS_LOCATION + "/" + hmm_file_name
     hmmer_results_file_name = working_directory + hmm_file_name + '_HMM.out'
@@ -151,7 +151,7 @@ def hmm_search(hmm_file_name):
 ###########################
 # Pull out amino acid sequences
 ###########################
-fasta_output_for_hits = OUTPUT_LOCATION + '/' + OUTPUT_PREFIX + '.faa'
+fasta_output_for_hits = OUTPUT_DIRECTORY + '/' + OUTPUT_PREFIX + '.faa'
 
 def extract_aa_seqs():
     hmmer_results_file_length = subprocess.check_output('wc -l < ' + hmmer_results_file_name, shell=True)
