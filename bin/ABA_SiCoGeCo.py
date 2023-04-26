@@ -20,6 +20,8 @@ import pandas as pd
 ######################################################
 ######################################################
 
+print("Parsing input arguments")
+
 ###########################
 # Set up an argument parser
 ###########################
@@ -115,7 +117,7 @@ g2a_file = working_directory + 'all_ORFs_G2A.tsv'
 def concat_orfs():
     print("Concatenating ORFs and generating G2A file from all assemblies")
     concat_cmd = "cat "
-    assembly_files = ORF_FOLDER + "/**"
+    assembly_files = ASSEMBLY_LOCATION + "/**"
     assemblies = glob.glob(assembly_files)
     for assembly in assemblies:
         if assembly.endswith('.faa'):
@@ -124,7 +126,7 @@ def concat_orfs():
     print(concat_cmd)
     os.system(concat_cmd)
     # Generate gene-to-assembly file
-    g2a_cmd = "FM_fa_to_E2L.sh -e faa -i " + ORF_FOLDER + " > " + g2a_file
+    g2a_cmd = "FM_fa_to_E2L.sh -e faa -i " + ASSEMBLY_LOCATION + " > " + g2a_file
     print(g2a_cmd)
     os.system(g2a_cmd)
     print("")
@@ -163,7 +165,7 @@ def extract_aa_seqs():
                     if sampleID.id == seq_record.id:
                         resultFile.write('>' + str(sampleID.id) + ' ' + str(sampleID.bitscore) + '\n' + str(seq_record.seq).replace("*","") + '\n')
     else:
-        print('No hits for ' + OUTPUT_PREFIX + '. Ending the script now.')
+        print('No hits for ' + GENE_NAME + '. Ending the script now.')
         sys.exit()
 
 """
