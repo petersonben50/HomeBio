@@ -91,6 +91,21 @@ if os.path.isdir(ASSEMBLY_LOCATION):
 else:
     print("Provided directory for assemblies does not exist: " + ASSEMBLY_LOCATION)
     sys.exit()
+print("")
+
+
+###########################
+# Set up internal variables
+###########################
+# HMMs to use
+hmm_key = pd.read_csv(SCG_HMMS_KEY, delimiter=",", names=['gene_name', 'hmm_id'])
+hmms_to_use = hmm_key[hmm_key['gene_name'] == GENE_NAME].hmm_id
+
+# Output file names
+concat_orf_to_use = working_directory + 'all_ORFs_concat.faa'
+g2a_file = working_directory + 'all_ORFs_G2A.tsv'
+g2a_for_gene = OUTPUT_DIRECTORY + GENE_NAME + '_G2A.tsv'
+fasta_output_for_hits = OUTPUT_DIRECTORY + '/' + GENE_NAME + '.faa'
 
 
 ######################################################
@@ -99,12 +114,6 @@ else:
 ######################################################
 ######################################################
 
-###########################
-# Concatenate ORFs
-###########################
-# Variable for concatenated ORFs and G2A file. 
-concat_orf_to_use = working_directory + 'all_ORFs_concat.faa'
-g2a_file = working_directory + 'all_ORFs_G2A.tsv'
 def concat_orfs():
     print("Concatenating ORFs and generating G2A file from all assemblies")
     concat_cmd = "cat "
@@ -122,11 +131,6 @@ def concat_orfs():
     os.system(g2a_cmd)
     print("")
 
-
-###########################
-# Search for SCGs in all assemblies
-###########################
-g2a_for_gene = OUTPUT_DIRECTORY + GENE_NAME + '_G2A.tsv'
 def hmm_search(hmm_file_name, hmm_output_file_name):
     hmm_for_search = SCG_HMMS_LOCATION + "/" + hmm_file_name
     hmmer_results_file_name = working_directory + hmm_output_file_name + '_HMM.out'
@@ -135,17 +139,20 @@ def hmm_search(hmm_file_name, hmm_output_file_name):
     print("Searching assemblies using " + hmm_file_name + ": ")
     print(hmm_cmd)
     os.system(hmm_cmd)
-    hmmer_output = SearchIO.read(hmmer_results_file_name, 'hmmer3-tab')
-    for sampleID in hmmer_output:
-        g2b_for_gene_cmd = "awk '$1 == \"" + sampleID.id + "\" { print $0 }' " + g2a_file + " >> " + g2a_for_gene
-        os.system(g2b_for_gene_cmd)
+    print("")
 
+def get_g2a_data_for_hits(hmm_output_file_name)
+    hmmer_results_file_name = working_directory + hmm_output_file_name + '_HMM.out'
+    # Pull out gene to assembly info if there were hits
+    hmmer_results_file_length = subprocess.check_output('wc -l < ' + hmmer_results_file_name, shell=True)
+    if int(hmmer_results_file_length) > 13:
+        print("Pulling to gene-to-assembly info for hits against " + hmm_output_file_name)
+        hmmer_output = SearchIO.read(hmmer_results_file_name, 'hmmer3-tab')
+        for sampleID in hmmer_output:
+            g2b_for_gene_cmd = "awk '$1 == \"" + sampleID.id + "\" { print $0 }' " + g2a_file + " >> " + g2a_for_gene
+            os.system(g2b_for_gene_cmd)
+        print("")
 
-
-###########################
-# Pull out amino acid sequences
-###########################
-fasta_output_for_hits = OUTPUT_DIRECTORY + '/' + GENE_NAME + '.faa'
 
 def extract_aa_seqs():
     print("Extracting AA sequences for " + GENE_NAME)
@@ -154,7 +161,7 @@ def extract_aa_seqs():
         hmmer_results_file_name = working_directory + hmm_name + '_HMM.out'
         hmmer_results_file_length = subprocess.check_output('wc -l < ' + hmmer_results_file_name, shell=True)
         if int(hmmer_results_file_length) > 13:
-            print("   First ")
+            print("   Pulling sequences from " + hmm_name)
             with open(fasta_output_for_hits, 'w') as resultFile:
                 for seq_record in SeqIO.parse(concat_orf_to_use, "fasta"):
                     for sampleID in hmmer_output:
@@ -165,27 +172,19 @@ def extract_aa_seqs():
         sys.exit()
 
 
-###########################
-# Set up HMMs to use
-###########################
-hmm_key = pd.read_csv(SCG_HMMS_KEY, delimiter=",", names=['gene_name', 'hmm_id'])
-hmms_to_use = hmm_key[hmm_key['gene_name'] == GENE_NAME].hmm_id
-
-
-
 
 ######################################################
 ######################################################
 # Run functions
 ######################################################
 ######################################################
-#concat_orfs()
-
-# Search for SCG in all assemblies
+'''
+concat_orfs()
 print("Running HMM-based search for " + GENE_NAME)
 for hmm_file_to_use in hmms_to_use:
     hmm_name = hmm_file_to_use.rsplit(".", 1)[0]
     hmm_search(hmm_file_to_use, hmm_name)
-print("")
+    get_g2a_data_for_hits(hmm_output_file_name)
 
-#extract_aa_seqs()
+'''
+extract_aa_seqs()
