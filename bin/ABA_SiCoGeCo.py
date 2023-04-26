@@ -9,7 +9,7 @@ Benjamin D. Peterson
 ###########################
 import os
 import sys
-import subprocess as sp
+#import subprocess as sp
 import argparse
 import glob
 import pandas as pd
@@ -147,15 +147,15 @@ def get_g2a_data_for_hits(hmm_name_to_use):
     hmmer_results_file_name = working_directory + hmm_name_to_use + '_HMM.out'
     try:
         hmmer_output = SearchIO.read(hmmer_results_file_name, 'hmmer3-tab')
-        print("Pulling to gene-to-assembly info for hits against " + hmm_name_to_use)
+        print("Pulling gene-to-assembly info for hits against " + hmm_name_to_use)
         with open(g2a_for_gene, 'w') as g2a_gene_results_file:
-            for sampleID in hmmer_output:
-                with open(g2a_file, 'r') as g2a_all:
-                    for g2a_line in g2a_all:
-                        g2a_id = g2a_line.split('\t', 1)[0]
-                        if sampleID.id == g2a_id:
-                            g2a_gene_results_file.write(g2a_line)
-                            break
+        for sampleID in hmmer_output:
+            with open(g2a_file, 'r') as g2a_all:
+                for g2a_line in g2a_all:
+                    g2a_id = g2a_line.split('\t', 1)[0]
+                    if g2a_id == sampleID.id:
+                        g2a_gene_results_file.write(g2a_id + '\t' + g2a_line.split('\t', 1)[1].rstrip('\n'))
+                        break
     except ValueError:
         print("No HMM hits against " + hmm_name_to_use + ". Ending the script now.")
         sys.exit()
