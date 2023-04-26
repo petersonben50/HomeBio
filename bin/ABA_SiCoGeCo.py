@@ -12,6 +12,7 @@ import sys
 import argparse
 import glob
 import pandas as pd
+from Bio import SearchIO
 
 
 ######################################################
@@ -59,17 +60,7 @@ OUTPUT_DIRECTORY = inputs.output_directory
 # Flags
 SKIP_NEW_DIRECTORY = inputs.skip_new_directory
 
-"""
-#Testing:
-GENE_NAME = "rpL14"
-SCG_HMMS_LOCATION = "/home/GLBRCORG/bpeterson26/BLiMMP/references/rp16"
-SCG_HMMS_KEY = "/home/GLBRCORG/bpeterson26/BLiMMP/references/scg_key.csv"
-ASSEMBLY_LIST = "/home/GLBRCORG/bpeterson26/BLiMMP/metadata/assembly_list.txt"
-ASSEMBLY_LOCATION = "/home/GLBRCORG/bpeterson26/BLiMMP/dataEdited/assemblies/ORFs"
-METAGENOME_LIST = "/home/GLBRCORG/bpeterson26/BLiMMP/dataEdited/metagenomes/reports/metagenome_list.txt"
-METAGENOME_LOCATION = "/home/GLBRCORG/bpeterson26/BLiMMP/dataEdited/mapping"
-OUTPUT_DIRECTORY = "/home/GLBRCORG/bpeterson26/BLiMMP/dataEdited/scg_abundance"
-"""
+
 
 ###########################
 # Check inputs
@@ -136,13 +127,13 @@ def concat_orfs():
 # Search for SCGs in all assemblies
 ###########################
 g2a_for_gene = OUTPUT_DIRECTORY + GENE_NAME + '_G2A.tsv'
-def hmm_search(hmm_file_name):
+def hmm_search(hmm_file_name, hmm_ouput_file_name):
     hmm_for_search = SCG_HMMS_LOCATION + "/" + hmm_file_name
-    hmmer_results_file_name = working_directory + hmm_file_name + '_HMM.out'
-    hmmer_log_file_name = working_directory + hmm_file_name + '_HMM.txt'
-    hmm_cmd = 'hmmsearch --tblout ' + hmmer_results_file_name + ' --cpu 4 --cut_tc ' + hmm_for_search + " " + concat_orf_to_use + " > " + hmmer_log_file_name 
+    hmmer_results_file_name = working_directory + hmm_name + '_HMM.out'
+    hmmer_log_file_name = working_directory + hmm_ouput_file_name + '_HMM.txt'
+    hmm_cmd = 'hmmsearch --tblout ' + hmmer_results_file_name + ' --cpu 4 --cut_nc ' + hmm_for_search + " " + concat_orf_to_use + " > " + hmmer_log_file_name 
     print(hmm_cmd)
-    os.system(hmm_cmd)
+    #os.system(hmm_cmd)
     print("")
     hmmer_output = SearchIO.read(hmmer_results_file_name, 'hmmer3-tab')
     for sampleID in hmmer_output:
@@ -156,14 +147,17 @@ def hmm_search(hmm_file_name):
 fasta_output_for_hits = OUTPUT_DIRECTORY + '/' + GENE_NAME + '.faa'
 
 def extract_aa_seqs():
-    hmmer_results_file_length = subprocess.check_output('wc -l < ' + hmmer_results_file_name, shell=True)
-    if int(hmmer_results_file_length) > 13:
-        print("Extracting AA sequences for " + GENE_NAME)
-        with open(fasta_output_for_hits, 'w') as resultFile:
-            for seq_record in SeqIO.parse(concat_orf_to_use, "fasta"):
-                for sampleID in hmmer_output:
-                    if sampleID.id == seq_record.id:
-                        resultFile.write('>' + str(sampleID.id) + ' ' + str(sampleID.bitscore) + '\n' + str(seq_record.seq).replace("*","") + '\n')
+    for hmm_file_to_use in hmms_to_use:
+        hmm_name = hmm_file_to_use.rsplit(".", 1)[0]
+        hmmer_results_file_name = working_directory + hmm_name + '_HMM.out'
+        hmmer_results_file_length = subprocess.check_output('wc -l < ' + hmmer_results_file_name, shell=True)
+        if int(hmmer_results_file_length) > 13:
+            print("Extracting AA sequences for " + GENE_NAME)
+            with open(fasta_output_for_hits, 'w') as resultFile:
+                for seq_record in SeqIO.parse(concat_orf_to_use, "fasta"):
+                    for sampleID in hmmer_output:
+                        if sampleID.id == seq_record.id:
+                            resultFile.write('>' + str(sampleID.id) + ' ' + str(sampleID.bitscore) + '\n' + str(seq_record.seq).replace("*","") + '\n')
     else:
         print('No hits for ' + GENE_NAME + '. Ending the script now.')
         sys.exit()
@@ -185,9 +179,9 @@ hmms_to_use = hmm_key[hmm_key['gene_name'] == GENE_NAME].hmm_id
 ######################################################
 #concat_orfs()
 
-# Search for SCGs in all assemblies
+# Search for SCG in all assemblies
 print("Running HMM-based search for " + GENE_NAME)
-for hmm_to_use in hmms_to_use:
-    hmm_search(hmm_to_use)
-
-extract_aa_seqs()
+for hmm_file_to_use in hmms_to_use:
+    hmm_name = hmm_file_to_use.rsplit(".", 1)[0]
+    hmm_search(hmm_file_to_use, hmm_name)
+#extract_aa_seqs()
