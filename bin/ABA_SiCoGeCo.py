@@ -9,6 +9,7 @@ Benjamin D. Peterson
 ###########################
 import os
 import sys
+import subprocess as sp
 import argparse
 import glob
 import pandas as pd
@@ -143,32 +144,32 @@ def hmm_search(hmm_file_name, hmm_name_to_use):
 
 def get_g2a_data_for_hits(hmm_name_to_use):
     hmmer_results_file_name = working_directory + hmm_name_to_use + '_HMM.out'
-    # Pull out gene to assembly info if there were hits
-    hmmer_results_file_length = subprocess.check_output('wc -l < ' + hmmer_results_file_name, shell=True)
-    if int(hmmer_results_file_length) > 13:
-        print("Pulling to gene-to-assembly info for hits against " + hmm_name_to_use)
+    try:
         hmmer_output = SearchIO.read(hmmer_results_file_name, 'hmmer3-tab')
+        print("Pulling to gene-to-assembly info for hits against " + hmm_name_to_use)
         for sampleID in hmmer_output:
             g2b_for_gene_cmd = "awk '$1 == \"" + sampleID.id + "\" { print $0 }' " + g2a_file + " >> " + g2a_for_gene
             os.system(g2b_for_gene_cmd)
-        print("")
-
-def extract_aa_seqs():
-    print("Extracting AA sequences for " + GENE_NAME)
-    for hmm_file_to_use in hmms_to_use:
-        hmm_name = hmm_file_to_use.rsplit(".", 1)[0]
-        hmmer_results_file_name = working_directory + hmm_name + '_HMM.out'
-        hmmer_results_file_length = subprocess.check_output('wc -l < ' + hmmer_results_file_name, shell=True)
-        if int(hmmer_results_file_length) > 13:
-            print("   Pulling sequences from " + hmm_name)
-            with open(fasta_output_for_hits, 'w') as resultFile:
-                for seq_record in SeqIO.parse(concat_orf_to_use, "fasta"):
-                    for sampleID in hmmer_output:
-                        if sampleID.id == seq_record.id:
-                            resultFile.write('>' + str(sampleID.id) + ' ' + str(sampleID.bitscore) + '\n' + str(seq_record.seq).replace("*","") + '\n')
-    else:
-        print('No hits for ' + GENE_NAME + '. Ending the script now.')
+    except ValueError:
+        print("No HMM hits against " + hmm_name_to_use + ". Ending the script now.")
         sys.exit()
+    print("")
+
+def extract_aa_seqs(hmm_name_to_use, output_file_name):
+    hmmer_results_file_name = working_directory + hmm_name_to_use + '_HMM.out'
+    try:
+        print("Extracting amino acid sequences of hits against " + hmm_name_to_use)
+        hmmer_output = SearchIO.read(hmmer_results_file_name, 'hmmer3-tab')
+        with open(output_file_name, 'w') as resultFile:
+            for sampleID in hmmer_output:
+                for seq_record in SeqIO.parse(concat_orf_to_use, "fasta"):
+                    if sampleID.id == seq_record.id:
+                        resultFile.write('>' + str(sampleID.id) + ' ' + str(sampleID.bitscore) + '\n' + str(seq_record.seq).replace("*","") + '\n')
+                        break
+    except ValueError:
+        print("No HMM hits against " + hmm_name_to_use + ". Ending the script now.")
+        sys.exit()
+    print("")
 
 
 
@@ -186,3 +187,4 @@ for hmm_file_to_use in hmms_to_use:
     hmm_name = hmm_file_to_use.rsplit(".", 1)[0]
     #hmm_search(hmm_file_to_use, hmm_name)
     get_g2a_data_for_hits(hmm_name)
+    extract_aa_seqs(hmm_name, fasta_output_for_hits)
