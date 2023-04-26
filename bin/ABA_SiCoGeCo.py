@@ -142,7 +142,7 @@ def hmm_search(hmm_file_name):
     hmmer_log_file_name = working_directory + hmm_file_name + '_HMM.txt'
     hmm_cmd = 'hmmsearch --tblout ' + hmmer_results_file_name + ' --cpu 4 --cut_tc ' + hmm_for_search + " " + concat_orf_to_use + " > " + hmmer_log_file_name 
     print(hmm_cmd)
-    #os.system(hmm_cmd)
+    os.system(hmm_cmd)
     print("")
     hmmer_output = SearchIO.read(hmmer_results_file_name, 'hmmer3-tab')
     for sampleID in hmmer_output:
@@ -168,19 +168,14 @@ def extract_aa_seqs():
         print('No hits for ' + GENE_NAME + '. Ending the script now.')
         sys.exit()
 
-"""
+
 ###########################
 # Set up HMMs to use
 ###########################
 hmm_key = pd.read_csv(SCG_HMMS_KEY, delimiter=",", names=['gene_name', 'hmm_id'])
 hmms_to_use = hmm_key[hmm_key['gene_name'] == GENE_NAME].hmm_id
 
-# Search for SCGs in all assemblies
 
-print("Running HMM-based search for " + GENE_NAME)
-for hmm_to_use in hmms_to_use:
-    hmm_search(hmm_to_use)
-"""
 
 
 ######################################################
@@ -188,4 +183,11 @@ for hmm_to_use in hmms_to_use:
 # Run functions
 ######################################################
 ######################################################
-concat_orfs()
+#concat_orfs()
+
+# Search for SCGs in all assemblies
+print("Running HMM-based search for " + GENE_NAME)
+for hmm_to_use in hmms_to_use:
+    hmm_search(hmm_to_use)
+
+extract_aa_seqs()
