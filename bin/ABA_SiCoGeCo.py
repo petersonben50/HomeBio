@@ -131,28 +131,27 @@ def concat_orfs():
     os.system(g2a_cmd)
     print("")
 
-def hmm_search(hmm_file_name, hmm_output_file_name):
+def hmm_search(hmm_file_name, hmm_name_to_use):
     hmm_for_search = SCG_HMMS_LOCATION + "/" + hmm_file_name
-    hmmer_results_file_name = working_directory + hmm_output_file_name + '_HMM.out'
-    hmmer_log_file_name = working_directory + hmm_output_file_name + '_HMM.txt'
+    hmmer_results_file_name = working_directory + hmm_name_to_use + '_HMM.out'
+    hmmer_log_file_name = working_directory + hmm_name_to_use + '_HMM.txt'
     hmm_cmd = 'hmmsearch --tblout ' + hmmer_results_file_name + ' --cpu 4 --cut_nc ' + hmm_for_search + " " + concat_orf_to_use + " > " + hmmer_log_file_name
     print("Searching assemblies using " + hmm_file_name + ": ")
     print(hmm_cmd)
     os.system(hmm_cmd)
     print("")
 
-def get_g2a_data_for_hits(hmm_output_file_name)
-    hmmer_results_file_name = working_directory + hmm_output_file_name + '_HMM.out'
+def get_g2a_data_for_hits(hmm_name_to_use)
+    hmmer_results_file_name = working_directory + hmm_name_to_use + '_HMM.out'
     # Pull out gene to assembly info if there were hits
     hmmer_results_file_length = subprocess.check_output('wc -l < ' + hmmer_results_file_name, shell=True)
     if int(hmmer_results_file_length) > 13:
-        print("Pulling to gene-to-assembly info for hits against " + hmm_output_file_name)
+        print("Pulling to gene-to-assembly info for hits against " + hmm_name_to_use)
         hmmer_output = SearchIO.read(hmmer_results_file_name, 'hmmer3-tab')
         for sampleID in hmmer_output:
             g2b_for_gene_cmd = "awk '$1 == \"" + sampleID.id + "\" { print $0 }' " + g2a_file + " >> " + g2a_for_gene
             os.system(g2b_for_gene_cmd)
         print("")
-
 
 def extract_aa_seqs():
     print("Extracting AA sequences for " + GENE_NAME)
@@ -180,11 +179,10 @@ def extract_aa_seqs():
 ######################################################
 '''
 concat_orfs()
-print("Running HMM-based search for " + GENE_NAME)
-for hmm_file_to_use in hmms_to_use:
-    hmm_name = hmm_file_to_use.rsplit(".", 1)[0]
-    hmm_search(hmm_file_to_use, hmm_name)
-    get_g2a_data_for_hits(hmm_output_file_name)
+extract_aa_seqs()
 
 '''
-extract_aa_seqs()
+for hmm_file_to_use in hmms_to_use:
+    hmm_name = hmm_file_to_use.rsplit(".", 1)[0]
+    #hmm_search(hmm_file_to_use, hmm_name)
+    get_g2a_data_for_hits(hmm_name)
