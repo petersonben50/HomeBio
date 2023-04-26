@@ -121,7 +121,7 @@ def concat_orfs():
     assemblies = glob.glob(assembly_files)
     for assembly in assemblies:
         if assembly.endswith('.faa'):
-            concat_cmd = concat_cmd + " " + genome
+            concat_cmd = concat_cmd + " " + assembly
     concat_cmd = concat_cmd + " > " + concat_orf_to_use
     print(concat_cmd)
     os.system(concat_cmd)
