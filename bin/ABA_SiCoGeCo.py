@@ -42,6 +42,7 @@ parser.add_argument('--output_directory')
 
 # Flags
 parser.add_argument('--skip_new_directory', action='store_true')
+parser.add_argument('--read_out_aa', action='store_true')
 
 
 ###########################
@@ -61,7 +62,7 @@ OUTPUT_DIRECTORY = inputs.output_directory
 
 # Flags
 SKIP_NEW_DIRECTORY = inputs.skip_new_directory
-
+READ_OUT_AA = inputs.read_out_aa
 
 
 ###########################
@@ -77,7 +78,7 @@ if os.path.isdir(OUTPUT_DIRECTORY) == True:
             if os.path.isdir(working_directory) == False:
                 os.mkdir(working_directory)
         else:
-            print("Hey dummy, " + OUTPUT_DIRECTORY + " is already a directory. Please give me an empty directory")
+            print("Hey dummy, " + output_folder + " is already a directory. Please give me an empty directory")
             sys.exit()
     else:
         print("Making new directory: " + output_folder)
@@ -106,8 +107,8 @@ hmms_to_use = hmm_key[hmm_key['gene_name'] == GENE_NAME].hmm_id
 # Output file names
 concat_orf_to_use = working_directory + 'all_ORFs_concat.faa'
 g2a_file = working_directory + 'all_ORFs_G2A.tsv'
-g2a_for_gene = OUTPUT_DIRECTORY + GENE_NAME + '_G2A.tsv'
-fasta_output_for_hits = OUTPUT_DIRECTORY + '/' + GENE_NAME + '.faa'
+g2a_for_gene = output_folder + GENE_NAME + '_G2A.tsv'
+fasta_output_for_hits = output_folder + '/' + GENE_NAME + '.faa'
 
 
 ######################################################
@@ -186,11 +187,13 @@ def extract_aa_seqs(hmm_name_to_use, output_file_name):
 ######################################################
 '''
 concat_orfs()
-extract_aa_seqs()
-
 '''
 for hmm_file_to_use in hmms_to_use:
     hmm_name = hmm_file_to_use.rsplit(".", 1)[0]
     #hmm_search(hmm_file_to_use, hmm_name)
     get_g2a_data_for_hits(hmm_name)
-    extract_aa_seqs(hmm_name, fasta_output_for_hits)
+    if READ_OUT_AA:
+        print("You requested the amino acid sequences, they will be saved to: ")
+        print(fasta_output_for_hits)
+        print("")
+        extract_aa_seqs(hmm_name, fasta_output_for_hits)
