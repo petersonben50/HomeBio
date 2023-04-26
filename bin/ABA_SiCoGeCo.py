@@ -133,7 +133,7 @@ def concat_orfs():
 ###########################
 # Search for SCGs in all assemblies
 ###########################
-g2a_for_gene = OUTPUT_DIRECTORY + OUTPUT_PREFIX + '_G2A.tsv'
+g2a_for_gene = OUTPUT_DIRECTORY + GENE_NAME + '_G2A.tsv'
 def hmm_search(hmm_file_name):
     hmm_for_search = SCG_HMMS_LOCATION + "/" + hmm_file_name
     hmmer_results_file_name = working_directory + hmm_file_name + '_HMM.out'
@@ -151,12 +151,12 @@ def hmm_search(hmm_file_name):
 ###########################
 # Pull out amino acid sequences
 ###########################
-fasta_output_for_hits = OUTPUT_DIRECTORY + '/' + OUTPUT_PREFIX + '.faa'
+fasta_output_for_hits = OUTPUT_DIRECTORY + '/' + GENE_NAME + '.faa'
 
 def extract_aa_seqs():
     hmmer_results_file_length = subprocess.check_output('wc -l < ' + hmmer_results_file_name, shell=True)
     if int(hmmer_results_file_length) > 13:
-        print("Extracting AA sequences for " + OUTPUT_PREFIX)
+        print("Extracting AA sequences for " + GENE_NAME)
         with open(fasta_output_for_hits, 'w') as resultFile:
             for seq_record in SeqIO.parse(concat_orf_to_use, "fasta"):
                 for sampleID in hmmer_output:
