@@ -141,7 +141,7 @@ def hmm_search(hmm_file_name, hmm_name_to_use):
     os.system(hmm_cmd)
     print("")
 
-def get_g2a_data_for_hits(hmm_name_to_use)
+def get_g2a_data_for_hits(hmm_name_to_use):
     hmmer_results_file_name = working_directory + hmm_name_to_use + '_HMM.out'
     # Pull out gene to assembly info if there were hits
     hmmer_results_file_length = subprocess.check_output('wc -l < ' + hmmer_results_file_name, shell=True)
