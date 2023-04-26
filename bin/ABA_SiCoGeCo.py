@@ -127,18 +127,19 @@ def concat_orfs():
 # Search for SCGs in all assemblies
 ###########################
 g2a_for_gene = OUTPUT_DIRECTORY + GENE_NAME + '_G2A.tsv'
-def hmm_search(hmm_file_name, hmm_ouput_file_name):
+def hmm_search(hmm_file_name, hmm_output_file_name):
     hmm_for_search = SCG_HMMS_LOCATION + "/" + hmm_file_name
-    hmmer_results_file_name = working_directory + hmm_name + '_HMM.out'
-    hmmer_log_file_name = working_directory + hmm_ouput_file_name + '_HMM.txt'
-    hmm_cmd = 'hmmsearch --tblout ' + hmmer_results_file_name + ' --cpu 4 --cut_nc ' + hmm_for_search + " " + concat_orf_to_use + " > " + hmmer_log_file_name 
+    hmmer_results_file_name = working_directory + hmm_output_file_name + '_HMM.out'
+    hmmer_log_file_name = working_directory + hmm_output_file_name + '_HMM.txt'
+    hmm_cmd = 'hmmsearch --tblout ' + hmmer_results_file_name + ' --cpu 4 --cut_nc ' + hmm_for_search + " " + concat_orf_to_use + " > " + hmmer_log_file_name
+    print("Searching assemblies using " + hmm_file_name + ": ")
     print(hmm_cmd)
-    #os.system(hmm_cmd)
-    print("")
+    os.system(hmm_cmd)
     hmmer_output = SearchIO.read(hmmer_results_file_name, 'hmmer3-tab')
     for sampleID in hmmer_output:
         g2b_for_gene_cmd = "awk '$1 == \"" + sampleID.id + "\" { print $0 }' " + g2a_file + " >> " + g2a_for_gene
         os.system(g2b_for_gene_cmd)
+
 
 
 ###########################
@@ -147,12 +148,13 @@ def hmm_search(hmm_file_name, hmm_ouput_file_name):
 fasta_output_for_hits = OUTPUT_DIRECTORY + '/' + GENE_NAME + '.faa'
 
 def extract_aa_seqs():
+    print("Extracting AA sequences for " + GENE_NAME)
     for hmm_file_to_use in hmms_to_use:
         hmm_name = hmm_file_to_use.rsplit(".", 1)[0]
         hmmer_results_file_name = working_directory + hmm_name + '_HMM.out'
         hmmer_results_file_length = subprocess.check_output('wc -l < ' + hmmer_results_file_name, shell=True)
         if int(hmmer_results_file_length) > 13:
-            print("Extracting AA sequences for " + GENE_NAME)
+            print("   First ")
             with open(fasta_output_for_hits, 'w') as resultFile:
                 for seq_record in SeqIO.parse(concat_orf_to_use, "fasta"):
                     for sampleID in hmmer_output:
@@ -184,4 +186,6 @@ print("Running HMM-based search for " + GENE_NAME)
 for hmm_file_to_use in hmms_to_use:
     hmm_name = hmm_file_to_use.rsplit(".", 1)[0]
     hmm_search(hmm_file_to_use, hmm_name)
+print("")
+
 #extract_aa_seqs()
