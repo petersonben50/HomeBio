@@ -106,7 +106,22 @@ hmms_to_use = hmm_key[hmm_key['gene_name'] == GENE_NAME].hmm_id
 concat_orf_to_use = working_directory + 'all_ORFs_concat.faa'
 g2a_file = working_directory + 'all_ORFs_G2A.tsv'
 g2a_for_gene = output_folder + GENE_NAME + '_G2A.tsv'
+
 fasta_output_for_hits = output_folder + '/' + GENE_NAME + '.faa'
+
+derep_fasta = working_directory + GENE_NAME + '_derep.faa'
+clustering_info_output = output_folder + GENE_NAME + '_cluster_data.tsv'
+clustering_info_output_log = working_directory + GENE_NAME + '_cluster_data_log.txt'
+
+###########################
+# Look for existing output files
+###########################
+def check_output_files():
+    if os.path.isfile(fasta_output_for_hits):
+        print("Output fasta file already exists. Since we'll be amending it, we")
+        print("don't want anything already in there. Delete the file and re-run")
+        sys.exit()
+
 
 
 ######################################################
@@ -165,7 +180,7 @@ def extract_aa_seqs(hmm_name_to_use, output_file_name):
     try:
         print("Extracting amino acid sequences of hits against " + hmm_name_to_use)
         hmmer_output = SearchIO.read(hmmer_results_file_name, 'hmmer3-tab')
-        with open(output_file_name, 'w') as resultFile:
+        with open(output_file_name, 'a') as resultFile:
             for sampleID in hmmer_output:
                 for seq_record in SeqIO.parse(concat_orf_to_use, "fasta"):
                     if sampleID.id == seq_record.id:
@@ -176,7 +191,10 @@ def extract_aa_seqs(hmm_name_to_use, output_file_name):
         sys.exit()
     print("")
 
-
+"""
+def cluster_aa_seqs(fasta_of_hits):
+    fasta_output_for_hits
+"""
 
 ######################################################
 ######################################################
@@ -184,6 +202,7 @@ def extract_aa_seqs(hmm_name_to_use, output_file_name):
 ######################################################
 ######################################################
 '''
+check_output_files()
 concat_orfs()
 '''
 for hmm_file_to_use in hmms_to_use:
