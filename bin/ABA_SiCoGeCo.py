@@ -42,7 +42,6 @@ parser.add_argument('--output_directory')
 
 # Flags
 parser.add_argument('--skip_new_directory', action='store_true')
-parser.add_argument('--read_out_aa', action='store_true')
 
 
 ###########################
@@ -62,7 +61,6 @@ OUTPUT_DIRECTORY = inputs.output_directory
 
 # Flags
 SKIP_NEW_DIRECTORY = inputs.skip_new_directory
-READ_OUT_AA = inputs.read_out_aa
 
 
 ###########################
@@ -191,9 +189,5 @@ concat_orfs()
 for hmm_file_to_use in hmms_to_use:
     hmm_name = hmm_file_to_use.rsplit(".", 1)[0]
     #hmm_search(hmm_file_to_use, hmm_name)
-    get_g2a_data_for_hits(hmm_name)
-    if READ_OUT_AA:
-        print("You requested the amino acid sequences, they will be saved to: ")
-        print(fasta_output_for_hits)
-        print("")
-        extract_aa_seqs(hmm_name, fasta_output_for_hits)
+    #get_g2a_data_for_hits(hmm_name)
+    extract_aa_seqs(hmm_name, fasta_output_for_hits)
