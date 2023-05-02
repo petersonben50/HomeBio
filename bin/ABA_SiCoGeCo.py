@@ -9,7 +9,7 @@ Benjamin D. Peterson
 ###########################
 import os
 import sys
-#import subprocess as sp
+import subprocess as sp
 import argparse
 import glob
 import pandas as pd
@@ -110,8 +110,10 @@ g2a_for_gene = output_folder + GENE_NAME + '_G2A.tsv'
 fasta_output_for_hits = output_folder + '/' + GENE_NAME + '.faa'
 
 derep_fasta = working_directory + GENE_NAME + '_derep.faa'
+derep_fasta_cluster = derep_fasta + ".clstr"
+derep_log = working_directory + GENE_NAME + '_cluster_data_log.txt'
 clustering_info_output = output_folder + GENE_NAME + '_cluster_data.tsv'
-clustering_info_output_log = working_directory + GENE_NAME + '_cluster_data_log.txt'
+
 
 ###########################
 # Look for existing output files
@@ -168,8 +170,25 @@ def get_g2a_data_for_hits(hmm_name_to_use):
                     for g2a_line in g2a_all:
                         g2a_id = g2a_line.split('\t', 1)[0]
                         if g2a_id == sampleID.id:
-                            g2a_gene_results_file.write(g2a_id + '\t' + g2a_line.split('\t', 1)[1].rstrip('\n'))
+                            g2a_gene_results_file.write(g2a_id + '\t' + g2a_line.split('\t', 1)[1].rstrip('\n') + '\n')
                             break
+    except ValueError:
+        print("No HMM hits against " + hmm_name_to_use + ". Ending the script now.")
+        sys.exit()
+    print("")
+
+def extract_na_seqs(hmm_name_to_use, output_file_name):
+    g2a_for_gene_df = pd.read_csv(g2a_for_gene)
+    hmmer_results_file_name = working_directory + hmm_name_to_use + '_HMM.out'
+    try:
+        print("Extracting amino acid sequences of hits against " + hmm_name_to_use)
+        hmmer_output = SearchIO.read(hmmer_results_file_name, 'hmmer3-tab')
+        with open(output_file_name, 'a') as resultFile:
+            for sampleID in hmmer_output:
+                for seq_record in SeqIO.parse(concat_orf_to_use, "fasta"):
+                    if sampleID.id == seq_record.id:
+                        resultFile.write('>' + str(sampleID.id) + ' ' + str(sampleID.bitscore) + '\n' + str(seq_record.seq).replace("*","") + '\n')
+                        break
     except ValueError:
         print("No HMM hits against " + hmm_name_to_use + ". Ending the script now.")
         sys.exit()
@@ -191,10 +210,14 @@ def extract_aa_seqs(hmm_name_to_use, output_file_name):
         sys.exit()
     print("")
 
-"""
-def cluster_aa_seqs(fasta_of_hits):
-    fasta_output_for_hits
-"""
+def cluster_aa_seqs(fasta_of_hits, derep_fasta_output):
+    cdhit_cmd = sp.run(
+        ["cd-hit", "-g", "1", "-i", fasta_of_hits, "-o", derep_fasta_output, "-c", "0.8", "-n", "5", "-d", "0"],
+        check=True
+    )
+    sp.run(
+        ["clstr2txt.pl", derep_fasta, ".clstr", ">", clustering_info_output]
+    )
 
 ######################################################
 ######################################################
@@ -208,5 +231,6 @@ concat_orfs()
 for hmm_file_to_use in hmms_to_use:
     hmm_name = hmm_file_to_use.rsplit(".", 1)[0]
     #hmm_search(hmm_file_to_use, hmm_name)
-    #get_g2a_data_for_hits(hmm_name)
-    extract_aa_seqs(hmm_name, fasta_output_for_hits)
+    get_g2a_data_for_hits(hmm_name)
+    #extract_aa_seqs(hmm_name, fasta_output_for_hits)
+    #cluster_aa_seqs(fasta_output_for_hits, derep_fasta)
