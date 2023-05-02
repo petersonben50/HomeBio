@@ -36,12 +36,13 @@ parser.add_argument('--scg_hmms_location')
 parser.add_argument('--scg_hmms_key')
 parser.add_argument('--assembly_list')
 parser.add_argument('--assembly_location')
-parser.add_argument('--metagenome_list')
-parser.add_argument('--metagenome_location')
+parser.add_argument('--metagenome_list', default='Do_not_run')
+parser.add_argument('--metagenomes_location', default='Do_not_run')
 parser.add_argument('--output_directory')
 
 # Flags
 parser.add_argument('--skip_new_directory', action='store_true')
+parser.add_argument('--use_na', action='store_true')
 
 
 ###########################
@@ -61,7 +62,12 @@ OUTPUT_DIRECTORY = inputs.output_directory
 
 # Flags
 SKIP_NEW_DIRECTORY = inputs.skip_new_directory
+USE_NA = inputs.use_na
 
+"""
+ASSEMBLY_LOCATION = "/home/GLBRCORG/bpeterson26/BLiMMP/dataEdited/assemblies/ORFs"
+SCG_HMMS_KEY = "/home/GLBRCORG/bpeterson26/BLiMMP/code/HomeBio/reference_data/HMMs/rp16_key.csv"
+"""
 
 ###########################
 # Check inputs
@@ -107,9 +113,15 @@ concat_orf_to_use = working_directory + 'all_ORFs_concat.faa'
 g2a_file = working_directory + 'all_ORFs_G2A.tsv'
 g2a_for_gene = output_folder + GENE_NAME + '_G2A.tsv'
 
-fasta_output_for_hits = output_folder + '/' + GENE_NAME + '.faa'
+if USE_NA:
+    seq_extension = '.fna'
+else:
+    seq_extension = '.faa'
 
-derep_fasta = working_directory + GENE_NAME + '_derep.faa'
+fasta_output_for_hits = output_folder + '/' + GENE_NAME + seq_extension
+derep_fasta = working_directory + GENE_NAME + '_derep' + seq_extension
+
+
 derep_fasta_cluster = derep_fasta + ".clstr"
 derep_log = working_directory + GENE_NAME + '_cluster_data_log.txt'
 clustering_info_output = output_folder + GENE_NAME + '_cluster_data.tsv'
@@ -164,7 +176,7 @@ def get_g2a_data_for_hits(hmm_name_to_use):
     try:
         hmmer_output = SearchIO.read(hmmer_results_file_name, 'hmmer3-tab')
         print("Pulling gene-to-assembly info for hits against " + hmm_name_to_use)
-        with open(g2a_for_gene, 'w') as g2a_gene_results_file:
+        with open(g2a_for_gene, 'a') as g2a_gene_results_file:
             for sampleID in hmmer_output:
                 with open(g2a_file, 'r') as g2a_all:
                     for g2a_line in g2a_all:
@@ -177,40 +189,26 @@ def get_g2a_data_for_hits(hmm_name_to_use):
         sys.exit()
     print("")
 
-def extract_na_seqs(hmm_name_to_use, output_file_name):
-    g2a_for_gene_df = pd.read_csv(g2a_for_gene)
-    hmmer_results_file_name = working_directory + hmm_name_to_use + '_HMM.out'
-    try:
-        print("Extracting amino acid sequences of hits against " + hmm_name_to_use)
-        hmmer_output = SearchIO.read(hmmer_results_file_name, 'hmmer3-tab')
-        with open(output_file_name, 'a') as resultFile:
-            for sampleID in hmmer_output:
-                for seq_record in SeqIO.parse(concat_orf_to_use, "fasta"):
-                    if sampleID.id == seq_record.id:
-                        resultFile.write('>' + str(sampleID.id) + ' ' + str(sampleID.bitscore) + '\n' + str(seq_record.seq).replace("*","") + '\n')
-                        break
-    except ValueError:
-        print("No HMM hits against " + hmm_name_to_use + ". Ending the script now.")
-        sys.exit()
+def extract_seqs(output_file_name):
+    g2a_for_gene_df = pd.read_csv(g2a_for_gene, delimiter="\t", names=['gene', 'assembly'])
+    if os.path.getsize(g2a_for_gene) == 0:
+        print('Gene-to-assembly file is empty.')
+    else:
+        assemblies_to_use = g2a_for_gene_df['assembly'].unique()
+        i = 0
+        with open(output_file_name, 'w') as resultFile:
+            for assemblyID in assemblies_to_use:
+                print("Pulling out seqs from " + assemblyID)
+                g2a_for_gene_df_assembly = g2a_for_gene_df[g2a_for_gene_df['assembly']==assemblyID].gene.unique()
+                seq_file = ASSEMBLY_LOCATION + "/" + assemblyID + seq_extension
+                for seq_record in SeqIO.parse(seq_file, "fasta"):
+                    if seq_record.id in g2a_for_gene_df_assembly:
+                        i = i + 1
+                        print("Sequence number: " + str(i))
+                        resultFile.write('>' + str(seq_record.id) + '\n' + str(seq_record.seq).replace("*","") + '\n')
     print("")
 
-def extract_aa_seqs(hmm_name_to_use, output_file_name):
-    hmmer_results_file_name = working_directory + hmm_name_to_use + '_HMM.out'
-    try:
-        print("Extracting amino acid sequences of hits against " + hmm_name_to_use)
-        hmmer_output = SearchIO.read(hmmer_results_file_name, 'hmmer3-tab')
-        with open(output_file_name, 'a') as resultFile:
-            for sampleID in hmmer_output:
-                for seq_record in SeqIO.parse(concat_orf_to_use, "fasta"):
-                    if sampleID.id == seq_record.id:
-                        resultFile.write('>' + str(sampleID.id) + ' ' + str(sampleID.bitscore) + '\n' + str(seq_record.seq).replace("*","") + '\n')
-                        break
-    except ValueError:
-        print("No HMM hits against " + hmm_name_to_use + ". Ending the script now.")
-        sys.exit()
-    print("")
-
-def cluster_aa_seqs(fasta_of_hits, derep_fasta_output):
+def cluster_seqs(fasta_of_hits, derep_fasta_output):
     cdhit_cmd = sp.run(
         ["cd-hit", "-g", "1", "-i", fasta_of_hits, "-o", derep_fasta_output, "-c", "0.8", "-n", "5", "-d", "0"],
         check=True
@@ -224,13 +222,12 @@ def cluster_aa_seqs(fasta_of_hits, derep_fasta_output):
 # Run functions
 ######################################################
 ######################################################
-'''
+
 check_output_files()
 concat_orfs()
-'''
 for hmm_file_to_use in hmms_to_use:
     hmm_name = hmm_file_to_use.rsplit(".", 1)[0]
-    #hmm_search(hmm_file_to_use, hmm_name)
+    hmm_search(hmm_file_to_use, hmm_name)
     get_g2a_data_for_hits(hmm_name)
-    #extract_aa_seqs(hmm_name, fasta_output_for_hits)
-    #cluster_aa_seqs(fasta_output_for_hits, derep_fasta)
+extract_seqs(fasta_output_for_hits)
+cluster_seqs(fasta_output_for_hits, derep_fasta)
