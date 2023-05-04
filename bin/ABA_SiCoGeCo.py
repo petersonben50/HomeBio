@@ -17,6 +17,7 @@ import pandas as pd
 from Bio import SearchIO
 from Bio import SeqIO
 from multiprocessing import Pool
+import pyhmmer
 
 ######################################################
 ######################################################
@@ -35,10 +36,10 @@ parser = argparse.ArgumentParser()
 parser.add_argument('--gene_name')
 parser.add_argument('--scg_hmms_location')
 parser.add_argument('--scg_hmms_key')
-parser.add_argument('--assembly_list')
+parser.add_argument('--assembly_list', default='run_em_all')
 parser.add_argument('--assembly_location')
-parser.add_argument('--metagenome_list', default='Do_not_run')
-parser.add_argument('--mapping_location', default='Do_not_run')
+parser.add_argument('--metagenome_list')
+parser.add_argument('--mapping_location')
 parser.add_argument('--output_directory')
 
 # Flags
@@ -68,11 +69,14 @@ USE_NA = inputs.use_na
 NUMBER_THREADS = int(inputs.number_threads)
 
 """
+OUTPUT_DIRECTORY = "/home/GLBRCORG/bpeterson26/BLiMMP/dataEdited/scg_coverage"
 ASSEMBLY_LOCATION = "/home/GLBRCORG/bpeterson26/BLiMMP/dataEdited/assemblies/ORFs"
 SCG_HMMS_KEY = "/home/GLBRCORG/bpeterson26/BLiMMP/code/HomeBio/reference_data/HMMs/rp16_key.csv"
 METAGENOME_LIST = "/home/GLBRCORG/bpeterson26/BLiMMP/dataEdited/metagenomes/reports/metagenome_list.txt"
-MAPPING_LOCATION = /home/GLBRCORG/bpeterson26/BLiMMP/dataEdited/mapping
-
+MAPPING_LOCATION = "/home/GLBRCORG/bpeterson26/BLiMMP/dataEdited/mapping"
+SCG_HMMS_LOCATION = "/home/GLBRCORG/bpeterson26/BLiMMP/code/HomeBio/reference_data/HMMs/hmm_folder"
+NUMBER_THREADS = 8
+ASSEMBLY_LIST = 'run_em_all'
 """
 
 ###########################
@@ -114,16 +118,30 @@ print("")
 hmm_key = pd.read_csv(SCG_HMMS_KEY, delimiter=",", names=['gene_name', 'hmm_id'])
 hmms_to_use = hmm_key[hmm_key['gene_name'] == GENE_NAME].hmm_id
 
-# Output file names
-concat_orf_to_use = working_directory + 'all_ORFs_concat.faa'
-g2a_file = working_directory + 'all_ORFs_G2A.tsv'
-g2a_for_gene = output_folder + GENE_NAME + '_G2A.tsv'
+# Assemblies to use
+if ASSEMBLY_LIST == 'run_em_all':
+    print("No assembly list provided. Identifying assembly ORFs in " + ASSEMBLY_LOCATION)
+    assembly_names = [i.rsplit('.', 1)[0].rsplit('/', 1)[1] for i in glob.glob(ASSEMBLY_LOCATION + "/*.faa")]
+    if len(assembly_names) == 0:
+        print("No ORF files ending in .faa found at " + ASSEMBLY_LOCATION)
+        sys.exit()
+else:
+    print("I haven't written the function to read in a list of assembly names yet.")
+    print("Should be easy enough for you to do, future Ben.")
+    sys.exit()
 
 if USE_NA:
     seq_extension = '.fna'
 else:
     seq_extension = '.faa'
 
+# Output file names
+#concat_orf_to_use = working_directory + 'all_ORFs_concat.faa'
+#g2a_file = working_directory + 'all_ORFs_G2A.tsv'
+g2a_for_gene = output_folder + GENE_NAME + '_G2A.tsv'
+
+
+# Output sequence files
 fasta_output_for_hits = output_folder + '/' + GENE_NAME + seq_extension
 derep_fasta = working_directory + GENE_NAME + '_derep' + seq_extension
 
@@ -146,62 +164,33 @@ def check_output_files():
         print("don't want anything already in there. Delete the file and re-run")
         sys.exit()
 
-def concat_orfs():
-    print("Concatenating ORFs and generating G2A file from all assemblies")
-    concat_cmd = "cat "
-    assembly_files = ASSEMBLY_LOCATION + "/**"
-    assemblies = glob.glob(assembly_files)
-    for assembly in assemblies:
-        if assembly.endswith('.faa'):
-            concat_cmd = concat_cmd + " " + assembly
-    concat_cmd = concat_cmd + " > " + concat_orf_to_use
-    print(concat_cmd)
-    os.system(concat_cmd)
-    g2a_cmd = "FM_fa_to_E2L.sh -e faa -i " + ASSEMBLY_LOCATION + " > " + g2a_file
-    print(g2a_cmd)
-    os.system(g2a_cmd)
-    print("")
+def hmm_search_assembly_for_hmms(assembly_of_interest):
+    print("Searching in " + assembly_of_interest)
+    hits_df = pd.DataFrame(columns=['geneID', 'assemblyID'])
+    for hmm_file_of_interest in hmms_to_use:
+        assembly_file_path = ASSEMBLY_LOCATION + "/" + assembly_of_interest + '.faa'
+        hmm_file_path = SCG_HMMS_LOCATION + "/" + hmm_file_of_interest
+        with pyhmmer.plan7.HMMFile(hmm_file_path) as hmm_file:
+            hmm = hmm_file.read()
+            with pyhmmer.easel.SequenceFile(assembly_file_path, digital=True) as seq_file:
+                sequences = seq_file.read_block()
+                results = dict()
+                for hits in pyhmmer.hmmsearch(hmm, sequences, bit_cutoffs="noise"):
+                    cog = hits.query_name.decode()
+                    for hit in hits:
+                        if hit.included:
+                            results[hit.name.decode()] = assembly_of_interest
+        hits_df = pd.concat([hits_df, pd.DataFrame(results.items(), columns=['geneID', 'assemblyID'])], ignore_index = True)
+    return hits_df
 
-def hmm_search(hmm_file_name, hmm_name_to_use):
-    print("Searching assemblies using " + hmm_file_name + ": ")
-    hmm_for_search = SCG_HMMS_LOCATION + "/" + hmm_file_name
-    hmmer_results_file_name = working_directory + hmm_name_to_use + '_HMM.out'
-    hmmer_log_file_name = working_directory + hmm_name_to_use + '_HMM.txt'
-    hmm_cmd = 'hmmsearch --tblout ' + hmmer_results_file_name + ' --cpu 4 --cut_nc ' + hmm_for_search + " " + concat_orf_to_use + " > " + hmmer_log_file_name
-    print(hmm_cmd)
-    os.system(hmm_cmd)
-    print("")
-
-def pull_out_g2a_entries_for_hits(geneID_of_interest):
-    print("Searching for " + geneID_of_interest)
-    with open(g2a_file, 'r') as g2a_all:
-        g2a_data = dict()
-        for g2a_line in g2a_all:
-            g2a_id = g2a_line.split('\t', 1)[0]
-            if g2a_id == geneID_of_interest:
-                assemblyID_of_interest = g2a_line.split('\t', 1)[1].split('\n', 1)[0]
-                g2a_data[geneID_of_interest] = assemblyID_of_interest
-                g2a_data_df = pd.DataFrame(g2a_data.items(), columns=['geneID', 'assemblyID'])
-                return g2a_data_df
-
-def get_g2a_data_for_hits(hmm_files_list):
-    g2a_results_list = list()
-    for hmm_file_to_use in hmm_files_list:
-        hmm_name_to_use = hmm_file_to_use.rsplit(".", 1)[0]
-        hmmer_results_file_name = working_directory + hmm_name_to_use + '_HMM.out'
-        try:
-            hmmer_output = SearchIO.read(hmmer_results_file_name, 'hmmer3-tab')
-            gene_names = [hmmer_output_entry.id for hmmer_output_entry in hmmer_output]
-        except ValueError:
-            print("No HMM hits against " + hmm_name_to_use + ". Ending the script now.")
-            sys.exit()
-    if len(gene_names) > 0:
-        with Pool(NUMBER_THREADS) as pool:
-            for result in pool.map(pull_out_g2a_entries_for_hits, gene_names):
-                g2a_results_list.append(result)
-        g2a_results = pd.concat(g2a_results_list, ignore_index = True)
-        g2a_results.to_csv(g2a_for_gene, sep = '\t', index = False, header = False)
-
+def search_all_assemblies(assembly_names_to_use):
+    hmm_results_list = list()
+    with Pool(NUMBER_THREADS) as pool:
+        for result in pool.map(hmm_search_assembly_for_hmms, assembly_names_to_use):
+            hmm_results_list.append(result)
+    hmm_results_df = pd.concat(hmm_results_list, ignore_index = True)
+    hmm_results_df.to_csv(g2a_for_gene, sep = '\t', index = False, header = False)
+    return hmm_results_list
 
 def extract_seqs(output_file_name):
     g2a_for_gene_df = pd.read_csv(g2a_for_gene, delimiter="\t", names=['gene', 'assembly'])
@@ -271,11 +260,7 @@ def get_coverage_info(g2a_file_to_use):
 
 def main():
     check_output_files()
-    concat_orfs()
-    for hmm_file_to_use in hmms_to_use:
-        hmm_name = hmm_file_to_use.rsplit(".", 1)[0]
-        hmm_search(hmm_file_to_use, hmm_name)
-    get_g2a_data_for_hits(hmms_to_use)
+    search_all_assemblies(assembly_names)
     extract_seqs(fasta_output_for_hits)    
     cluster_seqs(fasta_output_for_hits, derep_fasta)
     get_coverage_info(g2a_for_gene)
