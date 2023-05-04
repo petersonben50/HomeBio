@@ -145,11 +145,12 @@ g2a_for_gene = output_folder + GENE_NAME + '_G2A.tsv'
 
 # Output sequence files
 fasta_output_for_hits = output_folder + '/' + GENE_NAME + seq_extension
-derep_fasta = working_directory + GENE_NAME + '_derep' + seq_extension
 
+# Derep files
+derep_fasta = working_directory + GENE_NAME + '_derep' + seq_extension
 derep_fasta_cluster = derep_fasta + ".clstr"
 derep_log = working_directory + GENE_NAME + '_cluster_data_log.txt'
-clustering_info_output = output_folder + GENE_NAME + '_cluster_data.tsv'
+clustering_info = output_folder + GENE_NAME + '_cluster_data.tsv'
 
 coverage_output = output_folder + GENE_NAME + '_coverage.tsv'
 
@@ -212,13 +213,22 @@ def extract_seqs(output_file_name):
                         resultFile.write('>' + str(seq_record.id) + '\n' + str(seq_record.seq).replace("*","") + '\n')
     print("")
 
-def cluster_seqs(fasta_of_hits, derep_fasta_output):
+def cluster_seqs(fasta_of_hits, derep_fasta_output, clustering_info_output):
     cdhit_cmd = sp.run(
         ["cd-hit", "-g", "1", "-i", fasta_of_hits, "-o", derep_fasta_output, "-c", "0.8", "-n", "5", "-d", "0"],
         check=True
-    )
+        )
+    cdhit_clean_cmd = sp.run(
+        ["clstr2txt.pl", derep_fasta_output],
+        text=True,
+        capture_output=True,
+        )
+    cdhit_output = pd.read_csv(io.StringIO(cdhit_clean_cmd.stdout), delimiter = '\t')
+    cdhit_output.to_csv(clustering_info_output, sep = '\t', index = False)
+
 
 def coverage_calcs(geneID_to_use,assemblyID_to_use):
+    print("Pulling out gene coverage for " + geneID_to_use)
     scaffold_of_interest = geneID_to_use.rsplit("_", 1)[0]
     with open(METAGENOME_LIST, 'r') as mg_list:
         scaffold_abund = dict()
@@ -263,7 +273,7 @@ def main():
     check_output_files()
     search_all_assemblies(assembly_names)
     extract_seqs(fasta_output_for_hits)    
-    cluster_seqs(fasta_output_for_hits, derep_fasta)
+    cluster_seqs(fasta_output_for_hits, derep_fasta, clustering_info)
     get_coverage_info(g2a_for_gene)
 
 if __name__ == '__main__':
