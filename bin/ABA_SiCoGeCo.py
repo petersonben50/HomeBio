@@ -46,6 +46,7 @@ parser.add_argument('--output_directory')
 parser.add_argument('--skip_new_directory', action='store_true')
 parser.add_argument('--use_na', action='store_true')
 parser.add_argument('--number_threads', default='4')
+parser.add_argument('--length_to_trim', default='150')
 
 
 ###########################
@@ -67,6 +68,7 @@ OUTPUT_DIRECTORY = inputs.output_directory
 SKIP_NEW_DIRECTORY = inputs.skip_new_directory
 USE_NA = inputs.use_na
 NUMBER_THREADS = int(inputs.number_threads)
+LENGTH_TO_TRIM = int(inputs.length_to_trim)
 
 """
 OUTPUT_DIRECTORY = "/home/GLBRCORG/bpeterson26/BLiMMP/dataEdited/scg_coverage"
@@ -190,7 +192,6 @@ def search_all_assemblies(assembly_names_to_use):
             hmm_results_list.append(result)
     hmm_results_df = pd.concat(hmm_results_list, ignore_index = True)
     hmm_results_df.to_csv(g2a_for_gene, sep = '\t', index = False, header = False)
-    return hmm_results_list
 
 def extract_seqs(output_file_name):
     g2a_for_gene_df = pd.read_csv(g2a_for_gene, delimiter="\t", names=['gene', 'assembly'])
@@ -233,7 +234,7 @@ def coverage_calcs(geneID_to_use,assemblyID_to_use):
                 output, error = sam_cmd.communicate()
                 raw_data = pd.read_csv(io.StringIO(output.decode('utf-8')), delimiter = '\t', header = None, names=['contigID', 'residue', 'coverage'])
                 length_of_contig = raw_data['residue'].max()
-                raw_data_trimmed = raw_data[raw_data['residue'].between(length_to_trim, (length_of_contig-length_to_trim)) ]
+                raw_data_trimmed = raw_data[raw_data['residue'].between(LENGTH_TO_TRIM, (length_of_contig-LENGTH_TO_TRIM)) ]
                 mg_cov_data = raw_data_trimmed.coverage.mean()
                 scaffold_abund[metagenomeID] = mg_cov_data
         abundance_df = pd.DataFrame(scaffold_abund.items(), columns=['metagenomeID', 'coverage'])
