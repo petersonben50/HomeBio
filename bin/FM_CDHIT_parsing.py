@@ -17,10 +17,10 @@ import sys
 # Parse commands
 ###########################
 parser = argparse.ArgumentParser()
-
 parser.add_argument('--clstr_in')
 parser.add_argument('--clstr_out')
 
+inputs = parser.parse_args()
 CLSTR_IN = inputs.clstr_in
 CLSTR_OUT = inputs.clstr_out
 
