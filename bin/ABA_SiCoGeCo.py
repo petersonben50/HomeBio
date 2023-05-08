@@ -64,7 +64,7 @@ ASSEMBLY_LOCATION = inputs.assembly_location
 METAGENOME_LIST = inputs.metagenome_list
 MAPPING_LOCATION = inputs.mapping_location
 OUTPUT_DIRECTORY = inputs.output_directory
-HOMEBIO_LOCATION = inputs.homebio_location + "/bin/"
+HOMEBIO_LOCATION = inputs.homebio_location
 
 # Flags
 SKIP_NEW_DIRECTORY = inputs.skip_new_directory
@@ -120,6 +120,8 @@ print("")
 ###########################
 # Set up internal variables
 ###########################
+HOMEBIO_LOCATION = HOMEBIO_LOCATION + "/bin/"
+
 # HMMs to use
 hmm_key = pd.read_csv(SCG_HMMS_KEY, delimiter=",", names=['gene_name', 'hmm_id'])
 hmms_to_use = hmm_key[hmm_key['gene_name'] == GENE_NAME].hmm_id
