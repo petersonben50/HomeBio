@@ -41,6 +41,7 @@ parser.add_argument('--assembly_location')
 parser.add_argument('--metagenome_list')
 parser.add_argument('--mapping_location')
 parser.add_argument('--output_directory')
+parser.add_argument('--homebio_location')
 
 # Flags
 parser.add_argument('--skip_new_directory', action='store_true')
@@ -63,6 +64,7 @@ ASSEMBLY_LOCATION = inputs.assembly_location
 METAGENOME_LIST = inputs.metagenome_list
 MAPPING_LOCATION = inputs.mapping_location
 OUTPUT_DIRECTORY = inputs.output_directory
+HOMEBIO_LOCATION = inputs.homebio_location + "/bin/"
 
 # Flags
 SKIP_NEW_DIRECTORY = inputs.skip_new_directory
@@ -71,12 +73,14 @@ NUMBER_THREADS = int(inputs.number_threads)
 LENGTH_TO_TRIM = int(inputs.length_to_trim)
 
 """
+GENE_NAME = 'rpL16'
 OUTPUT_DIRECTORY = "/home/GLBRCORG/bpeterson26/BLiMMP/dataEdited/scg_coverage"
 ASSEMBLY_LOCATION = "/home/GLBRCORG/bpeterson26/BLiMMP/dataEdited/assemblies/ORFs"
 SCG_HMMS_KEY = "/home/GLBRCORG/bpeterson26/BLiMMP/code/HomeBio/reference_data/HMMs/rp16_key.csv"
 METAGENOME_LIST = "/home/GLBRCORG/bpeterson26/BLiMMP/dataEdited/metagenomes/reports/metagenome_list.txt"
 MAPPING_LOCATION = "/home/GLBRCORG/bpeterson26/BLiMMP/dataEdited/mapping"
 SCG_HMMS_LOCATION = "/home/GLBRCORG/bpeterson26/BLiMMP/code/HomeBio/reference_data/HMMs/hmm_folder"
+HOMEBIO_LOCATION = "/home/GLBRCORG/bpeterson26/BLiMMP/code/HomeBio/bin/"
 NUMBER_THREADS = 8
 ASSEMBLY_LIST = 'run_em_all'
 """
@@ -219,13 +223,9 @@ def cluster_seqs(fasta_of_hits, derep_fasta_output, clustering_info_output):
         check=True
         )
     cdhit_clean_cmd = sp.run(
-        ["clstr2txt.pl", derep_fasta_output],
-        text=True,
-        capture_output=True,
+        ["python", HOMEBIO_LOCATION + "FM_CDHIT_parsing.py", '--clstr_in', derep_fasta_output + ".clstr",'--clstr_out', clustering_info_output],
+        check=True
         )
-    cdhit_output = pd.read_csv(io.StringIO(cdhit_clean_cmd.stdout), delimiter = '\t')
-    cdhit_output.to_csv(clustering_info_output, sep = '\t', index = False)
-
 
 def coverage_calcs(geneID_to_use,assemblyID_to_use):
     print("Pulling out gene coverage for " + geneID_to_use)
