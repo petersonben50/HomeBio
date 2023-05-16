@@ -7,6 +7,7 @@
 ###########################
 # Set up environment
 ###########################
+import io
 import os
 import sys
 import argparse
@@ -14,6 +15,7 @@ import glob
 from Bio import AlignIO
 from Bio import SearchIO
 from Bio import SeqIO
+from multiprocessing import Pool
 import pandas as pd
 import subprocess
 
@@ -40,7 +42,9 @@ parser.add_argument('--cluster_cutoff', default='0.97')
 parser.add_argument('--n_value_cdhit', default='5')
 parser.add_argument('--metagenome_list', default='Do_not_run')
 parser.add_argument('--metagenomes_location', default='Do_not_run')
+parser.add_argument('--metatranscriptome_location', default='Do_not_run')
 parser.add_argument('--read_depth_cutoff', default=150)
+parser.add_argument('--number_threads', default=2)
 parser.add_argument('--reference_aa_dataset', default='none_provided')
 parser.add_argument('--do_not_use_super5_for_alignment', default='super5', action='store_const', const='align')
 
@@ -76,7 +80,9 @@ CLUSTER_CUTOFF = inputs.cluster_cutoff
 N_VALUE_CDHIT = inputs.n_value_cdhit
 METAGENOME_LIST = inputs.metagenome_list
 METAGENOMES_LOCATION = inputs.metagenomes_location
+METATRANSCRIPTOMES_LOCATION = inputs.metatranscriptome_location
 READ_DEPTH_CUTOFF = inputs.read_depth_cutoff
+NUMBER_THREADS = inputs.number_threads
 REFERENCE_AA_DATASET = inputs.reference_aa_dataset
 SUPER5_INPUT = inputs.do_not_use_super5_for_alignment
 
@@ -342,12 +348,44 @@ if METAGENOME_LIST != "Do_not_run" and METAGENOMES_LOCATION != "Do_not_run":
             # Add column with metagenome name
             add_name_column = 'sed -i "s/$/\t' + metagenome + '/" ' + mg_cov_out
             os.system(add_name_column)
-    all_mg_cov = OUTPUT_LOCATION + OUTPUT_PREFIX + "_coverage.tsv"
+    all_mg_cov = OUTPUT_LOCATION + OUTPUT_PREFIX + "_MG_coverage.tsv"
     concat_cov_cmd = "cat " + working_directory + "*" + OUTPUT_PREFIX + "_coverage.tsv > " + all_mg_cov
     print(concat_cov_cmd)
     os.system(concat_cov_cmd)
 
 
+
+######################################################
+######################################################
+# Pull out MT coverage information
+######################################################
+######################################################
+g2a_data = pd.read_csv(g2a_for_gene, delimiter="\t", names=['gene', 'assembly'])
+PA_files = [i for i in glob.glob(METATRANSCRIPTOMES_LOCATION + "/*.tsv")]
+MT_output = OUTPUT_LOCATION + '/' + OUTPUT_PREFIX + '_MT_coverage.tsv'
+
+def retrieve_RNA_pseudoalignment_counts(MT_2_A_PA_file):
+    MT_ID = MT_2_A_PA_file.rsplit("/", 1)[1].split("_to_")[0]
+    kallisto_data = pd.DataFrame(columns=['seqID', 'length_gene', 'effective_length', 'counts', 'tpm'])
+    with open(MT_2_A_PA_file, 'r') as PA_data:
+        for kallisto_entry_NL in PA_data.readlines():
+            kallisto_entry = kallisto_entry_NL.rstrip()
+            kallisto_geneID = kallisto_entry.split('\t')[0]
+            if kallisto_geneID in list(g2a_data.gene):
+                kallisto_entry_df = pd.read_csv(io.StringIO(kallisto_entry), delimiter = '\t', header = None, names=['seqID', 'length_gene', 'effective_length', 'counts', 'tpm'])
+                kallisto_data = pd.concat([kallisto_data, kallisto_entry_df], ignore_index = True)
+        kallisto_data['mtID'] = MT_ID
+        return kallisto_data
+
+def combine_RNA_pseudoalignment_counts(PA_file_list, MT_output_file):
+    MT_results_list = list()
+    with Pool(NUMBER_THREADS) as pool:
+        for result in pool.map(retrieve_RNA_pseudoalignment_counts, PA_file_list):
+            MT_results_list.append(result)
+    MT_results_df = pd.concat(MT_results_list, ignore_index = True)
+    MT_results_df.to_csv(MT_output_file, sep = '\t', index = False, header = True)
+
+combine_RNA_pseudoalignment_counts(PA_files, MT_output)
 
 ######################################################
 ######################################################
