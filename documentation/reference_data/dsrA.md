@@ -70,11 +70,12 @@ mv reference_data/sequence_databases/dsrA/muller_DsrAB_dataset_final.faa.clstr $
 Finally, I pulled out the relevant metadata entries.
 
 ```
-head -n 1 $wrk_dir/muller_DsrAB_dataset_metadata.tsv > reference_data/sequence_databases/dsrA/muller_DsrAB_dataset_fina_metadata.tsv
+head -n 1 $wrk_dir/muller_DsrAB_dataset_metadata.tsv > reference_data/sequence_databases/dsrA/muller_DsrAB_dataset_final_metadata.tsv
 grep '>' reference_data/sequence_databases/dsrA/muller_DsrAB_dataset_final.faa | sed 's/>//' | while read accessionID
 do
-   awk -F '\t' -v accessionID="$accessionID" '$1 == accessionID { print $0 }' reference_data/sequence_databases/dsrA/wrk_dir/muller_DsrAB_dataset_metadata.tsv >>
+   awk -F '\t' -v accessionID="$accessionID" '$1 == accessionID { print $0 }' reference_data/sequence_databases/dsrA/wrk_dir/muller_DsrAB_dataset_metadata.tsv >> reference_data/sequence_databases/dsrA/muller_DsrAB_dataset_final_metadata.tsv
 done
+rm -fr reference_data/sequence_databases/dsrA/.DS_Store reference_data/sequence_databases/dsrA/.Rhistory reference_data/sequence_databases/dsrA/wrk_dir
 ```
 
 
