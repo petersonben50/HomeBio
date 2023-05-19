@@ -4,39 +4,80 @@
 
 **History of data**
 
-Karthik sent me an alignment file with these sequences (`dsrA_protein.v9.alignment.fasta`) on March 23rd, 2020.
-The data is based on his 2018 ISME paper.
-These sequences are labeled as "stripped", so they are probably trimmed, and thus only partial *dsrA* sequences.
+This database is based on the Müller et al, 2015 ISME paper looking at types of *dsrAB* genes.
+The database is stored on ARB, but they included alignment fasta files with concatenated *dsrAB* genes.
+Supplementary Data S3 had the amino acid alignments, which was what I needed.
+I saved this to `reference_data/sequence_databases/dsrA/muller_DsrAB_dataset_original.afa`.
 
-I then cleaned up the file using the `FM_cleanFasta.py` file.
+However, I am interested in only *dsrA* (for now), so first I split them up.
+I did this by first cleaning the fasta file and align the DsrAB concatenated sequences to the DsrA HMM (we use `TIGR02064.HMM`).
 
 ```
-conda activate bioinformatics
-PYTHONPATH=''
 HomeBio
-python bin/FM_cleanFasta.py --input reference_data/sequence_databases/dsrA/dsrA_protein.v9.alignment.fasta \
-                            --output reference_data/sequence_databases/dsrA/dsrA_protein.afa
-sed 's/\*//' reference_data/sequence_databases/dsrA/dsrA_protein.afa > reference_data/sequence_databases/dsrA/dsrA_protein_temp.afa
-mv reference_data/sequence_databases/dsrA/dsrA_protein_temp.afa reference_data/sequence_databases/dsrA/dsrA_protein.afa
+conda activate bioinformatics
+PYTHON_PATH=""
+wrk_dir=reference_data/sequence_databases/dsrA/wrk_dir
+mkdir $wrk_dir
+python bin/FM_cleanFasta.py --input reference_data/sequence_databases/dsrA/muller_DsrAB_dataset_original.afa \
+                            --output $wrk_dir/muller_DsrAB_dataset_clean.afa
+sed 's/-//g' $wrk_dir/muller_DsrAB_dataset_clean.afa | \
+        sed 's/\*//' | \
+        > $wrk_dir/muller_DsrAB_dataset_clean.faa
+
+hmmalign -o $wrk_dir/muller_DsrAB_aligned_dsrA.sto \
+        --trim \
+        reference_data/HMMs/hmm_folder/TIGR02064.HMM \
+        $wrk_dir/muller_DsrAB_dataset_clean.faa
+
+
+python bin/FM_convert_alignment.py --input $wrk_dir/muller_DsrAB_aligned_dsrA.sto \
+                                   --output $wrk_dir/muller_DsrAB_aligned_dsrA.afa \
+                                   --input_type "stockholm" \
+                                   --output_type "fasta"
+                                   
+python bin/FM_cleanFasta.py --input $wrk_dir/muller_DsrAB_aligned_dsrA.afa \
+                            --output $wrk_dir/muller_DsrAB_aligned_dsrA_clean.afa \
+                            --convert_to_upper
+
 ```
 
-I then generated a non-aligned file.
+I used Rmd to generate needed files (`reference_data/sequence_databases/dsrA/wrk_dir/dsrA_processing.Rmd`).
+I generated a key for metadata and saved it to `reference_data/sequence_databases/dsrA/wrk_dir/muller_DsrAB_dataset_metadata.tsv`.
+I also took a look at the alignment with DECIPHER and decided to cut the alignment at residue 500.
+I then filtered out sequences that had less than 120 residues and saved out the file: `reference_data/sequence_databases/dsrA/wrk_dir/muller_DsrAB_aligned_dsrA_final.afa`.
+
+Next, I'll finalize processing the alignment file.
+I first cleaned up the file and removed the gaps.
 
 ```
-sed "s/-//g" reference_data/sequence_databases/dsrA/dsrA_protein.afa > reference_data/sequence_databases/dsrA/dsrA_protein.faa
+python bin/FM_cleanFasta.py --input $wrk_dir/muller_DsrAB_aligned_dsrA_final.afa \
+                            --output $wrk_dir/muller_DsrAB_aligned_dsrA_final_clean.afa
+sed 's/-//g' $wrk_dir/muller_DsrAB_aligned_dsrA_final_clean.afa > $wrk_dir/muller_DsrAB_aligned_dsrA_final_clean.faa
 ```
 
-I also generated a tree using FastTree for the purposes of identifying which sequences were reverse *dsrA* vs. reductive dsrA.
+Then I clustered the sequences to get our final data set.
 
 ```
-FastTree reference_data/sequence_databases/dsrA/dsrA_protein.v9.alignment.fasta > reference_data/sequence_databases/dsrA/dsrA_protein.tree
+cd-hit -g 1 \
+        -i $wrk_dir/muller_DsrAB_aligned_dsrA_final_clean.faa \
+        -o reference_data/sequence_databases/dsrA/muller_DsrAB_dataset_final.faa \
+        -c 0.97 \
+        -n 5 \
+        -d 0
+mv reference_data/sequence_databases/dsrA/muller_DsrAB_dataset_final.faa.clstr $wrk_dir/muller_DsrAB_dataset_final.faa.clstr
 ```
 
-Read in this into Rmd: `reference_data/sequence_databases/dsrA/dsrA_tree.Rmd`
+Finally, I pulled out the relevant metadata entries.
 
-
+```
+head -n 1 $wrk_dir/muller_DsrAB_dataset_metadata.tsv > reference_data/sequence_databases/dsrA/muller_DsrAB_dataset_fina_metadata.tsv
+grep '>' reference_data/sequence_databases/dsrA/muller_DsrAB_dataset_final.faa | sed 's/>//' | while read accessionID
+do
+   awk -F '\t' -v accessionID="$accessionID" '$1 == accessionID { print $0 }' reference_data/sequence_databases/dsrA/wrk_dir/muller_DsrAB_dataset_metadata.tsv >>
+done
+```
 
 
 ## References
 
-Anantharaman, Karthik, Bela Hausmann, Sean P. Jungbluth, Rose S. Kantor, Adi Lavy, Lesley A. Warren, Michael S. Rappé, et al. “Expanded Diversity of Microbial Groups That Shape the Dissimilatory Sulfur Cycle.” The ISME Journal 12, no. 7 (July 2018): 1715–28. https://doi.org/10.1038/s41396-018-0078-0.
+Müller, Albert Leopold, Kasper Urup Kjeldsen, Thomas Rattei, Michael Pester, and Alexander Loy. “Phylogenetic and Environmental Diversity of DsrAB-Type Dissimilatory (Bi)Sulfite Reductases.” The ISME Journal 9, no. 5 (May 2015): 1152–65. https://doi.org/10.1038/ismej.2014.208.

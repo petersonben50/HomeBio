@@ -1,0 +1,96 @@
+---
+title: "DsrA reference dataset processing"
+author: "Benjamin D. Peterson"
+date: "2023-05-18"
+output: html_document
+---
+
+```{r setup, include = FALSE}
+rm(list = ls())
+library(Biostrings)
+library(DECIPHER)
+library(stringr)
+library(tidyverse)
+knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_knit$set(echo = TRUE)
+```
+
+## Metadata
+
+I first pulled out the fasta headers and stored the needed information as a data frame.
+
+```{r generate_table}
+convert_fasta_headers_to_DB <- function(fileName) {
+  readLines(fileName) %>%
+    grep(">", ., value = TRUE) %>%
+    as.data.frame() %>%
+    separate(col = ".", into = c("seqID", "name", "accessionID", "environment", "type"), sep = '\t') %>%
+    mutate(seqID = gsub(">", "", seqID)) %>%
+    separate(col = type,
+             into = c("dsrA_group", "cluster", "phylum", "class", "order"),
+             sep = ";") %>%
+    mutate(dsrA_type = dsrA_group %>%
+             gsub("Reductive bacterial type DsrAB", "red_DsrA_b", .) %>%
+             gsub("Reductive archaeal type DsrAB", "red_DsrA_a", .) %>%
+             gsub("Oxidative bacterial type DsrAB", "oxi_DsrA", .) %>%
+             gsub("Unclassified dsrAB type", "unk_DsrA", .))
+}
+metadata <- convert_fasta_headers_to_DB("muller_DsrAB_dataset_original.afa")
+write.table(metadata,
+            file = "wrk_dir/muller_DsrAB_dataset_metadata.tsv",
+            sep = '\t',
+            quote = FALSE,
+            row.names = FALSE)
+rm(convert_fasta_headers_to_DB)
+```
+
+## Alignment verification
+
+Next I looked at the alignment of the DsrAB sequences to the HMM file. Th
+
+```{r alignment_check}
+library(Biostrings)
+library(DECIPHER)
+aligned_sequences <- readAAStringSet("wrk_dir/muller_DsrAB_aligned_dsrA_clean.afa",
+                                     format = "fasta",
+                                     nrec = -1L,
+                                     skip = 0L,
+                                     seek.first.rec=FALSE,
+                                     use.names=TRUE)
+# BrowseSeqs(myXStringSet = aligned_sequences,
+#            htmlFile = "wrk_dir/muller_DsrAB_aligned_dsrA_clean.html")
+```
+
+Looks like there's a split in the 500-600 range, so we'll cut the alignment at residue 500.
+
+```{r trim_alignment}
+alignment_start <- 1
+alignment_end <- 500
+alignment_length <- alignment_end - (alignment_start-1)
+aligned_sequences_trimmed <- subseq(aligned_sequences,start = alignment_start, end = alignment_end)
+BrowseSeqs(myXStringSet = aligned_sequences_trimmed,
+           htmlFile = "wrk_dir/muller_DsrAB_aligned_dsrA_trimmed.html")
+```
+
+Many of the sequences seemed to only have a DsrB, so those are pretty much empty.
+A few others are very truncated.
+To remove these, I'll filter out any sequences with less than 120 residues in the alignment.
+
+```{r filter_alignment}
+length_vect <- sapply(names(aligned_sequences_trimmed),
+                      function(x){
+                        gaps_in_alignment = str_count(as.character(aligned_sequences_trimmed[[x]]), "-")
+                        residues_in_alignment = alignment_length - gaps_in_alignment
+                        residues_in_alignment
+                        })
+length_vect_filtered <- length_vect[length_vect > 120]
+final_seqs <- aligned_sequences_trimmed[length_vect_filtered]
+```
+
+Finally I saved out the alignment file.
+
+```{r read_out_data}
+writeXStringSet(final_seqs,
+                filepath = "wrk_dir/muller_DsrAB_aligned_dsrA_final.afa",
+                format = "fasta")
+```
