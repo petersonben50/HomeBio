@@ -1,5 +1,3 @@
-#!/usr/bin/env python3.6
-
 #################################
 # cleanFASTA.py
 # Written by Benjamin D. Peterson
@@ -13,16 +11,28 @@
 # fo the first component.
 #################################
 
-import os
-import sys
-import re
+import argparse
 from Bio import SeqIO
 
-fasta = sys.argv[1]
-output = fasta + '_tempCleanedFile'
+###########################
+# Set up an argument parser
+###########################
 
-# Add the amended part
-with open(output, 'w') as outputFile:
-    for seq_record in SeqIO.parse(fasta, "fasta"):
+# Input data
+parser = argparse.ArgumentParser()
+parser.add_argument('--input')
+parser.add_argument('--output')
+
+# Set variables
+inputs = parser.parse_args()
+INPUT = inputs.input
+OUTPUT = inputs.output
+
+
+###########################
+# Clean up fasta file
+###########################
+with open(OUTPUT, 'w') as outputFile:
+    for seq_record in SeqIO.parse(INPUT, "fasta"):
         outputFile.write('>' + seq_record.id + '\n')
         outputFile.write(str(seq_record.seq) + '\n')
