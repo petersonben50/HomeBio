@@ -1,8 +1,10 @@
 # *dsrA* sequence dataset
 
 *Relative path to folder*: `reference_data/sequence_databases/dsrA`
+*HMM to use*: `reference_data/HMMs/hmm_folder/TIGR02064.HMM`
 
-**History of data**
+
+**Data processing**
 
 This database is based on the Müller et al, 2015 ISME paper looking at types of *dsrAB* genes.
 The database is stored on ARB, but they included alignment fasta files with concatenated *dsrAB* genes.
