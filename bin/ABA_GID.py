@@ -367,6 +367,7 @@ MT_output = OUTPUT_LOCATION + '/' + OUTPUT_PREFIX + '_MT_coverage.tsv'
 def retrieve_RNA_pseudoalignment_counts(MT_2_A_PA_file):
     MT_ID = MT_2_A_PA_file.rsplit("/", 1)[1].split("_to_")[0]
     kallisto_data = pd.DataFrame(columns=['seqID', 'length_gene', 'effective_length', 'counts', 'tpm'])
+    print(MT_2_A_PA_file)
     with open(MT_2_A_PA_file, 'r') as PA_data:
         for kallisto_entry_NL in PA_data.readlines():
             kallisto_entry = kallisto_entry_NL.rstrip()
@@ -379,6 +380,7 @@ def retrieve_RNA_pseudoalignment_counts(MT_2_A_PA_file):
 
 def combine_RNA_pseudoalignment_counts(PA_file_list, MT_output_file):
     MT_results_list = list()
+    print("Pulling out MT read counts")
     with Pool(int(NUMBER_THREADS)) as pool:
         for result in pool.map(retrieve_RNA_pseudoalignment_counts, PA_file_list):
             MT_results_list.append(result)
