@@ -379,7 +379,7 @@ def retrieve_RNA_pseudoalignment_counts(MT_2_A_PA_file):
 
 def combine_RNA_pseudoalignment_counts(PA_file_list, MT_output_file):
     MT_results_list = list()
-    with Pool(NUMBER_THREADS) as pool:
+    with Pool(int(NUMBER_THREADS)) as pool:
         for result in pool.map(retrieve_RNA_pseudoalignment_counts, PA_file_list):
             MT_results_list.append(result)
     MT_results_df = pd.concat(MT_results_list, ignore_index = True)
