@@ -1,0 +1,77 @@
+---
+title: "narG_database"
+author: "Benjamin D. Peterson"
+date: "2023-05-18"
+output: html_document
+---
+
+```{r setup, include = FALSE, warning = FALSE}
+rm(list = ls())
+library(Biostrings)
+library(DECIPHER)
+library(ggtree)
+library(stringr)
+library(tidyverse)
+library(treeio)
+knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_knit$set(echo = TRUE)
+```
+
+# Generate metadata
+
+First I combined the additional metadata files with the original one, which I saved out.
+
+```{r narG_metadata}
+narg_metadata <- read.table("NarG_luke_database_metadata_original.tsv",
+                            sep = '\t',
+                            header = TRUE)
+narg_metadata_add <- read.table("NarG_luke_database_metadata_additional.tsv",
+                                sep = '\t',
+                                header = TRUE)
+narg_metadata_all <- full_join(narg_metadata, narg_metadata_add)
+rm(narg_metadata, narg_metadata_add)
+write.table(x = narg_metadata_all,
+            file = "NarG_luke_database_metadata.tsv",
+            row.names = FALSE,
+            quote = FALSE)
+```
+
+I then generated a vector to replace the tip labels in the tree.
+
+```{r tip_labels}
+tip_labels_to_use <- paste(narg_metadata_all$type, ": ", narg_metadata_all$organism,
+                           sep = "")
+names(tip_labels_to_use) <- narg_metadata_all$geneID
+tip_labels_to_use <- tip_labels_to_use[which(tip_labels_to_use != "NA: NA")]
+```
+
+Finally, I read in the tree and replaced some of the labels.
+I midpoint-rooted the tree as a first pass.
+
+```{r visualize_narG_tree}
+unrooted_tree <- read.newick("NarG_luke_database.tree")
+add_metadata_index <- which(unrooted_tree$tip.label %in% names(tip_labels_to_use))
+
+unrooted_tree$tip.label[add_metadata_index] <- tip_labels_to_use[unrooted_tree$tip.label[add_metadata_index]]
+rooted_tree <- phangorn::midpoint(unrooted_tree)
+
+narg_tree <- ggtree(rooted_tree) +
+  geom_tiplab(size=2.5) +
+  geom_treescale(x = 5,
+                 y = 1)
+narg_tree +
+  geom_text2(aes(subset = !isTip,
+                 label = node),
+             size = 2.5)
+```
+
+The labeled tips are the *nxrA* sequences, while the cluster with no additional metadata represents the *narG* sequences.
+Here's the tree again with just *narG* sequences shown (*nxrA* collapsed).
+
+```{r narG_tree}
+collapse(narg_tree, 55, 'mixed') %>%
+  collapse(50, 'mixed') %>%
+  collapse(53, 'mixed')
+```
+
+We'll use this data to generate our *narG* trees to make sure we're not picking up *nxrA* sequences.
