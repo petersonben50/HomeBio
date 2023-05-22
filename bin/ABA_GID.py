@@ -194,8 +194,14 @@ if input_type == "single_orf":
     os.system(g2a_cmd)
 
 
+###########################
+# Set other variables
+###########################
+hmmer_results_file_name = working_directory + OUTPUT_PREFIX + '_HMM.out'
+g2a_for_gene = OUTPUT_LOCATION + OUTPUT_PREFIX + '_G2A.tsv'
+fasta_output_for_hits = OUTPUT_LOCATION + '/' + OUTPUT_PREFIX + '.faa'
 
-
+'''
 ######################################################
 ######################################################
 # Run HMM search
@@ -205,7 +211,6 @@ if input_type == "single_orf":
 ###########################
 # Run all HMMs on ORF file
 ###########################
-hmmer_results_file_name = working_directory + OUTPUT_PREFIX + '_HMM.out'
 if SKIP_HMM_SEARCH:
     print("Simon says skip the HMM run")
 else:
@@ -218,7 +223,6 @@ else:
 ###########################
 # Save out tsv file with the gene-to-assembly information
 ###########################
-g2a_for_gene = OUTPUT_LOCATION + OUTPUT_PREFIX + '_G2A.tsv'
 if SKIP_GENERATE_G2A:
     print("Simon say skip the G2A file generation")
 else:
@@ -231,7 +235,6 @@ else:
 ###########################
 # Pull out amino acid sequences
 ###########################
-fasta_output_for_hits = OUTPUT_LOCATION + '/' + OUTPUT_PREFIX + '.faa'
 if SKIP_PULL_OUT_AA:
     print("Simon says skip the HMM run")
 else:
@@ -352,7 +355,7 @@ if METAGENOME_LIST != "Do_not_run" and METAGENOMES_LOCATION != "Do_not_run":
     concat_cov_cmd = "cat " + working_directory + "*" + OUTPUT_PREFIX + "_coverage.tsv > " + all_mg_cov
     print(concat_cov_cmd)
     os.system(concat_cov_cmd)
-
+'''
 
 
 ######################################################
@@ -363,6 +366,10 @@ if METAGENOME_LIST != "Do_not_run" and METAGENOMES_LOCATION != "Do_not_run":
 g2a_data = pd.read_csv(g2a_for_gene, delimiter="\t", names=['gene', 'assembly'])
 PA_files = [i for i in glob.glob(METATRANSCRIPTOMES_LOCATION + "/*.tsv")]
 MT_output = OUTPUT_LOCATION + '/' + OUTPUT_PREFIX + '_MT_coverage.tsv'
+
+print(g2a_data)
+print(PA_files)
+print(MT_output)
 
 def retrieve_RNA_pseudoalignment_counts(MT_2_A_PA_file):
     MT_ID = MT_2_A_PA_file.rsplit("/", 1)[1].split("_to_")[0]
@@ -387,14 +394,14 @@ def combine_RNA_pseudoalignment_counts(PA_file_list, MT_output_file):
     MT_results_df = pd.concat(MT_results_list, ignore_index = True)
     MT_results_df.to_csv(MT_output_file, sep = '\t', index = False, header = True)
 
-combine_RNA_pseudoalignment_counts(PA_files, MT_output)
+#combine_RNA_pseudoalignment_counts(PA_files, MT_output)
 
 ######################################################
 ######################################################
 # Generate rough tree with reference amino acid dataset
 ######################################################
 ######################################################
-
+'''
 if REFERENCE_AA_DATASET == 'none_provided':
     print("No reference dataset provided")
 else:
@@ -435,3 +442,4 @@ else:
 if TESTING:
     print(str(TESTING) + ", I'm testing")
     sys.exit()
+'''
