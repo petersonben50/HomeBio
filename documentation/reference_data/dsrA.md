@@ -26,56 +26,55 @@ sed 's/-//g' $wrk_dir/muller_DsrAB_dataset_clean.afa | \
         sed 's/\*//' | \
         > $wrk_dir/muller_DsrAB_dataset_clean.faa
 
-hmmalign -o $wrk_dir/muller_DsrAB_aligned_dsrA.sto \
+hmmalign -o $wrk_dir/muller_DsrAB_aligned.sto \
         --trim \
         reference_data/HMMs/hmm_folder/TIGR02064.HMM \
         $wrk_dir/muller_DsrAB_dataset_clean.faa
 
-
-python bin/FM_convert_alignment.py --input $wrk_dir/muller_DsrAB_aligned_dsrA.sto \
-                                   --output $wrk_dir/muller_DsrAB_aligned_dsrA.afa \
+python bin/FM_convert_alignment.py --input $wrk_dir/muller_DsrAB_aligned.sto \
+                                   --output $wrk_dir/muller_DsrAB_aligned.afa \
                                    --input_type "stockholm" \
                                    --output_type "fasta"
-                                   
-python bin/FM_cleanFasta.py --input $wrk_dir/muller_DsrAB_aligned_dsrA.afa \
-                            --output $wrk_dir/muller_DsrAB_aligned_dsrA_clean.afa \
+                               
+python bin/FM_cleanFasta.py --input $wrk_dir/muller_DsrAB_aligned.afa \
+                            --output $wrk_dir/muller_DsrAB_aligned_clean.afa \
                             --convert_to_upper
 
 ```
 
-I used Rmd to generate needed files (`reference_data/sequence_databases/dsrA/wrk_dir/dsrA_processing.Rmd`).
-I generated a key for metadata and saved it to `reference_data/sequence_databases/dsrA/wrk_dir/muller_DsrAB_dataset_metadata.tsv`.
+I used Rmd to generate needed files (`reference_data/sequence_databases/dsrA/dsrA_processing.Rmd`).
+I generated a key for metadata and saved it to `reference_data/sequence_databases/dsrA/wrk_dir/muller_DsrA_dataset_metadata.tsv`.
 I also took a look at the alignment with DECIPHER and decided to cut the alignment at residue 500.
-I then filtered out sequences that had less than 120 residues and saved out the file: `reference_data/sequence_databases/dsrA/wrk_dir/muller_DsrAB_aligned_dsrA_final.afa`.
+I then filtered out sequences that had less than 120 residues and saved out the file: `reference_data/sequence_databases/dsrA/wrk_dir/muller_DsrA_aligned_final.afa`.
 
 Next, I'll finalize processing the alignment file.
 I first cleaned up the file and removed the gaps.
 
 ```
-python bin/FM_cleanFasta.py --input $wrk_dir/muller_DsrAB_aligned_dsrA_final.afa \
-                            --output $wrk_dir/muller_DsrAB_aligned_dsrA_final_clean.afa
-sed 's/-//g' $wrk_dir/muller_DsrAB_aligned_dsrA_final_clean.afa > $wrk_dir/muller_DsrAB_aligned_dsrA_final_clean.faa
+python bin/FM_cleanFasta.py --input $wrk_dir/muller_DsrA_aligned_final.afa \
+                            --output $wrk_dir/muller_DsrA_aligned_final_clean.afa
+sed 's/-//g' $wrk_dir/muller_DsrA_aligned_final_clean.afa > $wrk_dir/muller_DsrA_aligned_final_clean.faa
 ```
 
 Then I clustered the sequences to get our final data set.
 
 ```
 cd-hit -g 1 \
-        -i $wrk_dir/muller_DsrAB_aligned_dsrA_final_clean.faa \
-        -o reference_data/sequence_databases/dsrA/muller_DsrAB_dataset_final.faa \
+        -i $wrk_dir/muller_DsrA_aligned_final_clean.faa \
+        -o reference_data/sequence_databases/dsrA/muller_DsrA_dataset_final.faa \
         -c 0.97 \
         -n 5 \
         -d 0
-mv reference_data/sequence_databases/dsrA/muller_DsrAB_dataset_final.faa.clstr $wrk_dir/muller_DsrAB_dataset_final.faa.clstr
+mv reference_data/sequence_databases/dsrA/muller_DsrA_dataset_final.faa.clstr $wrk_dir/muller_DsrA_dataset_final.faa.clstr
 ```
 
 Finally, I pulled out the relevant metadata entries.
 
 ```
-head -n 1 $wrk_dir/muller_DsrAB_dataset_metadata.tsv > reference_data/sequence_databases/dsrA/muller_DsrAB_dataset_final_metadata.tsv
-grep '>' reference_data/sequence_databases/dsrA/muller_DsrAB_dataset_final.faa | sed 's/>//' | while read accessionID
+head -n 1 $wrk_dir/muller_DsrA_dataset_metadata.tsv > reference_data/sequence_databases/dsrA/muller_DsrA_dataset_final_metadata.tsv
+grep '>' reference_data/sequence_databases/dsrA/muller_DsrA_dataset_final.faa | sed 's/>//' | while read accessionID
 do
-   awk -F '\t' -v accessionID="$accessionID" '$1 == accessionID { print $0 }' reference_data/sequence_databases/dsrA/wrk_dir/muller_DsrAB_dataset_metadata.tsv >> reference_data/sequence_databases/dsrA/muller_DsrAB_dataset_final_metadata.tsv
+   awk -F '\t' -v accessionID="$accessionID" '$1 == accessionID { print $0 }' reference_data/sequence_databases/dsrA/wrk_dir/muller_DsrA_dataset_metadata.tsv >> reference_data/sequence_databases/dsrA/muller_DsrA_dataset_final_metadata.tsv
 done
 rm -fr reference_data/sequence_databases/dsrA/.DS_Store reference_data/sequence_databases/dsrA/.Rhistory reference_data/sequence_databases/dsrA/wrk_dir
 ```
