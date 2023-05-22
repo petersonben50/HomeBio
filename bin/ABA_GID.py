@@ -200,7 +200,6 @@ if input_type == "single_orf":
 hmmer_results_file_name = working_directory + OUTPUT_PREFIX + '_HMM.out'
 g2a_for_gene = OUTPUT_LOCATION + OUTPUT_PREFIX + '_G2A.tsv'
 fasta_output_for_hits = OUTPUT_LOCATION + '/' + OUTPUT_PREFIX + '.faa'
-g2a_data = pd.read_csv(g2a_for_gene, delimiter="\t", names=['gene', 'assembly'])
 PA_files = [i for i in glob.glob(METATRANSCRIPTOMES_LOCATION + "/*.tsv")]
 MT_output = OUTPUT_LOCATION + '/' + OUTPUT_PREFIX + '_MT_coverage.tsv'
 
@@ -233,6 +232,7 @@ else:
     for sampleID in hmmer_output:
         g2b_for_gene_cmd = "awk '$1 == \"" + sampleID.id + "\" { print $0 }' " + g2a_file + " >> " + g2a_for_gene
         os.system(g2b_for_gene_cmd)
+g2a_data = pd.read_csv(g2a_for_gene, delimiter="\t", names=['gene', 'assembly'])
 
 
 ###########################
@@ -312,7 +312,6 @@ if METAGENOMES_LOCATION == "Do_not_run":
 if METAGENOME_LIST != "Do_not_run" and METAGENOMES_LOCATION != "Do_not_run":
     print("Pulling out mapping information for " + OUTPUT_PREFIX)
     # Set up G2A key
-    g2a_data = pd.read_csv(g2a_for_gene, delimiter="\t", names=['gene', 'assembly'])
     for index, row in g2a_data.iterrows():
         scaffold_of_interest = row.gene.rsplit("_", 1)[0]
         #print("Mapping data for " + scaffold_of_interest)
