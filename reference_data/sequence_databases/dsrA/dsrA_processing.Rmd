@@ -37,7 +37,7 @@ convert_fasta_headers_to_DB <- function(fileName) {
 }
 metadata <- convert_fasta_headers_to_DB("muller_DsrAB_dataset_original.afa")
 write.table(metadata,
-            file = "wrk_dir/muller_DsrAB_dataset_metadata.tsv",
+            file = "wrk_dir/muller_DsrA_dataset_metadata.tsv",
             sep = '\t',
             quote = FALSE,
             row.names = FALSE)
@@ -51,7 +51,7 @@ Next I looked at the alignment of the DsrAB sequences to the HMM file. Th
 ```{r alignment_check}
 library(Biostrings)
 library(DECIPHER)
-aligned_sequences <- readAAStringSet("wrk_dir/muller_DsrAB_aligned_dsrA_clean.afa",
+aligned_sequences <- readAAStringSet("wrk_dir/muller_DsrAB_aligned_clean.afa",
                                      format = "fasta",
                                      nrec = -1L,
                                      skip = 0L,
@@ -69,7 +69,7 @@ alignment_end <- 500
 alignment_length <- alignment_end - (alignment_start-1)
 aligned_sequences_trimmed <- subseq(aligned_sequences,start = alignment_start, end = alignment_end)
 BrowseSeqs(myXStringSet = aligned_sequences_trimmed,
-           htmlFile = "wrk_dir/muller_DsrAB_aligned_dsrA_trimmed.html")
+           htmlFile = "wrk_dir/muller_DsrAB_aligned_trimmed.html")
 ```
 
 Many of the sequences seemed to only have a DsrB, so those are pretty much empty.
@@ -91,6 +91,6 @@ Finally I saved out the alignment file.
 
 ```{r read_out_data}
 writeXStringSet(final_seqs,
-                filepath = "wrk_dir/muller_DsrAB_aligned_dsrA_final.afa",
+                filepath = "wrk_dir/muller_DsrA_aligned_final.afa",
                 format = "fasta")
 ```

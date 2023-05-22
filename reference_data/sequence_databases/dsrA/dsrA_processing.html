@@ -385,7 +385,7 @@ information as a data frame.</p>
 metadata &lt;- convert_fasta_headers_to_DB(&quot;muller_DsrAB_dataset_original.afa&quot;)</code></pre>
 <pre><code>## Warning: Expected 5 pieces. Additional pieces discarded in 1 rows [7693].</code></pre>
 <pre class="r"><code>write.table(metadata,
-            file = &quot;wrk_dir/muller_DsrAB_dataset_metadata.tsv&quot;,
+            file = &quot;wrk_dir/muller_DsrA_dataset_metadata.tsv&quot;,
             sep = &#39;\t&#39;,
             quote = FALSE,
             row.names = FALSE)
@@ -397,7 +397,7 @@ rm(convert_fasta_headers_to_DB)</code></pre>
 file. Th</p>
 <pre class="r"><code>library(Biostrings)
 library(DECIPHER)
-aligned_sequences &lt;- readAAStringSet(&quot;wrk_dir/muller_DsrAB_aligned_dsrA_clean.afa&quot;,
+aligned_sequences &lt;- readAAStringSet(&quot;wrk_dir/muller_DsrAB_aligned_clean.afa&quot;,
                                      format = &quot;fasta&quot;,
                                      nrec = -1L,
                                      skip = 0L,
@@ -412,7 +412,7 @@ alignment_end &lt;- 500
 alignment_length &lt;- alignment_end - (alignment_start-1)
 aligned_sequences_trimmed &lt;- subseq(aligned_sequences,start = alignment_start, end = alignment_end)
 BrowseSeqs(myXStringSet = aligned_sequences_trimmed,
-           htmlFile = &quot;wrk_dir/muller_DsrAB_aligned_dsrA_trimmed.html&quot;)</code></pre>
+           htmlFile = &quot;wrk_dir/muller_DsrAB_aligned_trimmed.html&quot;)</code></pre>
 <p>Many of the sequences seemed to only have a DsrB, so those are pretty
 much empty. A few others are very truncated. To remove these, I’ll
 filter out any sequences with less than 120 residues in the
@@ -427,7 +427,7 @@ length_vect_filtered &lt;- length_vect[length_vect &gt; 120]
 final_seqs &lt;- aligned_sequences_trimmed[length_vect_filtered]</code></pre>
 <p>Finally I saved out the alignment file.</p>
 <pre class="r"><code>writeXStringSet(final_seqs,
-                filepath = &quot;wrk_dir/muller_DsrAB_aligned_dsrA_final.afa&quot;,
+                filepath = &quot;wrk_dir/muller_DsrA_aligned_final.afa&quot;,
                 format = &quot;fasta&quot;)</code></pre>
 </div>
 
