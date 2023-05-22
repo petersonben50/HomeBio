@@ -58,9 +58,11 @@ FastTree NarG_luke_database.afa > NarG_luke_database.tree
 ```
 
 I then looked at the tree and concatenated the metadata in an Rmd file: `narG_processing.Rmd`.
-Looks good!
+Looks good! Now for some clean up.
 
-
+```
+rm NarG_luke_database_metadata_original.tsv NarG_luke_database_metadata_additional.tsv 
+```
 
 # References
 
