@@ -1,7 +1,7 @@
 # *narG* sequence dataset
 
 *Relative path to folder*: `reference_data/sequence_databases/narG`
-*HMM to use*: `reference_data/HMMs/hmm_folder/`
+*HMM to use*: `reference_data/HMMs/hmm_folder/TIGR01580.HMM`
 
 
 **Dataset preparation**
