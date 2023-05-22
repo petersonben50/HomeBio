@@ -23,7 +23,7 @@ mkdir $wrk_dir
 python bin/FM_cleanFasta.py --input reference_data/sequence_databases/dsrA/muller_DsrAB_dataset_original.afa \
                             --output $wrk_dir/muller_DsrAB_dataset_clean.afa
 sed 's/-//g' $wrk_dir/muller_DsrAB_dataset_clean.afa | \
-        sed 's/\*//' | \
+        sed 's/\*//g' | \
         > $wrk_dir/muller_DsrAB_dataset_clean.faa
 
 hmmalign -o $wrk_dir/muller_DsrAB_aligned.sto \
@@ -35,7 +35,7 @@ python bin/FM_convert_alignment.py --input $wrk_dir/muller_DsrAB_aligned.sto \
                                    --output $wrk_dir/muller_DsrAB_aligned.afa \
                                    --input_type "stockholm" \
                                    --output_type "fasta"
-                               
+
 python bin/FM_cleanFasta.py --input $wrk_dir/muller_DsrAB_aligned.afa \
                             --output $wrk_dir/muller_DsrAB_aligned_clean.afa \
                             --convert_to_upper
@@ -62,7 +62,7 @@ Then I clustered the sequences to get our final data set.
 cd-hit -g 1 \
         -i $wrk_dir/muller_DsrA_aligned_final_clean.faa \
         -o reference_data/sequence_databases/dsrA/muller_DsrA_dataset_final.faa \
-        -c 0.97 \
+        -c 0.82 \
         -n 5 \
         -d 0
 mv reference_data/sequence_databases/dsrA/muller_DsrA_dataset_final.faa.clstr $wrk_dir/muller_DsrA_dataset_final.faa.clstr
@@ -74,11 +74,28 @@ Finally, I pulled out the relevant metadata entries.
 head -n 1 $wrk_dir/muller_DsrA_dataset_metadata.tsv > reference_data/sequence_databases/dsrA/muller_DsrA_dataset_final_metadata.tsv
 grep '>' reference_data/sequence_databases/dsrA/muller_DsrA_dataset_final.faa | sed 's/>//' | while read accessionID
 do
+   echo "working on" $accessionID
    awk -F '\t' -v accessionID="$accessionID" '$1 == accessionID { print $0 }' reference_data/sequence_databases/dsrA/wrk_dir/muller_DsrA_dataset_metadata.tsv >> reference_data/sequence_databases/dsrA/muller_DsrA_dataset_final_metadata.tsv
 done
-rm -fr reference_data/sequence_databases/dsrA/.DS_Store reference_data/sequence_databases/dsrA/.Rhistory reference_data/sequence_databases/dsrA/wrk_dir
 ```
 
+Finally, I generated a tree of the dataset to inspect.
+
+```
+muscle -super5 reference_data/sequence_databases/dsrA/muller_DsrA_dataset_final.faa \
+        -output reference_data/sequence_databases/dsrA/muller_DsrA_dataset_final.afa
+trimal -in reference_data/sequence_databases/dsrA/muller_DsrA_dataset_final.afa \
+        -out reference_data/sequence_databases/dsrA/wrk_dir/muller_DsrA_dataset_final_trimmed.afa \
+        -gt 0.5
+FastTree reference_data/sequence_databases/dsrA/wrk_dir/muller_DsrA_dataset_final_trimmed.afa > reference_data/sequence_databases/dsrA/muller_DsrA_dataset_final.tree
+```
+
+Clean up:
+
+```
+rm -fr reference_data/sequence_databases/dsrA/.DS_Store reference_data/sequence_databases/dsrA/.Rhistory reference_data/sequence_databases/dsrA/wrk_dir
+
+```
 
 ## References
 
