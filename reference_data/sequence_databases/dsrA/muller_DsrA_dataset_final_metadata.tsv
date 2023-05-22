@@ -1,77 +1,537 @@
 seqID	name	accessionID	environment	dsrA_group	cluster	phylum	class	order	dsrA_type
-UncPhen2	uncultured phenanthrene mineralizing bacterium Phe03	AF327315	Estuarine	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Desulfatiglans anilini lineage	red_DsrA_b
-Unc01cxy	uncultured bacterium E5-46-11a dsrA like	AF510676	Freshwater	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Fimricutes	 Clostridia	 LA-dsrAB Firmicutes	red_DsrA_b
-DffGlyc3	Desulfofustis glycolicus	AF482457	Marine	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Desulfobulbaceae	red_DsrA_b
-DslBurk3	Desulfovibrio burkinensis	AF418186	Soil	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Desulfovibrionaceae	red_DsrA_b
-UncSu307	uncultured sulfate-reducing bacterium	AM117974	Estuarine	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Desulfobacteraceae	red_DsrA_b
-Unc01cxz	uncultured bacterium E5-46-11b dsrB like	AF510677	Freshwater	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Fimricutes	 Clostridia	 LA-dsrAB Firmicutes	red_DsrA_b
-DslAlka3	Desulfotomaculum alkaliphilum	AF418195	Industrial	Reductive bacterial type DsrAB	 FACA group sensu lato	 Firmicutes	 Clostridia	 Desulfotomaculum	red_DsrA_b
-DstOleov	Desulfobacterium oleovorans	AF418201	Industrial	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Desulfobacteraceae	red_DsrA_b
-DeuHalo2	Desulfocella halophila	AF418200	Alkaliphilic/Halophilic	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Desulfobacteraceae	red_DsrA_b
-Unc01cxs	uncultured bacterium	AF442727	Estuarine	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Desulfobacteraceae	red_DsrA_b
-DfhSing2	Desulforhopalus singaporensis	AF418196	Soil	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Desulfobulbaceae	red_DsrA_b
-DslPige4	Desulfovibrio piger	AF482462	Symbiotic	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Desulfovibrionaceae	red_DsrA_b
-DlcInfe3	Desulfacinum infernum	AF482454	Thermophilic	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Syntrophobacteraceae	red_DsrA_b
-DscApsh8	Desulfomicrobium apsheronum	AF482459	Unknown/Misc	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Desulfomicrobiaceae	red_DsrA_b
-DslAesp3	Desulfovibrio aespoeensis	AF492838	Freshwater	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Desulfovibrionaceae	red_DsrA_b
-Unc01cxh	uncultured bacterium	AF442716	Estuarine	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Desulfobacteraceae	red_DsrA_b
-Unc01cxg	uncultured bacterium	AF442715	Estuarine	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Desulfobacteraceae	red_DsrA_b
-Unc01cy0	uncultured bacterium E5-46-12b dsrB like	AF510678	Freshwater	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Fimricutes	 Clostridia	 LA-dsrAB Firmicutes	red_DsrA_b
-DslInte4	Desulfovibrio intestinalis	AF418183	Symbiotic	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Desulfovibrionaceae	red_DsrA_b
-Unc01cxo	uncultured bacterium	AF442723	Estuarine	Reductive bacterial type DsrAB	 Environmental supercluster 1	 Unclassified	 Unclassified	 Uncultured family-level lineage 9	red_DsrA_b
-Unc01cy3	uncultured bacterium W6-38-18a dsrA	AF510681	Freshwater	Reductive bacterial type DsrAB	 FACA group sensu lato	 Unclassified	 Unclassified	 Unclassified	red_DsrA_b
-Unc01cy4	uncultured bacterium W6-38-18b dsrB	AF510682	Freshwater	Reductive bacterial type DsrAB	 FACA group sensu lato	 Unclassified	 Unclassified	 Unclassified	red_DsrA_b
-DebAcet2	Desulfobacca acetoxidans	AF482453	Industrial	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Desulfobacca acetoxidans lineage	red_DsrA_b
-DstBalt6	Desulfotignum balticum	AF420287	Marine	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Desulfobacteraceae	red_DsrA_b
-SnpWoli2	Syntrophobacter wolinii	AF418192	Industrial	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Syntrophobacteraceae	red_DsrA_b
-UncPhen9	uncultured phenanthrene mineralizing bacterium Phe21	AF327322	Estuarine	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Desulfomicrobiaceae	red_DsrA_b
-Unc01cxt	uncultured bacterium	AF442728	Estuarine	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Unclassified	 Unclassified	 Unclassified	red_DsrA_b
-Unc01cxp	uncultured bacterium	AF442724	Estuarine	Reductive bacterial type DsrAB	 FACA group sensu lato	 Unclassified	 Unclassified	 Unclassified	red_DsrA_b
-Unc01cxk	uncultured bacterium	AF442719	Estuarine	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Desulfobulbaceae	red_DsrA_b
-DftHydr2	Desulfonatronovibrio hydrogenovorans	AF418197	Freshwater	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Desulfohalobiaceae	red_DsrA_b
-DlnLacu3	Desulfonatronum lacustre	AF418189	Alkaliphilic/halophilic	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Desulfonatronumaceae	red_DsrA_b
-UncPhen8	uncultured phenanthrene mineralizing bacterium Phe20L	AF327321	Estuarine	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Desulfobacteraceae	red_DsrA_b
-DsbPost3	Desulfobacter postgatei	AF418198	Estuarine	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Desulfobacteraceae	red_DsrA_b
-DslFruc3	Desulfovibrio fructosivorans	AF418187	Estuarine	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Desulfovibrionaceae	red_DsrA_b
-Unc01cxj	uncultured bacterium	AF442718	Estuarine	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Desulfobacteraceae	red_DsrA_b
-UncPhena	uncultured phenanthrene mineralizing bacterium Phe01	AF327314	Estuarine	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Desulfobacteraceae	red_DsrA_b
-UncPhen3	uncultured phenanthrene mineralizing bacterium Phe13L	AF327316	Estuarine	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Desulfatiglans anilini lineage	red_DsrA_b
-UncNapt3	uncultured napthalene mineralizing bacterium Nap30	AF327311	Estuarine	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Desulfobacteraceae	red_DsrA_b
-UncNapth	uncultured napthalene mineralizing bacterium Nap51	AF327309	Estuarine	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Desulfobacteraceae	red_DsrA_b
-DfmRetb3	Desulfohalobium retbaense	AF418190	Alkaliphilic/Halophilic	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Desulfohalobiaceae	red_DsrA_b
-Unc01cxv	uncultured bacterium E5-46-1b dsrB like	AF510673	Freshwater	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Fimricutes	 Clostridia	 LA-dsrAB Firmicutes	red_DsrA_b
-SnpFuma3	Syntrophobacter fumaroxidans	AF418193	Industrial	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Syntrophobacteraceae	red_DsrA_b
-UncSu397	uncultured sulfate-reducing bacterium	AM234740	Marine	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Desulfatiglans anilini lineage	red_DsrA_b
-Unc01cxe	uncultured bacterium	AF442713	Estuarine	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Desulfobacteraceae	red_DsrA_b
-Unc01cxf	uncultured bacterium	AF442714	Estuarine	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Desulfobacteraceae	red_DsrA_b
-UncSu323	uncultured sulfate-reducing bacterium	AM117990	Estuarine	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Desulfobacteraceae	red_DsrA_b
-UncSu310	uncultured sulfate-reducing bacterium	AM117977	Estuarine	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Desulfobacteraceae	red_DsrA_b
-UncSu314	uncultured sulfate-reducing bacterium	AM117981	Estuarine	Reductive bacterial type DsrAB	 FACA group sensu lato	 Unclassified	 Unclassified	 Uncultured family-level lineage 5	red_DsrA_b
-DeoCeto2	Desulfosarcina cetonica	AF420282	Industrial	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Desulfobacteraceae	red_DsrA_b
-DstVacu2	Desulfobacterium vacuolatum	AF418203	Marine	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Desulfobacteraceae	red_DsrA_b
+PrbAero3	Pyrobaculum aerophilum str. IM2, copy 1	NC_003364a	Thermophilic	Reductive archaeal type DsrAB		 Crenarchaeota	 Thermoprotei	 Pyrobaculum	red_DsrA_a
+PrbAero4	Pyrobaculum aerophilum str. IM2, copy 2	NC_003364b	Thermophilic	Reductive archaeal type DsrAB		 Crenarchaeota	 Thermoprotei	 Pyrobaculum	red_DsrA_a
+UnculSR5	Uncultured SRB, a70	AF388221, AF388267	Marine	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Desulfobacteraceae	red_DsrA_b
+UnculSR6	Uncultured SRB, A73	AF388239, AF388285	Marine	Reductive bacterial type DsrAB	 Environmental supercluster 1	 Unclassified	 Unclassified	 Unclassified	red_DsrA_b
+TrfNaru2	Thermodesulfobium narugense	AB077818	Thermophilic	Reductive bacterial type DsrAB	 FACA group sensu lato	 Unclassified	 Unclassified	 Thermodesulfobium	red_DsrA_b
+Unc01cww	uncultured bacterium	AB079482	Industrial	Reductive bacterial type DsrAB	 FACA group sensu lato	 Unclassified	 Unclassified	 Unclassified	red_DsrA_b
+Unc01cxc	MSW digester clone	AB114347	Industrial	Reductive bacterial type DsrAB	 FACA group sensu lato	 Unclassified	 Unclassified	 Unclassified	red_DsrA_b
+UncSu176	Hydrothermal vent chimney clone	AB124900	Thermophilic	Reductive bacterial type DsrAB	 Archaeoglobus cluster	 Euryarchaeota	 Archaeoglobi	 Archaeoglobus	red_DsrA_b
+UncSu180	Hydrothermal vent chimney clone	AB124904	Thermophilic	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Desulfobulbaceae	red_DsrA_b
+UncSu188	Hydrothermal vent chimney clone	AB124912	Thermophilic	Reductive bacterial type DsrAB	 Archaeoglobus cluster	 Euryarchaeota	 Archaeoglobi	 Archaeoglobus	red_DsrA_b
+UncSu191	Hydrothermal vent chimney clone	AB124915	Thermophilic	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Thermodesulfobacteria	 Thermodesulfobacteria	 Thermodesulfobacteria	red_DsrA_b
+UncSu203	Hydrothermal vent chimney clone	AB124927	Thermophilic	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Thermodesulfobacteria	 Thermodesulfobacteria	 Thermodesulfobacteria	red_DsrA_b
+UncSu216	Juan de Fuca ridge borehole clone	AB260074	Thermophilic	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Fimricutes	 Clostridia	 LA-dsrAB Firmicutes	red_DsrA_b
+UncBenz3	uncultured benzene mineralizing bacterium Ben23	AF327305	Marine	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Desulfobacteraceae	red_DsrA_b
 UncPhen5	uncultured phenanthrene mineralizing bacterium Phe16L	AF327318	Estuarine	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Desulfatiglans anilini lineage	red_DsrA_b
-UncSu312	uncultured sulfate-reducing bacterium	AM117979	Estuarine	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Desulfobacteraceae	red_DsrA_b
-Unc01cyb	uncultured bacterium W6-38-34a	AF510689	Freshwater	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Fimricutes	 Clostridia	 LA-dsrAB Firmicutes	red_DsrA_b
-DslTerm3	Desulfovibrio termitidis	AF418185	Symbiotic	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Desulfovibrionaceae	red_DsrA_b
-Unc01cy6	uncultured bacterium W6-38-24b dsrB like	AF510684	Freshwater	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Fimricutes	 Clostridia	 LA-dsrAB Firmicutes	red_DsrA_b
-UncNapt5	uncultured napthalene mineralizing bacterium Nap61	AF327313	Estuarine	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Desulfatiglans anilini lineage	red_DsrA_b
-UncSu294	uncultured sulfate-reducing bacterium	AM117961	Estuarine	Reductive bacterial type DsrAB	 Environmental supercluster 1	 Unclassified	 Unclassified	 Uncultured family-level lineage 9	red_DsrA_b
-UncNapt2	uncultured napthalene mineralizing bacterium Nap29	AF327310	Estuarine	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Desulfatiglans anilini lineage	red_DsrA_b
-UncSu295	uncultured sulfate-reducing bacterium	AM117962	Estuarine	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Desulfobacteraceae	red_DsrA_b
-UncSu291	uncultured sulfate-reducing bacterium	AM117958	Estuarine	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Syntrophobacteraceae	red_DsrA_b
-UncPhen4	uncultured phenanthrene mineralizing bacterium Phe15L	AF327317	Estuarine	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Desulfobacteraceae	red_DsrA_b
-Unc01cy7	uncultured bacterium W6-38-25a dsrA	AF510685	Freshwater	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Fimricutes	 Clostridia	 LA-dsrAB Firmicutes	red_DsrA_b
-UncNapt4	uncultured napthalene mineralizing bacterium Nap33	AF327312	Estuarine	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Fimricutes	 Clostridia	 LA-dsrAB Firmicutes	red_DsrA_b
-UncPhen7	uncultured phenanthrene mineralizing bacterium Phe19L	AF327320	Estuarine	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Desulfatiglans anilini lineage	red_DsrA_b
-DlbElon3	Desulfobulbus elongatus	AJ310430	Industrial	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Desulfobulbaceae	red_DsrA_b
-SltBac24	sulfate-reducing bacterium STC	AF327323	Estuarine	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Syntrophobacteraceae	red_DsrA_b
-UncSu288	uncultured sulfate-reducing bacterium	AM117955	Estuarine	Reductive bacterial type DsrAB	 Environmental supercluster 1	 Unclassified	 Unclassified	 Uncultured family-level lineage 9	red_DsrA_b
-UncSu286	uncultured sulfate-reducing bacterium	AM117953	Estuarine	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Desulfobulbaceae	red_DsrA_b
-ThmNorv2	Thermodesulforhabdus norvegica	AJ277293	Thermophilic	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Syntrophobacteraceae	red_DsrA_b
-DslDes14	Desulfovibrio desulfuricans subsp. aestuarii, strain sylt 3, dsrA+B	AJ289157	Unknown/Misc	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Desulfovibrionaceae	red_DsrA_b
-UncSu292	uncultured sulfate-reducing bacterium	AM117959	Estuarine	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Desulfobacteraceae	red_DsrA_b
-UncSu300	uncultured sulfate-reducing bacterium	AM117967	Estuarine	Reductive bacterial type DsrAB	 Environmental supercluster 1	 Unclassified	 Unclassified	 Uncultured family-level lineage 9	red_DsrA_b
-DslKuzn6	Desulfotomaculum kuznetsovii	AJ310431	Thermophilic	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Fimricutes	 Clostridia	 LA-dsrAB Firmicutes	red_DsrA_b
-DslThe11	Desulfotomaculum thermobenzoicum	AJ310432	Industrial	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Fimricutes	 Clostridia	 LA-dsrAB Firmicutes	red_DsrA_b
-DlsMult2	Desulfococcus multivorans, strain Göttingen, dsrA+B	AJ277107	Industrial	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Desulfobacteraceae	red_DsrA_b
-Unc01cye	uncultured bacterium W6-38 dsrA	AF510692	Freshwater	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Fimricutes	 Clostridia	 LA-dsrAB Firmicutes	red_DsrA_b
+Unc01cy4	uncultured bacterium W6-38-18b dsrB	AF510682	Freshwater	Reductive bacterial type DsrAB	 FACA group sensu lato	 Unclassified	 Unclassified	 Unclassified	red_DsrA_b
+Unc01cyd	uncultured bacterium W6-38-36b	AF510691	Freshwater	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Fimricutes	 Clostridia	 LA-dsrAB Firmicutes	red_DsrA_b
+UncSu387	uncultured sulfate-reducing bacterium	AM234730	Marine	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Desulfobacteraceae	red_DsrA_b
+EvrgDs21	Everglades dsrA clone F1SU-32	AY096058	Soil	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Unclassified	 Unclassified	 Uncultured family-level lineage 11	red_DsrA_b
+EvrgDs32	Everglades dsrA clone U3SU-03	AY096069	Soil	Reductive bacterial type DsrAB	 Nitrospirae supercluster	 Unclassified	 Unclassified	 Unclassified	red_DsrA_b
+Unc01cyr	uncultured bacterium DC06.10a	AY116468	Freshwater	Reductive bacterial type DsrAB	 FACA group sensu lato	 Firmicutes	 Clostridia	 Carboxydothermus	red_DsrA_b
+Unc01cys	uncultured bacterium DC06.10b	AY116469	Freshwater	Reductive bacterial type DsrAB	 FACA group sensu lato	 Unclassified	 Unclassified	 Unclassified	red_DsrA_b
+DncSubm3	Desulfonauticus submarinus	AY187624	Thermophilic	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Desulfohalobiaceae	red_DsrA_b
+HydrVe48	hydrothermal vent sediment clone B04P026	AY197455	Thermophilic	Reductive bacterial type DsrAB	 Environmental supercluster 1	 Unclassified	 Unclassified	 Uncultured family-level lineage 9	red_DsrA_b
+HotSpr11	hot spring clone BSP-45	AY237253	Thermophilic	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Desulfatiglans anilini lineage	red_DsrA_b
+HotSpr13	hot spring clone BSP-95	AY237255	Thermophilic	Reductive bacterial type DsrAB	 FACA group sensu lato	 Unclassified	 Unclassified	 Unclassified	red_DsrA_b
+HotSpr15	Hot spring clone BSP-102	AY237257	Thermophilic	Reductive bacterial type DsrAB	 FACA group sensu lato	 Unclassified	 Unclassified	 Uncultured family-level lineage 5	red_DsrA_b
+HotSpr17	Hot spring clone BLV-6	AY237259	Thermophilic	Reductive bacterial type DsrAB	 FACA group sensu lato	 Unclassified	 Unclassified	 Uncultured family-level lineage 5	red_DsrA_b
+HotSpr23	hot spring clone BLV-6	AY251458	Thermophilic	Reductive bacterial type DsrAB	 FACA group sensu lato	 Unclassified	 Unclassified	 Unclassified	red_DsrA_b
+HotSpr28	hot spring clone NC-2	AY256201	Thermophilic	Reductive bacterial type DsrAB	 FACA group sensu lato	 Unclassified	 Unclassified	 Thermodesulfobium	red_DsrA_b
+Unc01cyz	uncultured bacterium	AY354050	Thermophilic	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Desulfobulbaceae	red_DsrA_b
+AkmEhrl3	Alkalilimnicola ehrlichei MLHE-1	CP000453	Alkaliphilic/Halophilic	Oxidative bacterial type DsrAB		 Proteobacteria	 Gammaproteobacteria	 Gammaproteobacteria	oxi_DsrA
+ArgProf4	Archaeoglobus profundus	AF071499 	Thermophilic	Reductive bacterial type DsrAB	 Archaeoglobus cluster	 Euryarchaeota	 Archaeoglobi	 Archaeoglobus	red_DsrA_b
+UnculS18	Uncultured SRB, b6	AF388227, AF388273	Marine	Reductive bacterial type DsrAB	 FACA group sensu lato	 Unclassified	 Unclassified	 Uncultured family-level lineage 5	red_DsrA_b
+JN615148	Rice field soil clone Bu-23	JN615148	Soil	Reductive bacterial type DsrAB	 Environmental supercluster 1	 Unclassified	 Unclassified	 Uncultured family-level lineage 8	red_DsrA_b
+JN615152	Rice field soil clone Bu-27	JN615152	Soil	Reductive bacterial type DsrAB	 FACA group sensu lato	 Unclassified	 Unclassified	 Uncultured family-level lineage 5	red_DsrA_b
+JN615153	Bu-28-rice field soil	JN615153	Soil	Reductive bacterial type DsrAB	 Environmental supercluster 1	 Unclassified	 Unclassified	 Uncultured family-level lineage 8	red_DsrA_b
+JN615158	Rice field soil clone Bu-d-13	JN615158	Soil	Reductive bacterial type DsrAB	 Nitrospirae supercluster	 Unclassified	 Unclassified	 Uncultured family-level lineage 10	red_DsrA_b
+JN615160	Rice field soil clone Bu-d-24	JN615160	Soil	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Desulfobacca acetoxidans lineage	red_DsrA_b
+Z99Ridge	Hydrate Ridge sediment fosmid hr42c9	CT025834	Marine	Reductive bacterial type DsrAB	 Environmental supercluster 1	 Unclassified	 Unclassified	 Uncultured family-level lineage 9	red_DsrA_b
+WddnSea0	Wadden Sea sediment fosmid ws39f7	CT025835	Marine	Reductive bacterial type DsrAB	 Environmental supercluster 1	 Unclassified	 Unclassified	 Unclassified	red_DsrA_b
+CanDesu2	Desulfococcus oleovorans	CP000859	Industrial	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Desulfobacteraceae	red_DsrA_b
+CanRuth2	Candidatus Ruthia magnifica str. Cm (Calyptogena magnifica)	NC_008610	Symbiotic	Oxidative bacterial type DsrAB		 Proteobacteria	 Gammaproteobacteria	 Gammaproteobacteria	oxi_DsrA
+ClrChlo9	Chlorobium chlorochromatii CaD3	NC_007514	Freshwater	Oxidative bacterial type DsrAB		 Chlorobi	 Chlorobia	 Chlorobiaceae	oxi_DsrA
+ClrPha15	Chlorobium phaeobacteroides BS1	CP001101	Marine	Oxidative bacterial type DsrAB		 Chlorobi	 Chlorobia	 Chlorobiaceae	oxi_DsrA
+Dg3BAC00	dsr-containing BAC MED13K09	DQ068067	Marine	Oxidative bacterial type DsrAB		 Proteobacteria	 Gammaproteobacteria	 Gammaproteobacteria	oxi_DsrA
+UncPr730	Hypersaline sediment clone	DQ386228	Alkaliphilic/Halophilic	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Fimricutes	 Clostridia	 LA-dsrAB Firmicutes	red_DsrA_b
+Gr4eSalt	hypersaline sediment clone	DQ386232	Alkaliphilic/Halophilic	Reductive bacterial type DsrAB	 FACA group sensu lato	 Firmicutes	 Clostridia	 Desulfotomaculum	red_DsrA_b
+UncPr741	hypersaline sediment clone	DQ386245	Alkaliphilic/Halophilic	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Desulfohalobiaceae	red_DsrA_b
+UncPr743	hypersaline sediment clone	DQ386247	Alkaliphilic/Halophilic	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Desulfohalobiaceae	red_DsrA_b
+UncD1085	uncultured Desulfotomaculum sp.	DQ415722	Industrial	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Fimricutes	 Clostridia	 LA-dsrAB Firmicutes	red_DsrA_b
+Z17DSoil	Deep soil clone D7	DQ855243	Soil	Reductive bacterial type DsrAB	 FACA group sensu lato	 Unclassified	 Unclassified	 Uncultured family-level lineage 5	red_DsrA_b
+UncSu776	Peatland soil clone	DQ855249	Soil	Reductive bacterial type DsrAB	 Environmental supercluster 1	 Unclassified	 Unclassified	 Uncultured family-level lineage 8	red_DsrA_b
+UncSu778	New York peatland soil clone W7	DQ855251	Soil	Reductive bacterial type DsrAB	 Environmental supercluster 1	 Unclassified	 Unclassified	 Uncultured family-level lineage 8	red_DsrA_b
+Z17DSoi4	New York peatland deep soil clone W11	DQ855254	Soil	Reductive bacterial type DsrAB	 FACA group sensu lato	 Unclassified	 Unclassified	 Uncultured family-level lineage 5	red_DsrA_b
+UncSu782	New York peatland soil clone W20	DQ855256	Soil	Reductive bacterial type DsrAB	 FACA group sensu lato	 Unclassified	 Unclassified	 Unclassified	red_DsrA_b
+UncSu800	Granitic Aquifer Clone	DQ903924	Freshwater	Reductive bacterial type DsrAB	 Environmental supercluster 1	 Unclassified	 Unclassified	 Unclassified	red_DsrA_b
+UncSu813	uncultured sulfate-reducing bacterium	DQ996690	Marine	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Syntrophobacteraceae	red_DsrA_b
+UncSu814	uncultured sulfate-reducing bacterium	DQ996691	Marine	Reductive bacterial type DsrAB	 Environmental supercluster 1	 Unclassified	 Unclassified	 Uncultured family-level lineage 12	red_DsrA_b
+UncSu818	uncultured sulfate-reducing bacterium	DQ996695	Marine	Reductive bacterial type DsrAB	 Environmental supercluster 1	 Unclassified	 Unclassified	 Uncultured family-level lineage 12	red_DsrA_b
+UncSu847	uncultured sulfate-reducing bacterium	DQ996724	Marine	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Syntrophobacteraceae	red_DsrA_b
+UncSu872	uncultured sulfate-reducing bacterium	DQ996751	Marine	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Desulfobacteraceae	red_DsrA_b
+UncSu936	uncultured sulfate-reducing bacterium	DQ996817	Marine	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Desulfobacteraceae	red_DsrA_b
+UncSu964	uncultured sulfate-reducing bacterium	DQ996847	Marine	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Syntrophobacteraceae	red_DsrA_b
+UncSu968	uncultured sulfate-reducing bacterium	DQ996851	Marine	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Desulfovibrionaceae	red_DsrA_b
+UncSu970	uncultured sulfate-reducing bacterium	DQ996853	Marine	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Syntrophobacteraceae	red_DsrA_b
+UncSu974	uncultured sulfate-reducing bacterium	DQ996857	Marine	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Desulfobulbaceae	red_DsrA_b
+UncSu979	uncultured sulfate-reducing bacterium	DQ996862	Marine	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Syntrophobacteraceae	red_DsrA_b
+UncS1020	uncultured sulfate-reducing bacterium	DQ996903	Marine	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Syntrophobacteraceae	red_DsrA_b
+UncS1022	uncultured sulfate-reducing bacterium	DQ996906	Marine	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Desulfobacteraceae	red_DsrA_b
+UncS1024	uncultured sulfate-reducing bacterium	DQ996908	Marine	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Desulfobacteraceae	red_DsrA_b
+UncS1025	uncultured sulfate-reducing bacterium	DQ996909	Marine	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Desulfobacteraceae	red_DsrA_b
+DslRedu3	Desulfotomaculum reducens MI-1	CP000612	Marine	Reductive bacterial type DsrAB	 FACA group sensu lato	 Firmicutes	 Clostridia	 Desulfotomaculum	red_DsrA_b
+DelPro48	Delta proteobacterium MLMS-1	AAQF010005	Alkaliphilic/Halophilic	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Desulfobulbaceae	red_DsrA_b
+DlfTied2	Desulfomonile tiedjei	AF334595	Industrial	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Desulfomonile tiedjei lineage	red_DsrA_b
+DeuHalo3	Desulfocella halophila	AF388211, AF388257	Marine	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Desulfobacteraceae	red_DsrA_b
+DslAmin2	Desulfovibrio aminophilus	AY626029	Industrial	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Desulfovibrionaceae	red_DsrA_b
+DslDes16	Desulfovibrio desulfuricans G20	NC_007519	Industrial	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Desulfovibrionaceae	red_DsrA_b
+DlfGeli2	Desulfofaba gelida	AF334593	Marine	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Desulfobacteraceae	red_DsrA_b
+DfvZoste	Deslfovibrio zosterae	AY626028	Marine	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Desulfovibrionaceae	red_DsrA_b
+DslAfri4	Desulfovibrio africanus	AF271772	Freshwater	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Desulfovibrionaceae	red_DsrA_b
+EdfPerse	Endoriftia persephone Hot96_1+Hot96_2	NZ_AASF00000000 NZ_AASF01001644	Symbiotic	Oxidative bacterial type DsrAB		 Proteobacteria	 Gammaproteobacteria	 Gammaproteobacteria	oxi_DsrA
+WhalBon4	whale bone shotgun clone AHAI17870	AAGA01000000 AAGA01016694	Marine	Oxidative bacterial type DsrAB		 Proteobacteria	 Alphaproteobacteria	 Alphaproteobacteria	oxi_DsrA
+OlaAlg17	Olavius algarvensis Gamma 3 symbiont Cont111	AASZ010001	Symbiotic	Oxidative bacterial type DsrAB		 Proteobacteria	 Gammaproteobacteria	 Gammaproteobacteria	oxi_DsrA
+OlaAlg20	Olavius algarvensis Delat 4 symbiont Cont1940	AASZ01000000 AASZ01001940	Symbiotic	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Desulfobacteraceae	red_DsrA_b
+EbpReac4	EBPR reactor shotgun clone ctg11606	AATN010000	Industrial	Oxidative bacterial type DsrAB		 Proteobacteria	 Gammaproteobacteria	 Gammaproteobacteria	oxi_DsrA
+Unc01d12	Uncultured bacterium, HD-DSR5	AF360681, AF360682	Estuarine	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Desulfomicrobiaceae	red_DsrA_b
+AkinLak6	alkaline lake sediment clone HSe112	EU155041	Alkaliphilic/Halophilic	Oxidative bacterial type DsrAB		 Proteobacteria	 Gammaproteobacteria	 Gammaproteobacteria	oxi_DsrA
+HrhHalop	Halorhodospira halophila SL1	CP000544	Alkaliphilic/Halophilic	Oxidative bacterial type DsrAB		 Proteobacteria	 Gammaproteobacteria	 Gammaproteobacteria	oxi_DsrA
+Unc01d14	uncultured bacterium	AY354059; AY354088	Thermophilic	Reductive bacterial type DsrAB	 Archaeoglobus cluster	 Euryarchaeota	 Archaeoglobi	 Archaeoglobus	red_DsrA_b
+Unc01d22	Uncultured bacterium, INOC-DSR39	AF360669, AF360670	Estuarine	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Desulfobacteraceae	red_DsrA_b
+Af2Fjor9	Mariager Fjord clone MAF36G	AY865327	Marine	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Unclassified	 Unclassified	 Uncultured family-level lineage 1	red_DsrA_b
+Af2Fjo18	Mariager Fjord clone MAF65G	AY865332	Marine	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Desulfovibrionaceae	red_DsrA_b
+Z04Spec2	Magnetococcus marinus	CP000471	Estuarine	Oxidative bacterial type DsrAB		 Proteobacteria	 Alphaproteobacteria	 Unclassified	oxi_DsrA
+MooThe10	Moorella thermoacetica ATCC 39073, copy 2	NC_007644b	Symbiotic	Unclassified dsrAB type		 Firmicutes	 Clostridia	 Unclassified	unk_DsrA
+MooThe11	Moorella thermoacetica ATCC 39073, copy 1	NC_007644a	Symbiotic	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Fimricutes	 Clostridia	 LA-dsrAB Firmicutes	red_DsrA_b
+DltPsyc3	Desulfotalea psychrophila	NC_006138	Marine	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Desulfobulbaceae	red_DsrA_b
+CrxHydr2	Carboxydothermus hydrogenoformans Z-2901	NC_007503	Thermophilic	Reductive bacterial type DsrAB	 FACA group sensu lato	 Firmicutes	 Clostridia	 Carboxydothermus	red_DsrA_b
+SmbntO11	Symbiont of Paracatenula ruetzleri 37	EU155050	Symbiotic	Oxidative bacterial type DsrAB		 Proteobacteria	 Alphaproteobacteria	 Alphaproteobacteria	oxi_DsrA
+JN615163	Rice field soil clone Rhi-10	JN615163	Soil	Reductive bacterial type DsrAB	 FACA group sensu lato	 Unclassified	 Unclassified	 Uncultured family-level lineage 6	red_DsrA_b
+Z95SLa27	Solar Lake Mat Clone 13, Longitudinal section	AF190885, AF190887	Alkaliphilic/Halophilic	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Desulfobacteraceae	red_DsrA_b
+Z95SLa28	Solar Lake Mat CLone 22, 600um	AF179327, AF179347	Alkaliphilic/Halophilic	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Desulfobacteraceae	red_DsrA_b
+ThmNorv3	Thermodesulforhabdus norvegica	AF334597	Thermophilic	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Syntrophobacteraceae	red_DsrA_b
+Y60Carb8	Thermosinus carboxydivorans	AAWL010000	Thermophilic	Reductive bacterial type DsrAB	 FACA group sensu lato	 Firmicutes	 Clostridia	 Sporomusaceae	red_DsrA_b
+ThpRos11	Thiocapsa roseopersicina DSM 219	EU155045	Unknown/Misc	Oxidative bacterial type DsrAB		 Proteobacteria	 Gammaproteobacteria	 Gammaproteobacteria	oxi_DsrA
+PrbIslan	Pyrobaculum islandicum	U75249	Thermophilic	Reductive archaeal type DsrAB		 Crenarchaeota	 Thermoprotei	 Pyrobaculum	red_DsrA_a
+UnculS31	Uncultured SRB, b15	AF388253, AF388299	Marine	Reductive bacterial type DsrAB	 FACA group sensu lato	 Unclassified	 Unclassified	 Uncultured family-level lineage 3	red_DsrA_b
+Af0ScI27	Schlöppnerbrunnen I soil clone dsrSbI-59	AY167473	Soil	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Desulfobacca acetoxidans lineage	red_DsrA_b
+Af0ScI31	Schlöppnerbrunnen I soil clone dsrSbI-75	AY167476	Soil	Reductive bacterial type DsrAB	 Environmental supercluster 1	 Unclassified	 Unclassified	 Unclassified	red_DsrA_b
+Af0ScI39	Schlöppnerbrunnen II soil clone dsrSbII-3	AY167467	Soil	Reductive bacterial type DsrAB	 Environmental supercluster 1	 Unclassified	 Unclassified	 Uncultured family-level lineage 8	red_DsrA_b
+UcltSR40	Uncult. SRB UMTRAdsr610-12	AY015562, AY015615	Freshwater	Reductive bacterial type DsrAB	 Nitrospirae supercluster	 Unclassified	 Unclassified	 Unclassified	red_DsrA_b
+UcltSR42	Uncult. SRB UMTRAtot615-1	AY015507. AY015594	Freshwater	Reductive bacterial type DsrAB	 FACA group sensu lato	 Unclassified	 Unclassified	 Uncultured family-level lineage 5	red_DsrA_b
+UcltSR48	Uncult. SRB UMTRAdsr617-4	AY015522, AY015609	Freshwater	Reductive bacterial type DsrAB	 Environmental supercluster 1	 Unclassified	 Unclassified	 Unclassified	red_DsrA_b
+UcltSR50	Uncult. SRB UMTRAdsr624-4	AY015517, AY015599	Freshwater	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Unclassified	 Unclassified	 Unclassified	red_DsrA_b
+UcltSR56	Uncult. SRB UMTRAdsr626-21	AY015525, AY015601	Freshwater	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Desulfobulbaceae	red_DsrA_b
+UcltSR57	Uncult. SRB UMTRAdsr626-23	AY015504, AY015608	Freshwater	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Desulfobacteraceae	red_DsrA_b
+UcltSR58	Uncult. SRB UMTRAdsr626-26	AY015527, AY015612	Freshwater	Reductive bacterial type DsrAB	 Environmental supercluster 1	 Unclassified	 Unclassified	 Uncultured family-level lineage 8	red_DsrA_b
+UcltSR61	Uncult. SRB UMTRAdsr648-21	AY015501, AY015607	Freshwater	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Fimricutes	 Clostridia	 LA-dsrAB Firmicutes	red_DsrA_b
+UcltSR63	Uncult. SRB UMTRAdsr826-24	AY015524, AY015610	Freshwater	Reductive bacterial type DsrAB	 Environmental supercluster 1	 Unclassified	 Unclassified	 Unclassified	red_DsrA_b
+UcltSR64	Uncult. SRB UMTRAdsr826-5	AY015548, AY015614	Freshwater	Reductive bacterial type DsrAB	 FACA group sensu lato	 Unclassified	 Unclassified	 Uncultured family-level lineage 6	red_DsrA_b
+ArgFulg5	Archaeoglobus fulgidus	NC_000917	Thermophilic	Reductive bacterial type DsrAB	 Archaeoglobus cluster	 Euryarchaeota	 Archaeoglobi	 Archaeoglobus	red_DsrA_b
+DsfHaf14	Desulfitobacterium hafniense	CP001336	Industrial	Reductive bacterial type DsrAB	 FACA group sensu lato	 Firmicutes	 Clostridia	 Desulfitobacterium	red_DsrA_b
+SnpFuma5	Syntrophobacter fumaroxidans	NC_008554	Industrial	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Syntrophobacteraceae	red_DsrA_b
+CanDesu3	Candidatus Desulforudis audaxviator	NC_010424	Industrial	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Fimricutes	 Clostridia	 LA-dsrAB Firmicutes	red_DsrA_b
+CvgMaqu3	Caldivirga maquilingensis	CP000852	Thermophilic	Reductive archaeal type DsrAB		 Crenarchaeota	 Thermoprotei	 Caldivirga	red_DsrA_a
+AtcSed67	Arctic sediment clone AH5_5	KF896972	Marine	Reductive bacterial type DsrAB	 FACA group sensu lato	 Unclassified	 Unclassified	 Unclassified	red_DsrA_b
+Aj6f0Ab7	Arctic sediment clone AH4_27	KF896981	Marine	Reductive bacterial type DsrAB	 Nitrospirae supercluster	 Unclassified	 Unclassified	 Uncultured family-level lineage 13	red_DsrA_b
+Af1t0yyy	Arctic sediment clone J1-16	KF896902	Marine	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Desulfoarculus baarsii lineage	red_DsrA_b
+Af1t0yy0	Arctic sediment clone J1-18	KF896903	Marine	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Syntrophobacteraceae	red_DsrA_b
+Af1t0yy4	Arctic sediment clone J1-24	KF896905	Marine	Reductive bacterial type DsrAB	 Environmental supercluster 1	 Unclassified	 Unclassified	 Uncultured family-level lineage 9	red_DsrA_b
+Af1t0y17	Arctic sediment clone J3-1	KF896918	Marine	Reductive bacterial type DsrAB	 Environmental supercluster 1	 Unclassified	 Unclassified	 Uncultured family-level lineage 9	red_DsrA_b
+Af1t0y26	Arctic sediment clone J4-26	KF896928	Marine	Reductive bacterial type DsrAB	 Environmental supercluster 1	 Unclassified	 Unclassified	 Uncultured family-level lineage 9	red_DsrA_b
+Af1t0y27	Arctic sediment clone J4-28	KF896947	Marine	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Unclassified	 Unclassified	 Uncultured family-level lineage 11	red_DsrA_b
+Jtyyyy02	Arctic sediment clone J2-14	KF896950	Marine	Reductive bacterial type DsrAB	 Environmental supercluster 1	 Unclassified	 Unclassified	 Uncultured family-level lineage 12	red_DsrA_b
+UncSu403	Artesian spring clone	AY327244	Freshwater	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Desulfobacteraceae	red_DsrA_b
+RmRasne3	Rasner Möser fen soil clone Rm22	GU127962	Soil	Reductive bacterial type DsrAB	 FACA group sensu lato	 Unclassified	 Unclassified	 Unclassified	red_DsrA_b
+UncS1748	uncultured sulfate-reducing	AY367738	Freshwater	Reductive bacterial type DsrAB	 Environmental supercluster 1	 Unclassified	 Unclassified	 Unclassified	red_DsrA_b
+UncS1752	uncultured sulfate-reducing	AY367734	Estuarine	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Desulfobacteraceae	red_DsrA_b
+UncS1755	uncultured sulfate-reducing	AY367731	Estuarine	Reductive bacterial type DsrAB	 Nitrospirae supercluster	 Unclassified	 Unclassified	 Unclassified	red_DsrA_b
+UncS1758	uncultured sulfate-reducing	AY367728	Estuarine	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Desulfobacteraceae	red_DsrA_b
+UncS1760	uncultured sulfate-reducing	AY367726	Estuarine	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Desulfobulbaceae	red_DsrA_b
+UncS1761	uncultured sulfate-reducing	AY367725	Estuarine	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Desulfobulbaceae	red_DsrA_b
+UncS1762	uncultured sulfate-reducing	AY367724	Estuarine	Reductive bacterial type DsrAB	 Environmental supercluster 1	 Unclassified	 Unclassified	 Uncultured family-level lineage 9	red_DsrA_b
+BlackSe2	Black Sea sediment clone BSI-10	AM236163	Marine	Reductive bacterial type DsrAB	 FACA group sensu lato	 Unclassified	 Unclassified	 Unclassified	red_DsrA_b
+Bq8River	Seine river floodplain clone VO7	AY953410	Estuarine	Reductive bacterial type DsrAB	 FACA group sensu lato	 Unclassified	 Unclassified	 Unclassified	red_DsrA_b
+Bq8Rive4	Seine river floodplain clone VO4	AY953407	Estuarine	Reductive bacterial type DsrAB	 FACA group sensu lato	 Unclassified	 Unclassified	 Uncultured family-level lineage 6	red_DsrA_b
+DslLuci3	Desulfotomaculum luciae|Bacteria;	AY015579	Freshwater	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Fimricutes	 Clostridia	 LA-dsrAB Firmicutes	red_DsrA_b
+DslAero7	Desulfotomaculum aeronauticum|Bacteria;	AY015578	Freshwater	Reductive bacterial type DsrAB	 FACA group sensu lato	 Firmicutes	 Clostridia	 Desulfotomaculum	red_DsrA_b
+BlackSe3	Black Sea sediment clone BSIII-8	AM236178	Marine	Reductive bacterial type DsrAB	 FACA group sensu lato	 Unclassified	 Unclassified	 Uncultured family-level lineage 7	red_DsrA_b
+BlackSe4	Black Sea sediment clone BSIII-7	AM236177	Marine	Reductive bacterial type DsrAB	 FACA group sensu lato	 Unclassified	 Unclassified	 Uncultured family-level lineage 2	red_DsrA_b
+BlackSe5	Black Sea sediment clone BSIII-6	AM236176	Marine	Reductive bacterial type DsrAB	 FACA group sensu lato	 Unclassified	 Unclassified	 Uncultured family-level lineage 2	red_DsrA_b
+BlackSe6	Black Sea sediment clone BSIII-5	AM236175	Marine	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Unclassified	 Unclassified	 Unclassified	red_DsrA_b
+BlackSe7	Black Sea sediment clone BSIII-4	AM236174	Marine	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Desulfatiglans anilini lineage	red_DsrA_b
+BlackS12	Black Sea sediment clone BSII-1	AM236167	Marine	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Desulfovibrionaceae	red_DsrA_b
+BlackS14	Black Sea sediment clone BSI-12	AM236165	Marine	Reductive bacterial type DsrAB	 FACA group sensu lato	 Unclassified	 Unclassified	 Unclassified	red_DsrA_b
+Aj9dsY37	Schlöppnerbrunnen fen peat soil clone	GU371953	Soil	Reductive bacterial type DsrAB	 Environmental supercluster 1	 Unclassified	 Unclassified	 Uncultured family-level lineage 8	red_DsrA_b
+Aj9dsY41	Schlöppnerbrunnen fen peat soil clone	GU371956	Soil	Reductive bacterial type DsrAB	 Environmental supercluster 1	 Unclassified	 Unclassified	 Uncultured family-level lineage 8	red_DsrA_b
+DsqncYy6	Schlöppnerbrunnen fen peat soil clone	GU371965	Soil	Reductive bacterial type DsrAB	 Environmental supercluster 1	 Unclassified	 Unclassified	 Uncultured family-level lineage 8	red_DsrA_b
+Aj9dsY72	Schlöppnerbrunnen fen peat soil clone	GU371999	Soil	Reductive bacterial type DsrAB	 Nitrospirae supercluster	 Unclassified	 Unclassified	 Unclassified	red_DsrA_b
+Bv2Prop2	Anaerobic bacterium sk.prop8	AY751286	Industrial	Reductive bacterial type DsrAB	 FACA group sensu lato	 Unclassified	 Unclassified	 Unclassified	red_DsrA_b
+UncS1916	uncultured sulfate-reducing bacterium	AY367716	Soil	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Desulfobulbaceae	red_DsrA_b
+UncS1920	uncultured sulfate-reducing bacterium	AY367712	Soil	Reductive bacterial type DsrAB	 Environmental supercluster 1	 Unclassified	 Unclassified	 Uncultured family-level lineage 8	red_DsrA_b
+UncS1922	uncultured sulfate-reducing bacterium	AY367710	Soil	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Desulfobacteraceae	red_DsrA_b
+UncS1931	uncultured sulfate-reducing bacterium	AY367701	Soil	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Desulfobulbaceae	red_DsrA_b
+UncS1936	uncultured sulfate-reducing bacterium	AY367696	Soil	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Syntrophobacteraceae	red_DsrA_b
+UncS1942	uncultured sulfate-reducing bacterium	AY367689	Soil	Reductive bacterial type DsrAB	 Environmental supercluster 1	 Unclassified	 Unclassified	 Unclassified	red_DsrA_b
+UncS1952	uncultured sulfate-reducing bacterium	AY367679	Soil	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Desulfobulbaceae	red_DsrA_b
+UncS1955	uncultured sulfate-reducing bacterium	AY367676	Soil	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Desulfomonile tiedjei lineage	red_DsrA_b
+UncS1964	uncultured sulfate-reducing bacterium	AY367667	Soil	Reductive bacterial type DsrAB	 Environmental supercluster 1	 Unclassified	 Unclassified	 Uncultured family-level lineage 9	red_DsrA_b
+UncS1972	uncultured sulfate-reducing bacterium	AY367659	Soil	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Desulfobulbaceae	red_DsrA_b
+UncS1981	uncultured sulfate-reducing bacterium	AY367650	Soil	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Desulfobacteraceae	red_DsrA_b
+UncS1982	uncultured sulfate-reducing bacterium	AY367649	Soil	Reductive bacterial type DsrAB	 FACA group sensu lato	 Unclassified	 Unclassified	 Unclassified	red_DsrA_b
+UncS1987	uncultured sulfate-reducing bacterium clone PuertoRico.xCR050	AY367644	Soil	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Desulfobacteraceae	red_DsrA_b
+Unc01d28	uncultured bacterium	AY770567	Industrial	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Fimricutes	 Clostridia	 LA-dsrAB Firmicutes	red_DsrA_b
+Bv4Sed26	Seagrass sediment clone	AY266584	Marine	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Unclassified	 Unclassified	 Unclassified	red_DsrA_b
+Bv4Sed68	Seagrass sediment clone	AY266542	Marine	Reductive bacterial type DsrAB	 FACA group sensu lato	 Unclassified	 Unclassified	 Uncultured family-level lineage 5	red_DsrA_b
+Bv4Sed73	Seagrass sediment clone	AY266537	Marine	Reductive bacterial type DsrAB	 FACA group sensu lato	 Unclassified	 Unclassified	 Unclassified	red_DsrA_b
+Bv4Sed93	Seagrass sediment clone	AY266517	Marine	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Desulfatiglans anilini lineage	red_DsrA_b
+Z17Medi7	Deep Mediterranean Sea Sediment Clone Sed1-DSR 18	AY590553	Marine	Reductive bacterial type DsrAB	 Environmental supercluster 1	 Unclassified	 Unclassified	 Unclassified	red_DsrA_b
+Z17Med11	Deep Mediterranean Sea Sediment Clone UI-DSR 63	AY590549	Marine	Reductive bacterial type DsrAB	 FACA group sensu lato	 Unclassified	 Unclassified	 Unclassified	red_DsrA_b
+Z17Med16	Deep Mediterranean Sea Sediment Clone UB-DSR 28	AY590544	Marine	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Desulfobulbaceae	red_DsrA_b
+Z17Med20	Deep Mediterranean Sea Sediment Clone AB-DSR 63	AY590540	Marine	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Desulfohalobiaceae	red_DsrA_b
+Z17Med44	Deep Mediterranean Sea Sediment Clone UI-DSR 49	AY590516	Marine	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Desulfobacteraceae	red_DsrA_b
+DslDes21	Desulfovibrio desulfuricans G20	4210..5316 NZ_AABN02000010	Industrial	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Desulfovibrionaceae	red_DsrA_b
+UncS1994	Victoria Harbour sediment clone	DQ112211	Marine	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Desulfobacteraceae	red_DsrA_b
+UncS2000	Victoria Harbour sediment clone	DQ112204	Marine	Reductive bacterial type DsrAB	 Environmental supercluster 1	 Unclassified	 Unclassified	 Uncultured family-level lineage 12	red_DsrA_b
+UncS1733	Victoria Harbour sediment clone	DQ112198	Marine	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Unclassified	 Unclassified	 Uncultured family-level lineage 1	red_DsrA_b
+UncS2006	Victoria Harbour sediment clone	DQ112197	Marine	Reductive bacterial type DsrAB	 Environmental supercluster 1	 Unclassified	 Unclassified	 Uncultured family-level lineage 9	red_DsrA_b
+UncS2009	Victoria Harbour sediment clone	DQ112194	Marine	Reductive bacterial type DsrAB	 Environmental supercluster 1	 Unclassified	 Unclassified	 Uncultured family-level lineage 9	red_DsrA_b
+UncS2011	Victoria Harbour sediment clone	DQ112192	Marine	Reductive bacterial type DsrAB	 Environmental supercluster 1	 Unclassified	 Unclassified	 Uncultured family-level lineage 12	red_DsrA_b
+Gr8ayyyy	Bioreactor clone	AY929606	Industrial	Reductive bacterial type DsrAB	 FACA group sensu lato	 Unclassified	 Unclassified	 Uncultured family-level lineage 5	red_DsrA_b
+UncS2024	Bioreactor clone	AY929600	Industrial	Reductive bacterial type DsrAB	 FACA group sensu lato	 Unclassified	 Unclassified	 Unclassified	red_DsrA_b
+UncS2025	Bioreactor clone	AY929599	Industrial	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Desulfoarculus baarsii lineage	red_DsrA_b
+ThbDeni7	Thiobacillus denitrificans ATCC 25259, complete genome.	1388049..1389353 NC_007404	Soil	Oxidative bacterial type DsrAB		 Proteobacteria	 Betaproteobacteria	 Betaproteobacteria	oxi_DsrA
+ThbDeni8	Thiobacillus denitrificans ATCC 25259, complete genome.	NC_007404 complement(2558568..2559638)	Soil	Oxidative bacterial type DsrAB		 Proteobacteria	 Betaproteobacteria	 Betaproteobacteria	oxi_DsrA
+UncSu385	Peat Bog SRB Clone	AM179510	Soil	Reductive bacterial type DsrAB	 Environmental supercluster 1	 Unclassified	 Unclassified	 Uncultured family-level lineage 8	red_DsrA_b
+UncSu381	Peat Bog SRB Clone	AM179506	Soil	Reductive bacterial type DsrAB	 FACA group sensu lato	 Unclassified	 Unclassified	 Unclassified	red_DsrA_b
+UncSu362	Peat Bog SRB Clone	AM179487	Soil	Reductive bacterial type DsrAB	 FACA group sensu lato	 Unclassified	 Unclassified	 Unclassified	red_DsrA_b
+UncSu356	Peat Bog SRB Clone	AM179481	Soil	Reductive bacterial type DsrAB	 FACA group sensu lato	 Unclassified	 Unclassified	 Unclassified	red_DsrA_b
+UncSu347	Peat Bog SRB Clone	AM179472	Soil	Reductive bacterial type DsrAB	 Environmental supercluster 1	 Unclassified	 Unclassified	 Unclassified	red_DsrA_b
+UncSu339	Peat Bog SRB Clone	AM179464	Soil	Reductive bacterial type DsrAB	 Environmental supercluster 1	 Unclassified	 Unclassified	 Unclassified	red_DsrA_b
+SubAqui2	Subsurface aquifer clone	AY885548	Freshwater	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Desulfobacteraceae	red_DsrA_b
+Unc01d0w	Nonsulfidogenic sediment clone	DQ138191	Marine	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Desulfobacteraceae	red_DsrA_b
+Unc01d0v	Nonsulfidogenic sediment clone	AY753142	Marine	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Syntrophobacteraceae	red_DsrA_b
+Unc01d0t	Nonsulfidogenic sediment clone	AY753140	Marine	Reductive bacterial type DsrAB	 FACA group sensu lato	 Unclassified	 Unclassified	 Uncultured family-level lineage 4	red_DsrA_b
+Unc01d0q	Nonsulfidogenic sediment clone	AY753137	Marine	Reductive bacterial type DsrAB	 Environmental supercluster 1	 Unclassified	 Unclassified	 Unclassified	red_DsrA_b
+Unc01d0o	Nonsulfidogenic sediment clone	AY753135	Marine	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Desulfatiglans anilini lineage	red_DsrA_b
+Z98Mobi2	Nonsulfidogenic sediment clone	AY753131	Marine	Reductive bacterial type DsrAB	 Environmental supercluster 1	 Unclassified	 Unclassified	 Unclassified	red_DsrA_b
+Unc01d0i	Nonsulfidogenic sediment clone	AY753128	Marine	Reductive bacterial type DsrAB	 Environmental supercluster 1	 Unclassified	 Unclassified	 Unclassified	red_DsrA_b
+Unc01d0e	Nonsulfidogenic sediment clone	AY753124	Marine	Reductive bacterial type DsrAB	 Environmental supercluster 1	 Unclassified	 Unclassified	 Uncultured family-level lineage 9	red_DsrA_b
+Unc01d09	Nonsulfidogenic sediment clone	AY753119	Marine	Reductive bacterial type DsrAB	 Environmental supercluster 1	 Unclassified	 Unclassified	 Uncultured family-level lineage 12	red_DsrA_b
+Unc01d05	Nonsulfidogenic sediment clone	AY753115	Marine	Reductive bacterial type DsrAB	 Environmental supercluster 1	 Unclassified	 Unclassified	 Unclassified	red_DsrA_b
+Unc01d04	Nonsulfidogenic sediment clone	AY753114	Marine	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Desulfomonile tiedjei lineage	red_DsrA_b
+Unc01d03	Nonsulfidogenic sediment clone	AY753113	Marine	Reductive bacterial type DsrAB	 FACA group sensu lato	 Unclassified	 Unclassified	 Unclassified	red_DsrA_b
+Unc01d02	Nonsulfidogenic sediment clone	AY753111	Marine	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Unclassified	 Unclassified	 Unclassified	red_DsrA_b
+Unc01d01	Nonsulfidogenic sediment clone	AY753110	Marine	Reductive bacterial type DsrAB	 Environmental supercluster 1	 Unclassified	 Unclassified	 Unclassified	red_DsrA_b
+Unc01d00	Nonsulfidogenic sediment clone	AY753109	Marine	Reductive bacterial type DsrAB	 Environmental supercluster 1	 Unclassified	 Unclassified	 Uncultured family-level lineage 9	red_DsrA_b
+Unc01czy	Nonsulfidogenic sediment clone	AY753107	Marine	Reductive bacterial type DsrAB	 Environmental supercluster 1	 Unclassified	 Unclassified	 Uncultured family-level lineage 8	red_DsrA_b
+Unc01czu	Nonsulfidogenic sediment clone	AY753103	Marine	Reductive bacterial type DsrAB	 Environmental supercluster 1	 Unclassified	 Unclassified	 Uncultured family-level lineage 9	red_DsrA_b
+Unc01czq	Nonsulfidogenic sediment clone	AY753099	Marine	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Desulfobulbaceae	red_DsrA_b
+Unc01czp	Nonsulfidogenic sediment clone	AY753098	Marine	Reductive bacterial type DsrAB	 Environmental supercluster 1	 Unclassified	 Unclassified	 Uncultured family-level lineage 9	red_DsrA_b
+Unc01czk	Nonsulfidogenic sediment clone	AY753093	Marine	Reductive bacterial type DsrAB	 Nitrospirae supercluster	 Unclassified	 Unclassified	 Uncultured family-level lineage 13	red_DsrA_b
+Unc01czi	Nonsulfidogenic sediment clone	AY753091	Marine	Reductive bacterial type DsrAB	 FACA group sensu lato	 Unclassified	 Unclassified	 Uncultured family-level lineage 5	red_DsrA_b
+Unc01czb	Nonsulfidogenic sediment clone	AY753084	Marine	Reductive bacterial type DsrAB	 Environmental supercluster 1	 Unclassified	 Unclassified	 Uncultured family-level lineage 8	red_DsrA_b
+Unc01cz8	Nonsulfidogenic sediment clone	AY753081	Marine	Reductive bacterial type DsrAB	 FACA group sensu lato	 Unclassified	 Unclassified	 Uncultured family-level lineage 7	red_DsrA_b
+Unc01cz6	Nonsulfidogenic sediment clone	AY753079	Marine	Reductive bacterial type DsrAB	 Environmental supercluster 1	 Unclassified	 Unclassified	 Uncultured family-level lineage 9	red_DsrA_b
+Unc01cz2	Nonsulfidogenic sediment clone	AY753075	Marine	Reductive bacterial type DsrAB	 FACA group sensu lato	 Unclassified	 Unclassified	 Uncultured family-level lineage 7	red_DsrA_b
+DscTher2	Desulfomicrobium thermophilum|Bacteria;	DQ464347	Thermophilic	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Desulfomicrobiaceae	red_DsrA_b
+UncSu273	Deep sea sediment clone NTd-VI02	AB263180	Marine	Reductive bacterial type DsrAB	 FACA group sensu lato	 Unclassified	 Unclassified	 Uncultured family-level lineage 7	red_DsrA_b
+UncSu258	Deep sea sediment clone NTd-III09	AB263164	Marine	Reductive bacterial type DsrAB	 FACA group sensu lato	 Unclassified	 Unclassified	 Unclassified	red_DsrA_b
+UncSu257	Deep sea sediment clone NTd-III08	AB263163	Marine	Reductive bacterial type DsrAB	 FACA group sensu lato	 Unclassified	 Unclassified	 Uncultured family-level lineage 4	red_DsrA_b
+UncSu229	Deep sea sediment clone	AB263135	Marine	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Unclassified	 Unclassified	 Unclassified	red_DsrA_b
+UncS1615	Polluted aquifer clone LGWN11	EF065087	Freshwater	Reductive bacterial type DsrAB	 Environmental supercluster 1	 Unclassified	 Unclassified	 Unclassified	red_DsrA_b
+UncS1625	Polluted aquifer clone LGWK13	EF065077	Freshwater	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Unclassified	 Unclassified	 Unclassified	red_DsrA_b
+UncS1627	Polluted aquifer clone LGWK14	EF065075	Freshwater	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Desulfobulbaceae	red_DsrA_b
+UncS1660	Polluted aquifer clone LGWG03	EF065042	Freshwater	Reductive bacterial type DsrAB	 FACA group sensu lato	 Unclassified	 Unclassified	 Unclassified	red_DsrA_b
+UncS1681	Polluted aquifer clone LGWG01	EF065021	Freshwater	Reductive bacterial type DsrAB	 Nitrospirae supercluster	 Unclassified	 Unclassified	 Uncultured family-level lineage 13	red_DsrA_b
+UncS1715	Puget Sound sediment clonelimited quality	DQ996840	Marine	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Desulfobacteraceae	red_DsrA_b
+UncS1717	Puget Sound sediment clonelimited quality	DQ996765	Marine	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Unclassified	 Unclassified	 Uncultured family-level lineage 1	red_DsrA_b
+UncS1718	Puget Sound sediment clonelimited quality	DQ996752	Marine	Reductive bacterial type DsrAB	 Environmental supercluster 1	 Unclassified	 Unclassified	 Uncultured family-level lineage 9	red_DsrA_b
+UncSu823	Puget Sound sediment clonelimited quality	DQ996700	Marine	Reductive bacterial type DsrAB	 FACA group sensu lato	 Unclassified	 Unclassified	 Uncultured family-level lineage 5	red_DsrA_b
+TdlIndi2	Thermodesulfatator indicus	CP002683	Thermophilic	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Thermodesulfobacteria	 Thermodesulfobacteria	 Thermodesulfobacteria	red_DsrA_b
+UncS1741	Aarhus bay sediment clone DSRI-1	AM408829	Marine	Reductive bacterial type DsrAB	 FACA group sensu lato	 Unclassified	 Unclassified	 Uncultured family-level lineage 5	red_DsrA_b
+Bv6AaBa9	Aarhus bay sediment clone DSRII-6	FM179960	Marine	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Unclassified	 Unclassified	 Uncultured family-level lineage 1	red_DsrA_b
+Bv6AaB10	Aarhus bay sediment clone DSRII-5	FM179959	Marine	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Desulfatiglans anilini lineage	red_DsrA_b
+Bv6AaB12	Aarhus bay sediment clone DSRII-2	FM179956	Marine	Reductive bacterial type DsrAB	 FACA group sensu lato	 Unclassified	 Unclassified	 Unclassified	red_DsrA_b
+Bv6AaB29	Aarhus bay sediment clone DSRIV-3	FM179972	Marine	Reductive bacterial type DsrAB	 Environmental supercluster 1	 Unclassified	 Unclassified	 Unclassified	red_DsrA_b
+UncS2043	Pearl river estuary clone TopDsr7	FJ748831	Estuarine	Reductive bacterial type DsrAB	 Environmental supercluster 1	 Unclassified	 Unclassified	 Unclassified	red_DsrA_b
+UncS2063	Pearl river estuary clone SMTZDsr44	FJ748854	Estuarine	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Desulfobacca acetoxidans lineage	red_DsrA_b
+UncS1368	rice field soil clone  OTU-67	EU258889	Soil	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Syntrophobacteraceae	red_DsrA_b
+UncS1371	rice field soil clone  OTU-84	EU258886	Soil	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Desulfobacca acetoxidans lineage	red_DsrA_b
+UncS1374	rice field soil clone  OTU-102	EU258883	Soil	Reductive bacterial type DsrAB	 Environmental supercluster 1	 Unclassified	 Unclassified	 Unclassified	red_DsrA_b
+UncS1376	rice field soil clone  OTU-110	EU258881	Soil	Reductive bacterial type DsrAB	 FACA group sensu lato	 Unclassified	 Unclassified	 Unclassified	red_DsrA_b
+UncS1378	rice field soil clone  OTU-63	EU258879	Soil	Reductive bacterial type DsrAB	 FACA group sensu lato	 Unclassified	 Unclassified	 Uncultured family-level lineage 5	red_DsrA_b
+UncS1379	rice field soil clone  OTU-44	EU258878	Soil	Reductive bacterial type DsrAB	 FACA group sensu lato	 Unclassified	 Unclassified	 Uncultured family-level lineage 6	red_DsrA_b
+UncS1381	rice field soil clone  OTU-34	EU258876	Soil	Reductive bacterial type DsrAB	 Nitrospirae supercluster	 Unclassified	 Unclassified	 Unclassified	red_DsrA_b
+UncS1383	rice field soil clone  OTU-72	EU258874	Soil	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Unclassified	 Unclassified	 Uncultured family-level lineage 1	red_DsrA_b
+UncS1390	rice field soil clone  OTU-97	EU258867	Soil	Reductive bacterial type DsrAB	 Environmental supercluster 1	 Unclassified	 Unclassified	 Uncultured family-level lineage 8	red_DsrA_b
+UncS1398	rice field soil clone  OTU-77	EU258859	Soil	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Desulfobacca acetoxidans lineage	red_DsrA_b
+UncS1402	rice field soil clone  OTU-61	EU258855	Soil	Reductive bacterial type DsrAB	 FACA group sensu lato	 Unclassified	 Unclassified	 Unclassified	red_DsrA_b
+UncS1403	rice field soil clone  OTU-120	EU258854	Soil	Reductive bacterial type DsrAB	 Nitrospirae supercluster	 Unclassified	 Unclassified	 Unclassified	red_DsrA_b
+UncS1404	rice field soil clone  OTU-103	EU258853	Soil	Reductive bacterial type DsrAB	 Environmental supercluster 1	 Unclassified	 Unclassified	 Unclassified	red_DsrA_b
+UncS1409	rice field soil clone  OTU-100	EU258848	Soil	Reductive bacterial type DsrAB	 Environmental supercluster 1	 Unclassified	 Unclassified	 Unclassified	red_DsrA_b
+UncS1410	rice field soil clone  OTU-62	EU258847	Soil	Reductive bacterial type DsrAB	 FACA group sensu lato	 Unclassified	 Unclassified	 Uncultured family-level lineage 5	red_DsrA_b
+UncS1429	rice field soil clone  OTU-123	EU258828	Soil	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Unclassified	 Unclassified	 Uncultured family-level lineage 11	red_DsrA_b
+UncS1430	rice field soil clone  OTU-119	EU258827	Soil	Reductive bacterial type DsrAB	 FACA group sensu lato	 Unclassified	 Unclassified	 Unclassified	red_DsrA_b
+UncS1434	rice field soil clone  OTU-57	EU258823	Soil	Reductive bacterial type DsrAB	 FACA group sensu lato	 Unclassified	 Unclassified	 Uncultured family-level lineage 6	red_DsrA_b
+UncS1436	rice field soil clone  OTU-76	EU258821	Soil	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Desulfovibrionaceae	red_DsrA_b
+UncS1437	rice field soil clone  OTU-99	EU258820	Soil	Reductive bacterial type DsrAB	 FACA group sensu lato	 Unclassified	 Unclassified	 Unclassified	red_DsrA_b
+UncS1445	rice field soil clone  OTU-118	EU258812	Soil	Reductive bacterial type DsrAB	 FACA group sensu lato	 Unclassified	 Unclassified	 Unclassified	red_DsrA_b
+UncS1450	rice field soil clone  OTU-75	EU258807	Soil	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Desulfobacteraceae	red_DsrA_b
+UncS1452	rice field soil clone  OTU-64	EU258805	Soil	Reductive bacterial type DsrAB	 FACA group sensu lato	 Unclassified	 Unclassified	 Uncultured family-level lineage 5	red_DsrA_b
+UncS1454	rice field soil clone  OTU-89	EU258803	Soil	Reductive bacterial type DsrAB	 Environmental supercluster 1	 Unclassified	 Unclassified	 Uncultured family-level lineage 8	red_DsrA_b
+UncS1455	rice field soil clone  OTU-95	EU258802	Soil	Reductive bacterial type DsrAB	 Environmental supercluster 1	 Unclassified	 Unclassified	 Uncultured family-level lineage 8	red_DsrA_b
+UncS1460	rice field soil clone  OTU-101	EU258797	Soil	Reductive bacterial type DsrAB	 Environmental supercluster 1	 Unclassified	 Unclassified	 Unclassified	red_DsrA_b
+UncS1467	rice field soil clone  OTU-124	EU258790	Soil	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Unclassified	 Unclassified	 Unclassified	red_DsrA_b
+UncS1469	rice field soil clone  OTU-107	EU258788	Soil	Reductive bacterial type DsrAB	 FACA group sensu lato	 Unclassified	 Unclassified	 Unclassified	red_DsrA_b
+UncS1472	rice field soil clone  OTU-39	EU258785	Soil	Reductive bacterial type DsrAB	 Environmental supercluster 1	 Unclassified	 Unclassified	 Unclassified	red_DsrA_b
+UncS1483	rice field soil clone  OTU-50	EU258774	Soil	Reductive bacterial type DsrAB	 FACA group sensu lato	 Unclassified	 Unclassified	 Uncultured family-level lineage 6	red_DsrA_b
+UncS1484	rice field soil clone  OTU-60	EU258773	Soil	Reductive bacterial type DsrAB	 FACA group sensu lato	 Unclassified	 Unclassified	 Uncultured family-level lineage 6	red_DsrA_b
+UncS1486	rice field soil clone  OTU-98	EU258771	Soil	Reductive bacterial type DsrAB	 Environmental supercluster 1	 Unclassified	 Unclassified	 Uncultured family-level lineage 8	red_DsrA_b
+UncS2067	rice field soil clone OTU-24	FJ472887	Soil	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Desulfatiglans anilini lineage	red_DsrA_b
+UncS2069	rice field soil clone OTU-22	FJ472885	Soil	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Desulfovibrionaceae	red_DsrA_b
+UncS2075	rice field soil clone OTU-16	FJ472879	Soil	Reductive bacterial type DsrAB	 FACA group sensu lato	 Unclassified	 Unclassified	 Uncultured family-level lineage 5	red_DsrA_b
+UncS2079	rice field soil clone OTU-12	FJ472875	Soil	Reductive bacterial type DsrAB	 Environmental supercluster 1	 Unclassified	 Unclassified	 Unclassified	red_DsrA_b
+UncS2082	rice field soil clone OTU-8	FJ472871	Soil	Reductive bacterial type DsrAB	 Environmental supercluster 1	 Unclassified	 Unclassified	 Uncultured family-level lineage 8	red_DsrA_b
+UncS2086	rice field soil clone OTU-4	FJ472867	Soil	Reductive bacterial type DsrAB	 Environmental supercluster 1	 Unclassified	 Unclassified	 Unclassified	red_DsrA_b
+UncS2087	rice field soil clone OTU-3	FJ472866	Soil	Reductive bacterial type DsrAB	 Environmental supercluster 1	 Unclassified	 Unclassified	 Unclassified	red_DsrA_b
+HQ191173	uncultured bacterium	HQ191173	Marine	Oxidative bacterial type DsrAB		 Proteobacteria	 Alphaproteobacteria	 Alphaproteobacteria	oxi_DsrA
+HQ191182	uncultured bacterium	HQ191182	Marine	Oxidative bacterial type DsrAB		 Proteobacteria	 Gammaproteobacteria	 Gammaproteobacteria	oxi_DsrA
+HQ191200	uncultured bacterium	HQ191200	Marine	Oxidative bacterial type DsrAB		 Proteobacteria	 Gammaproteobacteria	 Gammaproteobacteria	oxi_DsrA
+HQ191215	endosymbiont of	HQ191215	Symbiotic	Oxidative bacterial type DsrAB		 Proteobacteria	 Gammaproteobacteria	 Gammaproteobacteria	oxi_DsrA
+AB451526	uncultured bacterium	AB451526	Thermophilic	Reductive bacterial type DsrAB	 FACA group sensu lato	 Unclassified	 Unclassified	 Unclassified	red_DsrA_b
+AB451528	Hydrothermal field microbial mat clone	AB451528	Thermophilic	Reductive bacterial type DsrAB	 Nitrospirae supercluster	 Unclassified	 Unclassified	 Unclassified	red_DsrA_b
+AM408805	uncultured sulfate-reducing	AM408805	Marine	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Desulfatiglans anilini lineage	red_DsrA_b
+AM408809	uncultured sulfate-reducing	AM408809	Marine	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Desulfatiglans anilini lineage	red_DsrA_b
+AM408810	uncultured sulfate-reducing	AM408810	Marine	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Unclassified	 Unclassified	 Unclassified	red_DsrA_b
+AM408815	uncultured sulfate-reducing	AM408815	Marine	Reductive bacterial type DsrAB	 FACA group sensu lato	 Unclassified	 Unclassified	 Unclassified	red_DsrA_b
+AM408817	uncultured sulfate-reducing	AM408817	Marine	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Unclassified	 Unclassified	 Unclassified	red_DsrA_b
+EF158464	uncultured prokaryote	EF158464	Alkaliphilic/Halophilic	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Desulfobacteraceae	red_DsrA_b
+DQ000486	uncultured prokaryote	DQ000486	Industrial	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Fimricutes	 Clostridia	 LA-dsrAB Firmicutes	red_DsrA_b
+DQ000490	uncultured prokaryote	DQ000490	Industrial	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Desulfovibrionaceae	red_DsrA_b
+EU156168	uncultured prokaryote	EU156168	Industrial	Reductive bacterial type DsrAB	 FACA group sensu lato	 Unclassified	 Unclassified	 Unclassified	red_DsrA_b
+FM180449	uncultured sulfate-reducing	FM180449	Marine	Reductive bacterial type DsrAB	 FACA group sensu lato	 Unclassified	 Unclassified	 Uncultured family-level lineage 3	red_DsrA_b
+FM180450	uncultured sulfate-reducing	FM180450	Marine	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Unclassified	 Unclassified	 Unclassified	red_DsrA_b
+FM180451	uncultured sulfate-reducing	FM180451	Marine	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Unclassified	 Unclassified	 Unclassified	red_DsrA_b
+FM180452	uncultured sulfate-reducing	FM180452	Marine	Reductive bacterial type DsrAB	 FACA group sensu lato	 Unclassified	 Unclassified	 Uncultured family-level lineage 3	red_DsrA_b
+FM180455	uncultured sulfate-reducing	FM180455	Marine	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Desulfatiglans anilini lineage	red_DsrA_b
+FM180456	uncultured sulfate-reducing	FM180456	Marine	Reductive bacterial type DsrAB	 FACA group sensu lato	 Unclassified	 Unclassified	 Uncultured family-level lineage 3	red_DsrA_b
+AM490779	uncultured bacterium	AM490779	Freshwater	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Desulfomonile tiedjei lineage	red_DsrA_b
+AM490776	uncultured bacterium	AM490776	Freshwater	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Unclassified	 Unclassified	 Unclassified	red_DsrA_b
+FR851929	Desulfovibrio psychrotolerans	FR851929	Alkaliphilic/Halophilic	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Desulfobulbaceae	red_DsrA_b
+GU233974	uncultured bacterium	GU233974	Soil	Reductive bacterial type DsrAB	 FACA group sensu lato	 Unclassified	 Unclassified	 Unclassified	red_DsrA_b
+GU233990	uncultured bacterium	GU233990	Soil	Reductive bacterial type DsrAB	 Environmental supercluster 1	 Unclassified	 Unclassified	 Unclassified	red_DsrA_b
+DQ211846	bacterium AR1102	DQ211846	Unknown/Misc	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Desulfovibrionaceae	red_DsrA_b
+EF429276	Hot spring microbial mat clone	EF429276	Thermophilic	Reductive bacterial type DsrAB	 FACA group sensu lato	 Unclassified	 Unclassified	 Unclassified	red_DsrA_b
+EF429281	uncultured sulfate-reducing	EF429281	Thermophilic	Reductive bacterial type DsrAB	 Environmental supercluster 1	 Unclassified	 Unclassified	 Unclassified	red_DsrA_b
+FM212307	Petroleum-contaminated sediment clone	FM212307	Marine	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Desulfobacteraceae	red_DsrA_b
+HE613445	Desulfatiferula sp. BE2801	HE613445	Estuarine	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Desulfobacteraceae	red_DsrA_b
+DelProte	Delta proteobacterium NaphS2	ADZZ01000254	Marine	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Desulfatiglans anilini lineage	red_DsrA_b
+DesSpeci	Desulfosporosinus sp. OT	AGAF01000178	Industrial	Reductive bacterial type DsrAB	 FACA group sensu lato	 Firmicutes	 Clostridia	 Desulfosporosinus	red_DsrA_b
+TheYello	Thermodesulfovibrio yellowstonii	CP001147	Thermophilic	Reductive bacterial type DsrAB	 Nitrospirae supercluster	 Nitrospirae	 Nitrospira	 Thermodesulfovibrio	red_DsrA_b
+DshRetba	Desulfohalobium retbaense	CP001734	Alkaliphilic/Halophilic	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Desulfohalobiaceae	red_DsrA_b
+entry7yy	Hot spring metagenome	lcl_2016842004_32938_944-1705	Thermophilic	Reductive bacterial type DsrAB	 FACA group sensu lato	 Unclassified	 Unclassified	 Unclassified	red_DsrA_b
+AY354102	uncultured bacterium	AY354102	Thermophilic	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Desulfobulbaceae	red_DsrA_b
+JF950248	uncultured sulfate-reducing	JF950248	Marine	Reductive bacterial type DsrAB	 FACA group sensu lato	 Unclassified	 Unclassified	 Uncultured family-level lineage 3	red_DsrA_b
+ABSP0100	freshwater sediment	ABSP01003957	Freshwater	Reductive bacterial type DsrAB	 Environmental supercluster 1	 Unclassified	 Unclassified	 Unclassified	red_DsrA_b
+AB493886	uncultured bacterium	AB493886	Industrial	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Desulfobacteraceae	red_DsrA_b
+AY354100	uncultured bacterium	AY354100	Thermophilic	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Desulfobulbaceae	red_DsrA_b
+AB254374	uncultured bacterium	AB254374	Thermophilic	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Thermodesulfobacteria	 Thermodesulfobacteria	 Thermodesulfobacteria	red_DsrA_b
+JF950266	uncultured sulfate-reducing	JF950266	Marine	Reductive bacterial type DsrAB	 FACA group sensu lato	 Unclassified	 Unclassified	 Unclassified	red_DsrA_b
+JF950265	uncultured sulfate-reducing	JF950265	Marine	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Unclassified	 Unclassified	 Unclassified	red_DsrA_b
+FJ040819	uncultured bacterium	FJ040819	Marine	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Desulfovibrionaceae	red_DsrA_b
+entry43y	Hot spring metagenome	lcl_2016842004_11978	Thermophilic	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Thermodesulfobacteria	 Thermodesulfobacteria	 Thermodesulfobacteria	red_DsrA_b
+AB490775	Desulfovibrio butyratiphilus	AB490775	Industrial	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Desulfovibrionaceae	red_DsrA_b
+HM004755	uncultured sulfate-reducing	HM004755	Marine	Reductive bacterial type DsrAB	 Environmental supercluster 1	 Unclassified	 Unclassified	 Uncultured family-level lineage 9	red_DsrA_b
+HM004734	uncultured sulfate-reducing	HM004734	Marine	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Desulfobacteraceae	red_DsrA_b
+JF950268	uncultured sulfate-reducing	JF950268	Marine	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Desulfobacteraceae	red_DsrA_b
+AY354081	uncultured bacterium	AY354081	Thermophilic	Reductive bacterial type DsrAB	 Archaeoglobus cluster	 Euryarchaeota	 Archaeoglobi	 Archaeoglobus	red_DsrA_b
+entry73y	Marine sediment metagenome	lcl_2084038012_14985_830-2104_2179-3306	Marine	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Desulfobulbaceae	red_DsrA_b
+GQ200458	uncultured bacterium	GQ200458	Freshwater	Reductive bacterial type DsrAB	 FACA group sensu lato	 Unclassified	 Unclassified	 Uncultured family-level lineage 5	red_DsrA_b
+EU189166	uncultured sulfate-reducing	EU189166	Industrial	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Desulfovibrionaceae	red_DsrA_b
+JQ519396	Desulfonatronum thioautotrophicum	JQ519396	Alkaliphilic/Halophilic	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Desulfonatronumaceae	red_DsrA_b
+EU552480	uncultured sulfate-reducing	EU552480	Industrial	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Desulfovibrionaceae	red_DsrA_b
+entry102	Marine metagenome	lcl_CAM_PROJ_GOS_14741145_94-1230	Marine	Oxidative bacterial type DsrAB		 Proteobacteria	 Gammaproteobacteria	 Gammaproteobacteria	oxi_DsrA
+JF751020	uncultured sulfate-reducing	JF751020	Industrial	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Desulfomonile tiedjei lineage	red_DsrA_b
+entry121	Washington Lake metagenome	lcl_CAM_PROJ_WashingtonLake_197382_3-788	Freshwater	Oxidative bacterial type DsrAB		 Proteobacteria	 Betaproteobacteria	 Betaproteobacteria	oxi_DsrA
+entry130	Marine microbial community metagenome	lcl_2189573008_57982_1466-2119	Marine	Oxidative bacterial type DsrAB		 Proteobacteria	 Betaproteobacteria	 Betaproteobacteria	oxi_DsrA
+entry134	Marine metagenome	lcl_2162886004_55304_3083-3733	Marine	Oxidative bacterial type DsrAB		 Proteobacteria	 Betaproteobacteria	 Betaproteobacteria	oxi_DsrA
+entry147	Marine metagenome	lcl_CAM_PROJ_GOS_7569225_335-976	Marine	Oxidative bacterial type DsrAB		 Proteobacteria	 Gammaproteobacteria	 Gammaproteobacteria	oxi_DsrA
+AB263665	uncultured sulfate-reducing	AB263665	Freshwater	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Unclassified	 Unclassified	 Unclassified	red_DsrA_b
+entry164	Marine metagenome	lcl_2189573019_17435_470-1096	Marine	Oxidative bacterial type DsrAB		 Proteobacteria	 Gammaproteobacteria	 Gammaproteobacteria	oxi_DsrA
+DQ250778	uncultured sulfate-reducing	DQ250778	Freshwater	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Desulfobulbaceae	red_DsrA_b
+GQ200451	uncultured bacterium	GQ200451	Freshwater	Reductive bacterial type DsrAB	 FACA group sensu lato	 Unclassified	 Unclassified	 Uncultured family-level lineage 5	red_DsrA_b
+AY878856	uncultured sulfate-reducing	AY878856	Marine	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Desulfovibrionaceae	red_DsrA_b
+entry257	Soil metagenome	lcl_2032320004_284163_4-486	Soil	Oxidative bacterial type DsrAB		 Proteobacteria	 Alphaproteobacteria	 Alphaproteobacteria	oxi_DsrA
+entry274	Lake Washington sediment metagenome	lcl_2084038009_51315_1-471	Freshwater	Reductive bacterial type DsrAB	 FACA group sensu lato	 Unclassified	 Unclassified	 Unclassified	red_DsrA_b
+entry299	LaBonte Lake metagenome	lcl_2166559023_73471_3-461	Freshwater	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Desulfovibrionaceae	red_DsrA_b
+CP001785	Ammonifex degensii	CP001785	Thermophilic	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Fimricutes	 Clostridia	 LA-dsrAB Firmicutes	red_DsrA_b
+FP929047	Gordonibacter pamelaeae 7-10-1-b	FP929047	Symbiotic	Reductive bacterial type DsrAB	 FACA group sensu lato	 Actinobacteria	 Actinobacteria	 Gordonibacter	red_DsrA_b
+entry347	Metagenome	lcl_0-4453083	Unknown/Misc	Reductive bacterial type DsrAB	 Nitrospirae supercluster	 Unclassified	 Unclassified	 Unclassified	red_DsrA_b
+entry393	Soil metagenome	lcl_2032320004_92825_1-426	Soil	Oxidative bacterial type DsrAB		 Proteobacteria	 Gammaproteobacteria	 Gammaproteobacteria	oxi_DsrA
+entry422	Lake Washington sediment metagenome	lcl_2084038009_72364_1-417	Freshwater	Reductive bacterial type DsrAB	 Nitrospirae supercluster	 Unclassified	 Unclassified	 Unclassified	red_DsrA_b
+JQ304769	Uncultured prokaryote clone F2A6_3	JQ304769	Marine	Reductive bacterial type DsrAB	 FACA group sensu lato	 Firmicutes	 Clostridia	 Desulfotomaculum	red_DsrA_b
+CP001965	Sideroxydans lithotrophicus ES-1	CP001965	Freshwater	Oxidative bacterial type DsrAB		 Proteobacteria	 Betaproteobacteria	 Betaproteobacteria	oxi_DsrA
+FreMetag	freshwater sediment	ABSQ01002011	Freshwater	Oxidative bacterial type DsrAB		 Proteobacteria	 Gammaproteobacteria	 Gammaproteobacteria	oxi_DsrA
+ActMetag	activated sludge	AERA01000749	Industrial	Oxidative bacterial type DsrAB		 Proteobacteria	 Alphaproteobacteria	 Alphaproteobacteria	oxi_DsrA
+entry547	Microbial hot spring community	lcl_2077657023_27666_18330-19532_19568-20668	Thermophilic	Reductive archaeal type DsrAB		 Crenarchaeota	 Thermoprotei	 Vulcanisaeta	red_DsrA_a
+entry573	Hot spring microbial community metagenome	lcl_2014031007_6072_126-1274	Thermophilic	Reductive archaeal type DsrAB		 Crenarchaeota	 Thermoprotei	 Pyrobaculum	red_DsrA_a
+CP002829	Thermodesulfobacterium geofontis	CP002829	Thermophilic	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Thermodesulfobacteria	 Thermodesulfobacteria	 Thermodesulfobacteria	red_DsrA_b
+entry639	Hot spring metagenome	lcl_2013515001_4863_771-1877	Thermophilic	Reductive archaeal type DsrAB		 Crenarchaeota	 Thermoprotei	 Vulcanisaeta	red_DsrA_a
+entry643	Hot spring metagenome	lcl_2013843003_1174_139-1239	Thermophilic	Reductive archaeal type DsrAB		 Crenarchaeota	 Thermoprotei	 Vulcanisaeta	red_DsrA_a
+entry652	Alaska permafrost soil metagenome	lcl_2140918006_93440_288-1361	Soil	Reductive bacterial type DsrAB	 Environmental supercluster 1	 Unclassified	 Unclassified	 Unclassified	red_DsrA_b
+entry654	Marine metagenome	lcl_2162886004_120345_6917-7987	Marine	Oxidative bacterial type DsrAB		 Proteobacteria	 Gammaproteobacteria	 Gammaproteobacteria	oxi_DsrA
+FM246803	uncultured marine	FM246803	Marine	Oxidative bacterial type DsrAB		 Proteobacteria	 Alphaproteobacteria	 Alphaproteobacteria	oxi_DsrA
+ActMeta1	activated sludge	AERA01000749	Industrial	Oxidative bacterial type DsrAB		 Proteobacteria	 Alphaproteobacteria	 Alphaproteobacteria	oxi_DsrA
+entry669	Marine sediment metagenome	lcl_2088090030_26714_2973-4007	Marine	Unclassified dsrAB type		 Unclassified	 Unclassified	 Unclassified	unk_DsrA
+entry674	Marine sediment metagenome	lcl_2088090030_48185_1-1014	Marine	Unclassified dsrAB type		 Unclassified	 Unclassified	 Unclassified	unk_DsrA
+FM246812	uncultured marine	FM246812	Marine	Oxidative bacterial type DsrAB		 Proteobacteria	 Gammaproteobacteria	 Gammaproteobacteria	oxi_DsrA
+entry681	Lake Washington sediment metagenome	lcl_2149837029_4045_3-1019	Freshwater	Oxidative bacterial type DsrAB		 Proteobacteria	 Betaproteobacteria	 Betaproteobacteria	oxi_DsrA
+entry689	Hot spring metagenome	lcl_2016842004_33324_40-1041	Thermophilic	Reductive bacterial type DsrAB	 FACA group sensu lato	 Unclassified	 Unclassified	 Unclassified	red_DsrA_b
+entry696	Waste water treatment bioreactor metagenome	lcl_2081372008_14248_165-1148	Industrial	Reductive bacterial type DsrAB	 FACA group sensu lato	 Unclassified	 Unclassified	 Unclassified	red_DsrA_b
+entry702	Hot spring metagenome	lcl_2014031004_5563_170-1144	Thermophilic	Reductive archaeal type DsrAB		 Crenarchaeota	 Thermoprotei	 Caldivirga	red_DsrA_a
+entry709	Antarctic aquatic metagenome	lcl_20-4443681	Marine	Oxidative bacterial type DsrAB		 Chlorobi	 Chlorobia	 Chlorobiaceae	oxi_DsrA
+entry710	Marine metagenome	lcl_27-4442626	Marine	Oxidative bacterial type DsrAB		 Proteobacteria	 Gammaproteobacteria	 Gammaproteobacteria	oxi_DsrA
+entry714	Marine metagenome	lcl_27-4441660	Unknown/Misc	Oxidative bacterial type DsrAB		 Proteobacteria	 Gammaproteobacteria	 Gammaproteobacteria	oxi_DsrA
+entry727	Hot spring metagenome	lcl_2013515002_80_479-1402	Thermophilic	Reductive archaeal type DsrAB		 Crenarchaeota	 Thermoprotei	 Pyrobaculum	red_DsrA_a
+entry729	Marine microbial community metagenome	lcl_2189573008_56280_1349-2266	Marine	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Desulfobacteraceae	red_DsrA_b
+entry730	Hot spring microbial community metagenome	lcl_2016842005_14468_2533-3687_1359-2429	Thermophilic	Reductive bacterial type DsrAB	 Environmental supercluster 1	 Unclassified	 Unclassified	 Unclassified	red_DsrA_b
+CP002431	Desulfovibrio aspoeensis Aspo-2	CP002431	Freshwater	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Desulfovibrionaceae	red_DsrA_b
+entry741	Benzene-degrading bioreactor metagenome	lcl_2020627003_15873_10919-12037_9808-10884	Industrial	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Unclassified	 Unclassified	 Uncultured family-level lineage 1	red_DsrA_b
+FJ403884	uncultured sulfate-reducing	FJ403884	Marine	Reductive bacterial type DsrAB	 Environmental supercluster 1	 Unclassified	 Unclassified	 Uncultured family-level lineage 12	red_DsrA_b
+CP002085	Desulfarculus baarsii DSM 2075	CP002085	Freshwater	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Desulfoarculus baarsii lineage	red_DsrA_b
+entry758	Alaska permafrost soil metagenome	lcl_2140918006_50923_437-1741_1760-2608	Soil	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Desulfomonile tiedjei lineage	red_DsrA_b
+entry760	Antarctic aquatic metagenome	lcl_20-4443684	Freshwater	Oxidative bacterial type DsrAB		 Chlorobi	 Chlorobia	 Chlorobiaceae	oxi_DsrA
+entry765	Great Boiling Spring sediment metagenome	lcl_2149837004_28275_1021-1884	Thermophilic	Reductive bacterial type DsrAB	 Archaeoglobus cluster	 Euryarchaeota	 Archaeoglobi	 Archaeoglobus	red_DsrA_b
+FJ403755	uncultured sulfate-reducing	FJ403755	Marine	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Desulfovibrionaceae	red_DsrA_b
+CP002629	Desulfobacca acetoxidans dSM 11109	CP002629	Industrial	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Desulfobacca acetoxidans lineage	red_DsrA_b
+entry784	Marine metagenome	lcl_CAM_PROJ_GOS_85505_16-984	Marine	Oxidative bacterial type DsrAB		 Proteobacteria	 Gammaproteobacteria	 Gammaproteobacteria	oxi_DsrA
+FJ403796	uncultured sulfate-reducing	FJ403796	Marine	Reductive bacterial type DsrAB	 Environmental supercluster 1	 Unclassified	 Unclassified	 Uncultured family-level lineage 9	red_DsrA_b
+entry793	Hot spring metagenome	lcl_2014031004_12499_7-831	Thermophilic	Reductive archaeal type DsrAB		 Crenarchaeota	 Thermoprotei	 Vulcanisaeta	red_DsrA_a
+entry803	Marine sediment metagenome	lcl_2088090030_25367_3594-4403	Marine	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Desulfomonile tiedjei lineage	red_DsrA_b
+entry804	Rain forest soil metagenome	lcl_2189573022_4178_3-812	Soil	Reductive bacterial type DsrAB	 FACA group sensu lato	 Firmicutes	 Clostridia	 Desulfosporosinus	red_DsrA_b
+JQ582409	Desulfohalophilus alkaliarsenatis	JQ582409	Alkaliphilic/Halophilic	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Desulfohalobiaceae	red_DsrA_b
+HM004780	uncultured sulfate-reducing	HM004780	Marine	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Desulfovibrionaceae	red_DsrA_b
+entry817	Marine microbial community metagenome	lcl_2189573008_50527_987-2168_2310-3050	Marine	Reductive bacterial type DsrAB	 Environmental supercluster 1	 Unclassified	 Unclassified	 Unclassified	red_DsrA_b
+HM004784	uncultured sulfate-reducing	HM004784	Marine	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Desulfatiglans anilini lineage	red_DsrA_b
+JF950260	uncultured sulfate-reducing	JF950260	Marine	Reductive bacterial type DsrAB	 FACA group sensu lato	 Unclassified	 Unclassified	 Unclassified	red_DsrA_b
+entry827	Alaska permafrost soil metagenome	lcl_2124908044_21190_6-794	Soil	Oxidative bacterial type DsrAB		 Proteobacteria	 Alphaproteobacteria	 Alphaproteobacteria	oxi_DsrA
+entry828	Marine metagenome	lcl_2189573016_27407_349-1137	Marine	Oxidative bacterial type DsrAB		 Chlorobi	 Chlorobia	 Chlorobiaceae	oxi_DsrA
+entry836	Great Boiling Spring sediment metagenome	lcl_2149837004_10395_613-1395	Thermophilic	Reductive bacterial type DsrAB	 FACA group sensu lato	 Unclassified	 Unclassified	 Unclassified	red_DsrA_b
+JQ520150	uncultured bacterium	JQ520150	Industrial	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Desulfovibrionaceae	red_DsrA_b
+entry847	Marine metagenome	lcl_2166559025_33080_3-776	Marine	Oxidative bacterial type DsrAB		 Proteobacteria	 Gammaproteobacteria	 Gammaproteobacteria	oxi_DsrA
+AY354098	uncultured bacterium	AY354098	Thermophilic	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Desulfobulbaceae	red_DsrA_b
+AY354099	uncultured bacterium	AY354099	Thermophilic	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Desulfobulbaceae	red_DsrA_b
+JF742988	Desulfobaculum xiamenensis P1	JF742988	Marine	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Desulfovibrionaceae	red_DsrA_b
+JQ256776	uncultured bacterium	JQ256776	Marine	Oxidative bacterial type DsrAB		 Proteobacteria	 Alphaproteobacteria	 Alphaproteobacteria	oxi_DsrA
+UnAK1991	Uncultured bacterium clone AK199_1	JQ256775 (dsrA) + JQ256777 (dsrB)	Marine	Oxidative bacterial type DsrAB		 Proteobacteria	 Gammaproteobacteria	 Gammaproteobacteria	oxi_DsrA
+EF052883	uncultured sulfate-reducing	EF052883	Industrial	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Desulfovibrionaceae	red_DsrA_b
+EF052910	uncultured sulfate-reducing	EF052910	Industrial	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Desulfovibrionaceae	red_DsrA_b
+DQ250773	uncultured sulfate-reducing	DQ250773	Freshwater	Reductive bacterial type DsrAB	 Nitrospirae supercluster	 Unclassified	 Unclassified	 Uncultured family-level lineage 10	red_DsrA_b
+DQ250777	uncultured sulfate-reducing	DQ250777	Freshwater	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Desulfomonile tiedjei lineage	red_DsrA_b
+DQ250787	uncultured sulfate-reducing	DQ250787	Freshwater	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Desulfobulbaceae	red_DsrA_b
+EU189153	uncultured sulfate-reducing	EU189153	Industrial	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Desulfovibrionaceae	red_DsrA_b
+EU189155	uncultured sulfate-reducing	EU189155	Industrial	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Desulfovibrionaceae	red_DsrA_b
+EU189156	uncultured sulfate-reducing	EU189156	Industrial	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Desulfovibrionaceae	red_DsrA_b
+EU189158	uncultured sulfate-reducing	EU189158	Industrial	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Desulfovibrionaceae	red_DsrA_b
+EU189167	uncultured sulfate-reducing	EU189167	Industrial	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Desulfovibrionaceae	red_DsrA_b
+EU301744	uncultured sulfate-reducing	EU301744	Soil	Reductive bacterial type DsrAB	 Nitrospirae supercluster	 Unclassified	 Unclassified	 Uncultured family-level lineage 10	red_DsrA_b
+EU495335	uncultured sulfate-reducing	EU495335	Thermophilic	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Thermodesulfobacteria	 Thermodesulfobacteria	 Thermodesulfobacteria	red_DsrA_b
+EU495348	uncultured sulfate-reducing	EU495348	Thermophilic	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Desulfobacteraceae	red_DsrA_b
+EU495354	uncultured sulfate-reducing	EU495354	Thermophilic	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Desulfobacteraceae	red_DsrA_b
+EU495376	uncultured sulfate-reducing	EU495376	Thermophilic	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Desulfobacteraceae	red_DsrA_b
+EU495393	uncultured sulfate-reducing	EU495393	Thermophilic	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Desulfobulbaceae	red_DsrA_b
+EU779897	uncultured sulfate-reducing	EU779897	Marine	Reductive bacterial type DsrAB	 Environmental supercluster 1	 Unclassified	 Unclassified	 Uncultured family-level lineage 9	red_DsrA_b
+EU779912	uncultured sulfate-reducing	EU779912	Marine	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Syntrophobacteraceae	red_DsrA_b
+FJ403862	uncultured sulfate-reducing	FJ403862	Marine	Reductive bacterial type DsrAB	 FACA group sensu lato	 Unclassified	 Unclassified	 Uncultured family-level lineage 3	red_DsrA_b
+FJ812101	uncultured bacterium	FJ812101	Industrial	Reductive bacterial type DsrAB	 Nitrospirae supercluster	 Nitrospirae	 Nitrospira	 Thermodesulfovibrio	red_DsrA_b
+FJ899972	Calyptogena kilmeri	FJ899972	Symbiotic	Oxidative bacterial type DsrAB		 Proteobacteria	 Gammaproteobacteria	 Gammaproteobacteria	oxi_DsrA
+FN376472	uncultured prokaryote	FN376472	Industrial	Reductive bacterial type DsrAB	 Archaeoglobus cluster	 Euryarchaeota	 Archaeoglobi	 Archaeoglobus	red_DsrA_b
+FN376532	bacterium enrichment	FN376532	Industrial	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Syntrophobacteraceae	red_DsrA_b
+GQ200452	uncultured bacterium	GQ200452	Freshwater	Reductive bacterial type DsrAB	 FACA group sensu lato	 Unclassified	 Unclassified	 Uncultured family-level lineage 5	red_DsrA_b
+GQ200463	uncultured bacterium	GQ200463	Freshwater	Reductive bacterial type DsrAB	 FACA group sensu lato	 Unclassified	 Unclassified	 Uncultured family-level lineage 5	red_DsrA_b
+GQ200465	uncultured bacterium	GQ200465	Freshwater	Reductive bacterial type DsrAB	 FACA group sensu lato	 Unclassified	 Unclassified	 Uncultured family-level lineage 5	red_DsrA_b
+GQ403965	uncultured bacterium	GQ403965	Thermophilic	Reductive bacterial type DsrAB	 FACA group sensu lato	 Firmicutes	 Clostridia	 Desulfotomaculum	red_DsrA_b
+HM004728	uncultured sulfate-reducing	HM004728	Marine	Reductive bacterial type DsrAB	 Environmental supercluster 1	 Unclassified	 Unclassified	 Uncultured family-level lineage 9	red_DsrA_b
+HQ622645	uncultured sulfate-reducing	HQ622645	Marine	Reductive bacterial type DsrAB	 Archaeoglobus cluster	 Euryarchaeota	 Archaeoglobi	 Archaeoglobus	red_DsrA_b
+JF751011	uncultured sulfate-reducing	JF751011	Industrial	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Desulfomonile tiedjei lineage	red_DsrA_b
+JF751014	uncultured sulfate-reducing	JF751014	Industrial	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Desulfomonile tiedjei lineage	red_DsrA_b
+AM697651	uncultured sulfate-reducing	AM697651	Marine	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Desulfobacteraceae	red_DsrA_b
+AM697652	uncultured sulfate-reducing	AM697652	Marine	Reductive bacterial type DsrAB	 Environmental supercluster 1	 Unclassified	 Unclassified	 Uncultured family-level lineage 9	red_DsrA_b
+AM697653	uncultured sulfate-reducing	AM697653	Marine	Reductive bacterial type DsrAB	 Environmental supercluster 1	 Unclassified	 Unclassified	 Uncultured family-level lineage 9	red_DsrA_b
+AM697655	uncultured sulfate-reducing	AM697655	Marine	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Unclassified	 Unclassified	 Unclassified	red_DsrA_b
+AM697657	uncultured sulfate-reducing	AM697657	Marine	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Unclassified	 Unclassified	 Unclassified	red_DsrA_b
+AM697659	uncultured sulfate-reducing	AM697659	Marine	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Desulfobacteraceae	red_DsrA_b
+AM697660	uncultured sulfate-reducing	AM697660	Marine	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Desulfobacteraceae	red_DsrA_b
+AM697662	uncultured sulfate-reducing	AM697662	Marine	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Desulfobacteraceae	red_DsrA_b
+AM697663	uncultured sulfate-reducing	AM697663	Marine	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Unclassified	 Unclassified	 Uncultured family-level lineage 1	red_DsrA_b
+AM697664	uncultured sulfate-reducing	AM697664	Marine	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Unclassified	 Unclassified	 Unclassified	red_DsrA_b
+AM697665	uncultured sulfate-reducing	AM697665	Marine	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Desulfomonile tiedjei lineage	red_DsrA_b
+AM777841	uncultured bacterium	AM777841	Symbiotic	Reductive bacterial type DsrAB	 FACA group sensu lato	 Unclassified	 Unclassified	 Unclassified	red_DsrA_b
+EF210716	uncultured sulfate-reducing	EF210716	Freshwater	Reductive bacterial type DsrAB	 Nitrospirae supercluster	 Unclassified	 Unclassified	 Uncultured family-level lineage 10	red_DsrA_b
+EF210718	uncultured sulfate-reducing	EF210718	Freshwater	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Desulfobulbaceae	red_DsrA_b
+EU192461	uncultured bacterium	EU192461	Estuarine	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Desulfomonile tiedjei lineage	red_DsrA_b
+EU192478	uncultured bacterium	EU192478	Estuarine	Reductive bacterial type DsrAB	 Environmental supercluster 1	 Unclassified	 Unclassified	 Uncultured family-level lineage 9	red_DsrA_b
+EU192586	uncultured bacterium	EU192586	Estuarine	Reductive bacterial type DsrAB	 Environmental supercluster 1	 Unclassified	 Unclassified	 Unclassified	red_DsrA_b
+EU192639	uncultured bacterium	EU192639	Estuarine	Reductive bacterial type DsrAB	 Environmental supercluster 1	 Unclassified	 Unclassified	 Unclassified	red_DsrA_b
+EU192643	uncultured bacterium	EU192643	Estuarine	Reductive bacterial type DsrAB	 Environmental supercluster 1	 Unclassified	 Unclassified	 Uncultured family-level lineage 8	red_DsrA_b
+EU199812	uncultured sulfate-reducing	EU199812	Freshwater	Reductive bacterial type DsrAB	 FACA group sensu lato	 Unclassified	 Unclassified	 Uncultured family-level lineage 5	red_DsrA_b
+EU199815	uncultured sulfate-reducing	EU199815	Freshwater	Reductive bacterial type DsrAB	 FACA group sensu lato	 Unclassified	 Unclassified	 Uncultured family-level lineage 5	red_DsrA_b
+EU199819	uncultured sulfate-reducing	EU199819	Freshwater	Reductive bacterial type DsrAB	 Environmental supercluster 1	 Unclassified	 Unclassified	 Unclassified	red_DsrA_b
+EU199822	uncultured sulfate-reducing	EU199822	Freshwater	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Syntrophobacteraceae	red_DsrA_b
+EU199841	uncultured sulfate-reducing	EU199841	Freshwater	Reductive bacterial type DsrAB	 Environmental supercluster 1	 Unclassified	 Unclassified	 Unclassified	red_DsrA_b
+EU199885	uncultured sulfate-reducing	EU199885	Freshwater	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Fimricutes	 Clostridia	 LA-dsrAB Firmicutes	red_DsrA_b
+FJ455975	uncultured bacterium	FJ455975	Marine	Reductive bacterial type DsrAB	 Environmental supercluster 1	 Unclassified	 Unclassified	 Uncultured family-level lineage 9	red_DsrA_b
+GU181329	uncultured sulfate-reducing	GU181329	Soil	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Desulfovibrionaceae	red_DsrA_b
+HE804094	uncultured bacterium	HE804094	Estuarine	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Desulfovibrionaceae	red_DsrA_b
+HE804095	uncultured bacterium	HE804095	Estuarine	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Desulfoarculus baarsii lineage	red_DsrA_b
+HE974484	bacterium endosymbiont	HE974484	Symbiotic	Oxidative bacterial type DsrAB		 Proteobacteria	 Gammaproteobacteria	 Gammaproteobacteria	oxi_DsrA
+HM576693	uncultured bacterium	HM576693	Marine	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Thermodesulfobacteria	 Thermodesulfobacteria	 Thermodesulfobacteria	red_DsrA_b
+HM576741	uncultured bacterium	HM576741	Marine	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Desulfoarculus baarsii lineage	red_DsrA_b
+HM576770	uncultured bacterium	HM576770	Marine	Reductive bacterial type DsrAB	 FACA group sensu lato	 Unclassified	 Unclassified	 Unclassified	red_DsrA_b
+HQ657194	uncultured sulfate-reducing	HQ657194	Soil	Reductive bacterial type DsrAB	 Environmental supercluster 1	 Unclassified	 Unclassified	 Uncultured family-level lineage 9	red_DsrA_b
+JF826136	uncultured sulfate-reducing	JF826136	Industrial	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Desulfobacteraceae	red_DsrA_b
+JF826212	uncultured sulfate-reducing	JF826212	Industrial	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Desulfomonile tiedjei lineage	red_DsrA_b
+JF968437	Desulfovibrio sp.	JF968437	Soil	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Desulfovibrionaceae	red_DsrA_b
+JN127739	uncultured bacterium	JN127739	Industrial	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Desulfoarculus baarsii lineage	red_DsrA_b
+JN830917	uncultured sulfate-reducing	JN830917	Industrial	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Desulfovibrionaceae	red_DsrA_b
+JN830932	uncultured sulfate-reducing	JN830932	Industrial	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Desulfohalobiaceae	red_DsrA_b
+JN830946	uncultured sulfate-reducing	JN830946	Industrial	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Desulfobulbaceae	red_DsrA_b
+JN830948	uncultured sulfate-reducing	JN830948	Industrial	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Desulfobulbaceae	red_DsrA_b
+JQ406861	uncultured prokaryote	JQ406861	Industrial	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Desulfobacca acetoxidans lineage	red_DsrA_b
+JX502755	uncultured sulfate-reducing	JX502755	Marine	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Desulfovibrionaceae	red_DsrA_b
+JX908359	uncultured bacterium	JX908359	Unknown/Misc	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Unclassified	 Unclassified	 Unclassified	red_DsrA_b
+JX908360	uncultured bacterium	JX908360	Unknown/Misc	Reductive bacterial type DsrAB	 FACA group sensu lato	 Unclassified	 Unclassified	 Uncultured family-level lineage 3	red_DsrA_b
+JX942856	uncultured bacterium	JX942856	Freshwater	Reductive bacterial type DsrAB	 FACA group sensu lato	 Unclassified	 Unclassified	 Uncultured family-level lineage 5	red_DsrA_b
+JX942878	uncultured bacterium	JX942878	Freshwater	Reductive bacterial type DsrAB	 Environmental supercluster 1	 Unclassified	 Unclassified	 Uncultured family-level lineage 12	red_DsrA_b
+JX942899	uncultured bacterium	JX942899	Freshwater	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Desulfobacteraceae	red_DsrA_b
+JX942908	uncultured bacterium	JX942908	Freshwater	Reductive bacterial type DsrAB	 Nitrospirae supercluster	 Unclassified	 Unclassified	 Unclassified	red_DsrA_b
+JX942929	uncultured bacterium	JX942929	Freshwater	Reductive bacterial type DsrAB	 FACA group sensu lato	 Unclassified	 Unclassified	 Unclassified	red_DsrA_b
+JX942963	uncultured bacterium	JX942963	Freshwater	Reductive bacterial type DsrAB	 Nitrospirae supercluster	 Unclassified	 Unclassified	 Unclassified	red_DsrA_b
+JX942968	uncultured bacterium	JX942968	Freshwater	Reductive bacterial type DsrAB	 FACA group sensu lato	 Unclassified	 Unclassified	 Uncultured family-level lineage 7	red_DsrA_b
+JX942972	uncultured bacterium	JX942972	Freshwater	Reductive bacterial type DsrAB	 FACA group sensu lato	 Unclassified	 Unclassified	 Uncultured family-level lineage 5	red_DsrA_b
+JX942976	uncultured bacterium	JX942976	Freshwater	Reductive bacterial type DsrAB	 Environmental supercluster 1	 Unclassified	 Unclassified	 Uncultured family-level lineage 9	red_DsrA_b
+JX943032	uncultured bacterium	JX943032	Freshwater	Reductive bacterial type DsrAB	 FACA group sensu lato	 Unclassified	 Unclassified	 Uncultured family-level lineage 5	red_DsrA_b
+JX943078	uncultured bacterium	JX943078	Freshwater	Reductive bacterial type DsrAB	 Nitrospirae supercluster	 Unclassified	 Unclassified	 Unclassified	red_DsrA_b
+JX943085	uncultured bacterium	JX943085	Freshwater	Reductive bacterial type DsrAB	 Environmental supercluster 1	 Unclassified	 Unclassified	 Unclassified	red_DsrA_b
+JX943107	uncultured bacterium	JX943107	Freshwater	Reductive bacterial type DsrAB	 Environmental supercluster 1	 Unclassified	 Unclassified	 Unclassified	red_DsrA_b
+JX943113	uncultured bacterium	JX943113	Freshwater	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Desulfobacca acetoxidans lineage	red_DsrA_b
+JX943128	uncultured bacterium	JX943128	Freshwater	Reductive bacterial type DsrAB	 FACA group sensu lato	 Unclassified	 Unclassified	 Uncultured family-level lineage 5	red_DsrA_b
+JX943151	uncultured bacterium	JX943151	Freshwater	Reductive bacterial type DsrAB	 Nitrospirae supercluster	 Unclassified	 Unclassified	 Uncultured family-level lineage 13	red_DsrA_b
+JX943165	uncultured bacterium	JX943165	Freshwater	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Desulfobacca acetoxidans lineage	red_DsrA_b
+JX943167	uncultured bacterium	JX943167	Freshwater	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Desulfobulbaceae	red_DsrA_b
+JX943307	uncultured bacterium	JX943307	Freshwater	Reductive bacterial type DsrAB	 Environmental supercluster 1	 Unclassified	 Unclassified	 Unclassified	red_DsrA_b
+JX943345	uncultured bacterium	JX943345	Freshwater	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Desulfobacteraceae	red_DsrA_b
+JX943346	uncultured bacterium	JX943346	Freshwater	Reductive bacterial type DsrAB	 Nitrospirae supercluster	 Unclassified	 Unclassified	 Uncultured family-level lineage 13	red_DsrA_b
+JX943391	uncultured bacterium	JX943391	Freshwater	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Desulfoarculus baarsii lineage	red_DsrA_b
+JX943440	uncultured bacterium	JX943440	Freshwater	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Desulfobacteraceae	red_DsrA_b
+KC285825	uncultured Desulfosarcina	KC285825	Industrial	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Desulfobacteraceae	red_DsrA_b
+AetLong3	Acetonema longum	AFGF01000016	Symbiotic	Reductive bacterial type DsrAB	 FACA group sensu lato	 Firmicutes	 Clostridia	 Sporomusaceae	red_DsrA_b
+ArgSulfa	Archaeoglobus sulfaticallidus	NC_021169	Thermophilic	Reductive bacterial type DsrAB	 Archaeoglobus cluster	 Euryarchaeota	 Archaeoglobi	 Archaeoglobus	red_DsrA_b
+AzsHalo3	Azospirillum halopraeferens	AUCF01000010	Soil	Oxidative bacterial type DsrAB		 Proteobacteria	 Alphaproteobacteria	 Alphaproteobacteria	oxi_DsrA
+Cl9Bacte	Caldiserica bacterium	AQSQ01000030	Industrial	Reductive bacterial type DsrAB	 FACA group sensu lato	 Unclassified	 Unclassified	 Unclassified	red_DsrA_b
+DlbMedi3	Desulfobulbus mediterraneus	AUCW01000007	Marine	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Desulfobulbaceae	red_DsrA_b
+DsvAlka5	Desulfovibrio alkalitolerans	ATHI01000026	Industrial	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Desulfovibrionaceae	red_DsrA_b
+DsvPute2	Desulfovibrio putealis	AUBQ01000021	Freshwater	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Desulfovibrionaceae	red_DsrA_b
+DsvSp230	Desulfovibrio sp. 3_1_syn3	ADDR01000049	Symbiotic	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Desulfovibrionaceae	red_DsrA_b
+DsvSp234	Desulfovibrio sp. U5L	AHMC01000004	Unknown/Misc	Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Proteobacteria	 Deltaproteobacteria	 Desulfovibrionaceae	red_DsrA_b
+DprTher2	Desulfurispora thermophila	NZ_AQWN01000008	Industrial	Reductive bacterial type DsrAB	 FACA group sensu lato	 Unclassified	 Unclassified	 Unclassified	red_DsrA_b
+MagSpe21	Magnetospirillum sp. SO-1	AONQ01000031	Freshwater	Oxidative bacterial type DsrAB		 Proteobacteria	 Alphaproteobacteria	 Alphaproteobacteria	oxi_DsrA
+BioMet12	bioreactor metagenome	348..2269 AMWB01084915	Industrial	Reductive bacterial type DsrAB	 Environmental supercluster 1	 Unclassified	 Unclassified	 Unclassified	red_DsrA_b
+SfcDeni2	Sulfuricella denitrificans	NZ_BAFJ01000008	Freshwater	Oxidative bacterial type DsrAB		 Proteobacteria	 Betaproteobacteria	 Betaproteobacteria	oxi_DsrA
+ThlNitr5	Thioalkalivibrio nitratireducens	NC_019902	Alkaliphilic/Halophilic	Oxidative bacterial type DsrAB		 Proteobacteria	 Gammaproteobacteria	 Unclassified	oxi_DsrA
+TheToyoh	Thermanaeromonas toyohensis ToBE, DSM 14490	Gi04363	Industrial	Reductive bacterial type DsrAB	 FACA group sensu lato	 Firmicutes	 Clostridia	 Unclassified	red_DsrA_b
+UnSYyyyy	Uncultured SAR324 deltaproteobacterium	JX406431+JX406432		Oxidative bacterial type DsrAB		 Proteobacteria	 Deltaproteobacteria	 SAR324 lineage	oxi_DsrA
+MagCase1	Candidatus Magnetobacterium casensis	JMFO00000000		Reductive bacterial type DsrAB	 Deltaproteobacteria supercluster	 Nitrospirae	 Nitrospira	 UnclassifiedProteobacteria	red_DsrA_b

@@ -394,25 +394,23 @@ rm(convert_fasta_headers_to_DB)</code></pre>
 <div id="alignment-verification" class="section level2">
 <h2>Alignment verification</h2>
 <p>Next I looked at the alignment of the DsrAB sequences to the HMM
-file. Th</p>
-<pre class="r"><code>library(Biostrings)
-library(DECIPHER)
-aligned_sequences &lt;- readAAStringSet(&quot;wrk_dir/muller_DsrAB_aligned_clean.afa&quot;,
+file.</p>
+<pre class="r"><code>aligned_sequences &lt;- readAAStringSet(&quot;wrk_dir/muller_DsrAB_aligned_clean.afa&quot;,
                                      format = &quot;fasta&quot;,
                                      nrec = -1L,
                                      skip = 0L,
                                      seek.first.rec=FALSE,
                                      use.names=TRUE)
 # BrowseSeqs(myXStringSet = aligned_sequences,
-#            htmlFile = &quot;wrk_dir/muller_DsrAB_aligned_dsrA_clean.html&quot;)</code></pre>
+#           htmlFile = &quot;wrk_dir/muller_DsrAB_aligned_dsrA_clean.html&quot;)</code></pre>
 <p>Looks like there’s a split in the 500-600 range, so we’ll cut the
 alignment at residue 500.</p>
 <pre class="r"><code>alignment_start &lt;- 1
 alignment_end &lt;- 500
 alignment_length &lt;- alignment_end - (alignment_start-1)
 aligned_sequences_trimmed &lt;- subseq(aligned_sequences,start = alignment_start, end = alignment_end)
-BrowseSeqs(myXStringSet = aligned_sequences_trimmed,
-           htmlFile = &quot;wrk_dir/muller_DsrAB_aligned_trimmed.html&quot;)</code></pre>
+# BrowseSeqs(myXStringSet = aligned_sequences_trimmed,
+#            htmlFile = &quot;wrk_dir/muller_DsrAB_aligned_trimmed.html&quot;)</code></pre>
 <p>Many of the sequences seemed to only have a DsrB, so those are pretty
 much empty. A few others are very truncated. To remove these, I’ll
 filter out any sequences with less than 120 residues in the
@@ -423,7 +421,7 @@ alignment.</p>
                         residues_in_alignment = alignment_length - gaps_in_alignment
                         residues_in_alignment
                         })
-length_vect_filtered &lt;- length_vect[length_vect &gt; 120]
+length_vect_filtered &lt;- names(length_vect)[length_vect &gt; 120]
 final_seqs &lt;- aligned_sequences_trimmed[length_vect_filtered]</code></pre>
 <p>Finally I saved out the alignment file.</p>
 <pre class="r"><code>writeXStringSet(final_seqs,

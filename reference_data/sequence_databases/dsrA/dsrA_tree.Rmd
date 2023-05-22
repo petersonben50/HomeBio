@@ -1,0 +1,45 @@
+---
+title: "dsrA_tree"
+author: "Benjamin D. Peterson"
+date: "2023-05-22"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+rm(list = ls())
+knitr::opts_chunk$set(echo = TRUE)
+library(ggtree)
+library(tidyverse)
+library(treeio)
+```
+
+
+# Inspect *dsrA* tree
+
+```{r read_in_dsrA_tree}
+dsrA_tree <- read.newick(file = "muller_DsrA_dataset_final.tree")
+dsrA_tree_rooted <- phangorn::midpoint(dsrA_tree)
+```
+
+
+```{r dsrA_metadata}
+dsrA_metadata <- read.table("muller_DsrA_dataset_final_metadata.tsv",
+                            sep = '\t',
+                            header = TRUE)
+metadata_vector <- paste(dsrA_metadata$dsrA_type, ":",
+                         dsrA_metadata$class,
+                         sep = "")
+names(metadata_vector) <- dsrA_metadata$seqID
+```
+
+Generate the tree:
+
+```{r dsrA_tree, fig.height = 40}
+dsrA_tree_rooted$tip.label <- metadata_vector[dsrA_tree_rooted$tip.label]
+ggtree(dsrA_tree_rooted) +
+  geom_tiplab(size=2.5) +
+  geom_treescale(x = 3,
+                 y = 1)
+```
+
+Looks like there are some *dsrB* genes in here maybe?
