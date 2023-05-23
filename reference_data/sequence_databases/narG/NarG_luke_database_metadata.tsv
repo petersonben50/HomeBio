@@ -1,41 +1,41 @@
-geneID GI Source accessionID type organism
-GrfWP102 503014773 ref WP_013249749.1 nitrate oxidoreductase subunit alpha Nitrospira defluvii
-GrfWP103 922783984 ref WP_053381686.1 nitrate oxidoreductase subunit alpha Nitrospira moscoviensis
-GrfWP104 922783575 ref WP_053381277.1 nitrate oxidoreductase subunit alpha Nitrospira moscoviensis
-GrfWP105 754891666 ref WP_042250442.1 nitrate oxidoreductase subunit alpha Nitrospina gracilis
-GrfWP106 868614212 ref WP_048492943.1 nitrate oxidoreductase subunit alpha Nitrospina sp. SCGC_AAA799_C22
-GgP10000 859440448 gb KMP11423.1 nitrate oxidoreductase subunit alpha Nitrospina sp. SCGC_AAA799_A02
-GgHE1000 726046410 gb KHE93157.1 nitrite oxidoreductase alpha subunit Candidatus Scalindua brodae
-GmbCA100 91202806 emb CAJ72445.1 similar to nitrate reductase subunit NarG Candidatus Kuenenia stuttgartiensis
-GgO10000 816978348 gb KKO18624.1 nitrate oxidoreductase subunit alpha Candidatus Brocadia fulgida
-GrfWP107 918691583 ref WP_052561322.1 nitrate oxidoreductase subunit alpha Candidatus Brocadia sinica
-GrfWP108 494420714 ref WP_007220240.1 nitrate oxidoreductase subunit alpha Candidatus Jettenia caeni
-GgO10002 816978503 gb KKO18748.1 nitrate oxidoreductase subunit alpha Candidatus Brocadia fulgida
-GrfWP109 502729360 ref WP_012964344.1 NA NA
-GgDN1000 152072387 gb EDN69610.1 NA NA
-GmCAB200 18447796 emb CAB89111.2 NA NA
-GmCAB200.1 18447796 emb CAB89111.21 NA NA
-GbMA1000 445756596 gb EMA07962.1 NA NA
-GgF1AF14 6651231 gb AAF22229.1_AF149772_1 NA NA
-GbK10000 13880785 gb AAK45455.1 NA NA
-GAAB1000 1911243 gb AAB50620.1 NA NA
-GmAA1000 42086 emb CAA34303.1 NA NA
-Gis5NARZ 2506866 sp P19319.5_NARZ_ECOLI NA NA
-GmAA1002 971341 emb CAA90045.1 NA NA
-GbC10000 3929522 gb AAC82542.1 NA NA
-GdbjB200 116062722 dbj BAA80279.2 NA NA
-GdbjB200.1 118431398 ref NP_147849.2 NA NA
-GmE10000 258591542 emb CBE67843.1 Nitrate reductase, alpha chain; may be more similar to a nitrite oxidoreductase Candidatus Methylomirabilis oxyfera
-GbFN1000 394773367 gb AFN37207.1 nitrite oxidoreductase, partial Nitrolancea hollandica Lb
-GrfWP110 491146140 ref WP_005004540.1 nitrate reductase Nitrococcus mobilis
-GbQ10000 33340800 gb AAQ14967.1 nitrite oxidoreductase alpha subunit Nitrobacter alkalicus
-GbQ10002 33340802 gb AAQ14968.1 nitrite oxidoreductase alpha subunit Nitrobacter winogradskyi
-GrfWP111 497485988 ref WP_009800186.1 nitrate reductase Nitrobacter sp. Nb-311A
-GbQ10003 33340804 gb AAQ14969.1 nitrite oxidoreductase alpha subunit Nitrobacter vulgaris
-GrfWP112 499828768 ref WP_011509502.1 nitrate reductase Nitrobacter hamburgensis
-GrfWP113 499831093 ref WP_011511827.1 nitrate reductase Nitrobacter hamburgensis
-GbQ10004 33340798 gb AAQ14966.1 nitrite oxidoreductase alpha subunit Nitrobacter hamburgensis X14
-GrfWP114 752711937 ref WP_041359063.1 nitrate reductase Nitrobacter hamburgensis
-GbHD1000 723288739 gb KHD08904.1 NA NA
-GmAA2000 380503660 emb CAA71210.2 NA NA
-GrfWP115 501748161 ref WP_012633045.1 NA NA
+fasta_header geneID tag Source accessionID organism
+pNXRA_GrfWP102 GrfWP102 pNXRA ref WP_013249749.1 Nitrospira defluvii
+pNXRA_GrfWP103 GrfWP103 pNXRA ref WP_053381686.1 Nitrospira moscoviensis
+pNXRA_GrfWP104 GrfWP104 pNXRA ref WP_053381277.1 Nitrospira moscoviensis
+pNXRA_GrfWP105 GrfWP105 pNXRA ref WP_042250442.1 Nitrospina gracilis
+pNXRA_GrfWP106 GrfWP106 pNXRA ref WP_048492943.1 Nitrospina sp. SCGC_AAA799_C22
+pNXRA_GgP10000 GgP10000 pNXRA gb KMP11423.1 Nitrospina sp. SCGC_AAA799_A02
+pNXRA_GgHE1000 GgHE1000 pNXRA gb KHE93157.1 Candidatus Scalindua brodae
+pNXRA_GmbCA100 GmbCA100 pNXRA emb CAJ72445.1 Candidatus Kuenenia stuttgartiensis
+pNXRA_GgO10000 GgO10000 pNXRA gb KKO18624.1 Candidatus Brocadia fulgida
+pNXRA_GrfWP107 GrfWP107 pNXRA ref WP_052561322.1 Candidatus Brocadia sinica
+pNXRA_GrfWP108 GrfWP108 pNXRA ref WP_007220240.1 Candidatus Jettenia caeni
+pNXRA_GgO10002 GgO10002 pNXRA gb KKO18748.1 Candidatus Brocadia fulgida
+pNXRA_GrfWP109 GrfWP109 pNXRA ref WP_012964344.1 NA
+pNXRA_GgDN1000 GgDN1000 pNXRA gb EDN69610.1 NA
+UNK_GmCAB200 GmCAB200 UNK emb CAB89111.2 NA
+UNK_GmCAB200.1 GmCAB200.1 UNK emb CAB89111.21 NA
+UNK_GbMA1000 GbMA1000 UNK gb EMA07962.1 NA
+NARG_GgF1AF14 GgF1AF14 NARG gb AAF22229.1_AF149772_1 NA
+NARG_GbK10000 GbK10000 NARG gb AAK45455.1 NA
+NARG_GAAB1000 GAAB1000 NARG gb AAB50620.1 NA
+NARG_GmAA1000 GmAA1000 NARG emb CAA34303.1 NA
+NARG_Gis5NARZ Gis5NARZ NARG sp P19319.5_NARZ_ECOLI NA
+NARG_GmAA1002 GmAA1002 NARG emb CAA90045.1 NA
+NARG_GbC10000 GbC10000 NARG gb AAC82542.1 NA
+NARG_GdbjB200 GdbjB200 NARG dbj BAA80279.2 NA
+NARG_GdbjB200.1 GdbjB200.1 NARG ref NP_147849.2 NA
+cNXRA_GmE10000 GmE10000 cNXRA emb CBE67843.1 Candidatus Methylomirabilis oxyfera
+cNXRA_GbFN1000 GbFN1000 cNXRA gb AFN37207.1 Nitrolancea hollandica Lb
+cNXRA_GrfWP110 GrfWP110 cNXRA ref WP_005004540.1 Nitrococcus mobilis
+cNXRA_GbQ10000 GbQ10000 cNXRA gb AAQ14967.1 Nitrobacter alkalicus
+cNXRA_GbQ10002 GbQ10002 cNXRA gb AAQ14968.1 Nitrobacter winogradskyi
+cNXRA_GrfWP111 GrfWP111 cNXRA ref WP_009800186.1 Nitrobacter sp. Nb-311A
+cNXRA_GbQ10003 GbQ10003 cNXRA gb AAQ14969.1 Nitrobacter vulgaris
+cNXRA_GrfWP112 GrfWP112 cNXRA ref WP_011509502.1 Nitrobacter hamburgensis
+cNXRA_GrfWP113 GrfWP113 cNXRA ref WP_011511827.1 Nitrobacter hamburgensis
+cNXRA_GbQ10004 GbQ10004 cNXRA gb AAQ14966.1 Nitrobacter hamburgensis X14
+cNXRA_GrfWP114 GrfWP114 cNXRA ref WP_041359063.1 Nitrobacter hamburgensis
+cNXRA_GbHD1000 GbHD1000 cNXRA gb KHD08904.1 NA
+cNXRA_GmAA2000 GmAA2000 cNXRA emb CAA71210.2 NA
+cNXRA_GrfWP115 GrfWP115 cNXRA ref WP_012633045.1 NA

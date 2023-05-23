@@ -17,6 +17,8 @@ First I generated the metadata tables from the fasta headers:
 ```
 HomeBio
 cd reference_data/sequence_databases/narG
+conda activate bioinformatics
+PYTHONPATH=''
 
 echo -e "geneID\tGI\tSource\taccessionID" > NarG_luke_database_metadata_original.tsv
 grep '>' original_references/luke_SI_15.faa | sed 's/>//' | sed 's/\ \[organism=gi_/\t/' | sed 's/_/\t/' | sed 's/_/\t/' | sed 's/\] \[strain=\] \[clone=\] \[lineage=\] \[environmental-sample=\] \[moltype=\] \[clone-lib=\] \[isolation-source=\]//' >> NarG_luke_database_metadata_original.tsv
@@ -50,8 +52,6 @@ python ../../../bin/FM_cleanFasta.py --input original_references/luke_SI_15.faa 
 To check out the phylogeny, I aligned the sequences and generated a tree with FastTree.
 
 ```
-conda activate bioinformatics
-PYTHONPATH=''
 muscle -align NarG_luke_database.faa \
         -output NarG_luke_database.afa
 FastTree NarG_luke_database.afa > NarG_luke_database.tree
@@ -61,7 +61,8 @@ I then looked at the tree and concatenated the metadata in an Rmd file: `narG_pr
 Looks good! Now for some clean up.
 
 ```
-rm NarG_luke_database_metadata_original.tsv NarG_luke_database_metadata_additional.tsv 
+mv NarG_luke_database_edited.faa NarG_luke_database.faa
+rm NarG_luke_database_metadata_original.tsv NarG_luke_database_metadata_additional.tsv NarG_luke_database.afa
 ```
 
 # References

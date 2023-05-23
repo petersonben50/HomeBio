@@ -30,16 +30,12 @@ narg_metadata_add <- read.table("NarG_luke_database_metadata_additional.tsv",
                                 header = TRUE)
 narg_metadata_all <- full_join(narg_metadata, narg_metadata_add)
 rm(narg_metadata, narg_metadata_add)
-write.table(x = narg_metadata_all,
-            file = "NarG_luke_database_metadata.tsv",
-            row.names = FALSE,
-            quote = FALSE)
 ```
 
 I then generated a vector to replace the tip labels in the tree.
 
 ```{r tip_labels}
-tip_labels_to_use <- paste(narg_metadata_all$type, ": ", narg_metadata_all$organism,
+tip_labels_to_use <- paste(narg_metadata_all$geneID, ":", narg_metadata_all$type, "-", narg_metadata_all$organism,
                            sep = "")
 names(tip_labels_to_use) <- narg_metadata_all$geneID
 tip_labels_to_use <- tip_labels_to_use[which(tip_labels_to_use != "NA: NA")]
@@ -69,9 +65,55 @@ The labeled tips are the *nxrA* sequences, while the cluster with no additional 
 Here's the tree again with just *narG* sequences shown (*nxrA* collapsed).
 
 ```{r narG_tree}
-collapse(narg_tree, 55, 'mixed') %>%
-  collapse(50, 'mixed') %>%
-  collapse(53, 'mixed')
+ggtree::collapse(narg_tree, 55, 'mixed') %>%
+  ggtree::collapse(50, 'mixed') %>%
+  ggtree::collapse(53, 'mixed')
 ```
 
-We'll use this data to generate our *narG* trees to make sure we're not picking up *nxrA* sequences.
+Finally, I'll add this information to the fasta header of the amino acid file that we use for tree generation.
+Then, when we generate our *narG* trees we can ensure we're not picking up *nxrA* sequences.
+
+```{r assign_seq_type}
+unk_seqs <- tree_subset(rooted_tree,
+                            53,
+                            levels_back = 0)$tip.label %>%
+  strsplit(":") %>% sapply("[", 1)
+nxrA_peri <- tree_subset(rooted_tree,
+                         55,
+                         levels_back = 0)$tip.label %>%
+  strsplit(":") %>% sapply("[", 1)
+nxrA_cyto <- tree_subset(rooted_tree,
+                         50,
+                         levels_back = 0)$tip.label %>%
+  strsplit(":") %>% sapply("[", 1)
+narG <- tree_subset(rooted_tree,
+                         67,
+                         levels_back = 0)$tip.label %>%
+  strsplit(":") %>% sapply("[", 1)
+narg_metadata_all$tag = NA
+narg_metadata_all[which(narg_metadata_all$geneID %in% unk_seqs), "tag"] <- "UNK"
+narg_metadata_all[which(narg_metadata_all$geneID %in% nxrA_peri), "tag"] <- "pNXRA"
+narg_metadata_all[which(narg_metadata_all$geneID %in% nxrA_cyto), "tag"] <- "cNXRA"
+narg_metadata_all[which(narg_metadata_all$geneID %in% narG), "tag"] <- "NARG"
+
+narg_metadata_all_clean <- narg_metadata_all %>%
+  mutate(fasta_header = paste(tag, "_", geneID,
+                              sep = "")) %>%
+  select(fasta_header, geneID, tag, Source, accessionID, organism)
+write.table(x = narg_metadata_all_clean,
+            file = "NarG_luke_database_metadata.tsv",
+            row.names = FALSE,
+            quote = FALSE)
+```
+
+```{r fix_up_fasta_header}
+fasta_header_to_use <- narg_metadata_all_clean$fasta_header
+names(fasta_header_to_use) <- narg_metadata_all$geneID
+
+fasta_file <- readAAStringSet("NarG_luke_database.faa")
+names(fasta_file) <- fasta_header_to_use[names(fasta_file)]
+
+writeXStringSet(fasta_file,
+                filepath = "NarG_luke_database_edited.faa",
+                format = "fasta")
+```
