@@ -389,8 +389,12 @@ def combine_RNA_pseudoalignment_counts(PA_file_list, MT_output_file):
             MT_results_list.append(result)
     MT_results_df = pd.concat(MT_results_list, ignore_index = True)
     MT_results_df.to_csv(MT_output_file, sep = '\t', index = False, header = True)
-
-combine_RNA_pseudoalignment_counts(PA_files, MT_output)
+if METATRANSCRIPTOMES_LOCATION == "Do_not_run":
+    print("No MT location provided")
+elif os.path.isdir(METATRANSCRIPTOMES_LOCATION) == True:
+    combine_RNA_pseudoalignment_counts(PA_files, MT_output)
+else:
+    print("Provided MT location is not a folder.")
 
 ######################################################
 ######################################################
