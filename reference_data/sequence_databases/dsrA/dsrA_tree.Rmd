@@ -8,6 +8,7 @@ output: html_document
 ```{r setup, include=FALSE}
 rm(list = ls())
 knitr::opts_chunk$set(echo = TRUE)
+library(Biostrings)
 library(ggtree)
 library(tidyverse)
 library(treeio)
@@ -16,30 +17,66 @@ library(treeio)
 
 # Inspect *dsrA* tree
 
+First I read in the tree.
+Since some DsrB sequences made their way into this tree, we can midpoint root the tree and get a decent result from that:
+
 ```{r read_in_dsrA_tree}
-dsrA_tree <- read.newick(file = "muller_DsrA_dataset_final.tree")
+dsrA_tree <- read.newick(file = "muller_DsrA_dataset.tree")
 dsrA_tree_rooted <- phangorn::midpoint(dsrA_tree)
 ```
 
+Then I read in the metadata and generated a new name for each of the entries that includes the classification of the DsrA protein and the class of the organism.
 
-```{r dsrA_metadata}
+```{r read_in_dsrA_metadata}
 dsrA_metadata <- read.table("muller_DsrA_dataset_final_metadata.tsv",
                             sep = '\t',
                             header = TRUE)
 metadata_vector <- paste(dsrA_metadata$dsrA_type, ":",
-                         dsrA_metadata$class,
+                         gsub(pattern = " ", "", dsrA_metadata$class), "_",
+                         dsrA_metadata$seqID,
                          sep = "")
 names(metadata_vector) <- dsrA_metadata$seqID
 ```
 
-Generate the tree:
+Generate the initial tree:
 
-```{r dsrA_tree, fig.height = 40}
+```{r initial_dsrA_tree, fig.height = 50}
 dsrA_tree_rooted$tip.label <- metadata_vector[dsrA_tree_rooted$tip.label]
-ggtree(dsrA_tree_rooted) +
-  geom_tiplab(size=2.5) +
-  geom_treescale(x = 3,
-                 y = 1)
+ggtree(dsrA_tree_rooted)  +
+  geom_tiplab(size = 2) +
+  geom_text2(aes(subset = !isTip,
+                 label = node),
+             size = 2,
+             hjust = 1,
+             vjust = -1.5) +
+  geom_treescale(x = 9)
 ```
 
 Looks like there are some *dsrB* genes in here maybe?
+Let's remove those, but keep three in the final dataset for an outgroup.
+
+```{r remove_dsrB, fig.height = 30, fig.width = 10}
+dsrA_only_tree <- tree_subset(tree = dsrA_tree_rooted,
+                              node = 870,
+                              levels_back = 0)
+  
+ggtree(dsrA_only_tree)  +
+  geom_tiplab(size = 2) +
+  geom_text2(aes(subset = !isTip, label = node),
+             size = 1.5) +
+  geom_treescale(x = 9)
+dsrB_seqs_to_keep <- c("oxi_DsrA:Alphaproteobacteria_JQ256776", "red_DsrA_b:Deltaproteobacteria_UncS1371", "red_DsrA_b:Clostridia_DslAero7")
+seqs_to_keep <- c(dsrA_only_tree$tip.label, dsrB_seqs_to_keep)
+                  
+```
+
+Then I filtered out the sequences to keep and saved them out.
+
+```{r rename_and_filter_faa_file}
+DsrA_faa <- readAAStringSet("wrk_dir/muller_DsrA_dataset_cluster.faa")
+names(DsrA_faa) <- metadata_vector[names(DsrA_faa)]
+new_DsrA_AA_set <- DsrA_faa[seqs_to_keep]
+writeXStringSet(new_DsrA_AA_set,
+                filepath = "wrk_dir/muller_DsrA_dataset_final_multipleLines.faa",
+                format = "fasta",)
+```

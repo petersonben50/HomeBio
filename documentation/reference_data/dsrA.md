@@ -61,40 +61,46 @@ Then I clustered the sequences to get our final data set.
 ```
 cd-hit -g 1 \
         -i $wrk_dir/muller_DsrA_aligned_final_clean.faa \
-        -o reference_data/sequence_databases/dsrA/muller_DsrA_dataset_final.faa \
+        -o $wrk_dir/muller_DsrA_dataset_cluster.faa \
         -c 0.82 \
         -n 5 \
         -d 0
-mv reference_data/sequence_databases/dsrA/muller_DsrA_dataset_final.faa.clstr $wrk_dir/muller_DsrA_dataset_final.faa.clstr
 ```
 
-Finally, I pulled out the relevant metadata entries.
+Then, I pulled out the relevant metadata entries.
 
 ```
 head -n 1 $wrk_dir/muller_DsrA_dataset_metadata.tsv > reference_data/sequence_databases/dsrA/muller_DsrA_dataset_final_metadata.tsv
-grep '>' reference_data/sequence_databases/dsrA/muller_DsrA_dataset_final.faa | sed 's/>//' | while read accessionID
+grep '>' $wrk_dir/muller_DsrA_dataset_cluster.faa | sed 's/>//' | while read accessionID
 do
    echo "working on" $accessionID
-   awk -F '\t' -v accessionID="$accessionID" '$1 == accessionID { print $0 }' reference_data/sequence_databases/dsrA/wrk_dir/muller_DsrA_dataset_metadata.tsv >> reference_data/sequence_databases/dsrA/muller_DsrA_dataset_final_metadata.tsv
+   awk -F '\t' -v accessionID="$accessionID" '$1 == accessionID { print $0 }' $muller_DsrA_dataset_metadata.tsv >> reference_data/sequence_databases/dsrA/muller_DsrA_dataset_final_metadata.tsv
 done
 ```
 
 Finally, I generated a tree of the dataset to inspect.
 
 ```
-muscle -super5 reference_data/sequence_databases/dsrA/muller_DsrA_dataset_final.faa \
-        -output reference_data/sequence_databases/dsrA/muller_DsrA_dataset_final.afa
-trimal -in reference_data/sequence_databases/dsrA/muller_DsrA_dataset_final.afa \
-        -out reference_data/sequence_databases/dsrA/wrk_dir/muller_DsrA_dataset_final_trimmed.afa \
+muscle -super5 $wrk_dir/muller_DsrA_dataset_cluster.faa \
+        -output $wrk_dir/muller_DsrA_dataset_tree.afa
+trimal -in $wrk_dir/muller_DsrA_dataset_tree.afa \
+        -out $wrk_dir/muller_DsrA_dataset_tree_trimmed.afa \
         -gt 0.5
-FastTree reference_data/sequence_databases/dsrA/wrk_dir/muller_DsrA_dataset_final_trimmed.afa > reference_data/sequence_databases/dsrA/muller_DsrA_dataset_final.tree
+FastTree $wrk_dir/muller_DsrA_dataset_tree_trimmed.afa > reference_data/sequence_databases/dsrA/muller_DsrA_dataset.tree
 ```
 
-Clean up:
-
+I then inspected this tree in R: `dsrA_tree.Rmd`.
+I pulled out the true DsrA sequences, only kept a couple of DsrB sequences in there for rooting purposes.
+Clean up by moving fasta entries to one line and replacing the "DsrA" in the header name of the DsrB sequences with "DsrB".
+=
 ```
+python bin/FM_cleanFasta.py --input $wrk_dir/muller_DsrA_dataset_final_multipleLines.faa \
+                            --output $wrk_dir/muller_DsrA_dataset_final.faa
+sed 's/oxi_DsrA:Alphaproteobacteria_JQ256776/oxi_DsrB:Alphaproteobacteria_JQ256776/' $wrk_dir/muller_DsrA_dataset_final.faa | \
+        sed 's/red_DsrA_b:Deltaproteobacteria_UncS1371/red_DsrB_b:Deltaproteobacteria_UncS1371/' | \
+        sed 's/red_DsrA_b:Clostridia_DslAero7/red_DsrB_b:Clostridia_DslAero7/' \
+        > reference_data/sequence_databases/dsrA/muller_DsrA_dataset_final.faa
 rm -fr reference_data/sequence_databases/dsrA/.DS_Store reference_data/sequence_databases/dsrA/.Rhistory reference_data/sequence_databases/dsrA/wrk_dir
-
 ```
 
 ## References

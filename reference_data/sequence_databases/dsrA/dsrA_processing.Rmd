@@ -91,6 +91,6 @@ Finally I saved out the alignment file.
 
 ```{r read_out_data}
 writeXStringSet(final_seqs,
-                filepath = "wrk_dir/muller_DsrA_aligned_final.afa",
+                filepath = "wrk_dir/muller_DsrA_aligned_working.afa",
                 format = "fasta")
 ```
