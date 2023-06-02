@@ -366,17 +366,16 @@ if METAGENOME_LIST != "Do_not_run" and METAGENOMES_LOCATION != "Do_not_run":
 ######################################################
 ######################################################
 
-
 def retrieve_RNA_pseudoalignment_counts(MT_2_A_PA_file):
     MT_ID = MT_2_A_PA_file.rsplit("/", 1)[1].split("_to_")[0]
-    kallisto_data = pd.DataFrame(columns=['seqID', 'length_gene', 'effective_length', 'counts', 'tpm'])
+    kallisto_data = pd.DataFrame(columns=['geneID', 'length_gene', 'effective_length', 'counts', 'tpm'])
     print(MT_2_A_PA_file)
     with open(MT_2_A_PA_file, 'r') as PA_data:
         for kallisto_entry_NL in PA_data.readlines():
             kallisto_entry = kallisto_entry_NL.rstrip()
             kallisto_geneID = kallisto_entry.split('\t')[0]
             if kallisto_geneID in list(g2a_data.gene):
-                kallisto_entry_df = pd.read_csv(io.StringIO(kallisto_entry), delimiter = '\t', header = None, names=['seqID', 'length_gene', 'effective_length', 'counts', 'tpm'])
+                kallisto_entry_df = pd.read_csv(io.StringIO(kallisto_entry), delimiter = '\t', header = None, names=['geneID', 'length_gene', 'effective_length', 'counts', 'tpm'])
                 kallisto_data = pd.concat([kallisto_data, kallisto_entry_df], ignore_index = True)
         kallisto_data['mtID'] = MT_ID
         return kallisto_data
