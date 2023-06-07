@@ -31,7 +31,7 @@ Then I read in the metadata and generated a new name for each of the entries tha
 dsrA_metadata <- read.table("muller_DsrA_dataset_final_metadata.tsv",
                             sep = '\t',
                             header = TRUE)
-metadata_vector <- paste(dsrA_metadata$dsrA_type, ":",
+metadata_vector <- paste(dsrA_metadata$dsrA_type, "-",
                          gsub(pattern = " ", "", dsrA_metadata$class), "_",
                          dsrA_metadata$seqID,
                          sep = "")
@@ -65,7 +65,7 @@ ggtree(dsrA_only_tree)  +
   geom_text2(aes(subset = !isTip, label = node),
              size = 1.5) +
   geom_treescale(x = 9)
-dsrB_seqs_to_keep <- c("oxi_DsrA:Alphaproteobacteria_JQ256776", "red_DsrA_b:Deltaproteobacteria_UncS1371", "red_DsrA_b:Clostridia_DslAero7")
+dsrB_seqs_to_keep <- c("oxi_DsrA-Alphaproteobacteria_JQ256776", "red_DsrA_b-Deltaproteobacteria_UncS1371", "red_DsrA_b-Clostridia_DslAero7")
 seqs_to_keep <- c(dsrA_only_tree$tip.label, dsrB_seqs_to_keep)
                   
 ```
@@ -78,5 +78,5 @@ names(DsrA_faa) <- metadata_vector[names(DsrA_faa)]
 new_DsrA_AA_set <- DsrA_faa[seqs_to_keep]
 writeXStringSet(new_DsrA_AA_set,
                 filepath = "wrk_dir/muller_DsrA_dataset_final_multipleLines.faa",
-                format = "fasta",)
+                format = "fasta")
 ```

@@ -51,16 +51,16 @@ Next, I'll finalize processing the alignment file.
 I first cleaned up the file and removed the gaps.
 
 ```
-python bin/FM_cleanFasta.py --input $wrk_dir/muller_DsrA_aligned_final.afa \
-                            --output $wrk_dir/muller_DsrA_aligned_final_clean.afa
-sed 's/-//g' $wrk_dir/muller_DsrA_aligned_final_clean.afa > $wrk_dir/muller_DsrA_aligned_final_clean.faa
+python bin/FM_cleanFasta.py --input $wrk_dir/muller_DsrA_aligned_working.afa \
+                            --output $wrk_dir/muller_DsrA_aligned_working_clean.afa
+sed 's/-//g' $wrk_dir/muller_DsrA_aligned_working_clean.afa > $wrk_dir/muller_DsrA_aligned_working_clean.faa
 ```
 
 Then I clustered the sequences to get our final data set.
 
 ```
 cd-hit -g 1 \
-        -i $wrk_dir/muller_DsrA_aligned_final_clean.faa \
+        -i $wrk_dir/muller_DsrA_aligned_working_clean.faa \
         -o $wrk_dir/muller_DsrA_dataset_cluster.faa \
         -c 0.82 \
         -n 5 \
@@ -74,7 +74,7 @@ head -n 1 $wrk_dir/muller_DsrA_dataset_metadata.tsv > reference_data/sequence_da
 grep '>' $wrk_dir/muller_DsrA_dataset_cluster.faa | sed 's/>//' | while read accessionID
 do
    echo "working on" $accessionID
-   awk -F '\t' -v accessionID="$accessionID" '$1 == accessionID { print $0 }' $muller_DsrA_dataset_metadata.tsv >> reference_data/sequence_databases/dsrA/muller_DsrA_dataset_final_metadata.tsv
+   awk -F '\t' -v accessionID="$accessionID" '$1 == accessionID { print $0 }' $wrk_dir/muller_DsrA_dataset_metadata.tsv >> reference_data/sequence_databases/dsrA/muller_DsrA_dataset_final_metadata.tsv
 done
 ```
 
@@ -96,9 +96,9 @@ Clean up by moving fasta entries to one line and replacing the "DsrA" in the hea
 ```
 python bin/FM_cleanFasta.py --input $wrk_dir/muller_DsrA_dataset_final_multipleLines.faa \
                             --output $wrk_dir/muller_DsrA_dataset_final.faa
-sed 's/oxi_DsrA:Alphaproteobacteria_JQ256776/oxi_DsrB:Alphaproteobacteria_JQ256776/' $wrk_dir/muller_DsrA_dataset_final.faa | \
-        sed 's/red_DsrA_b:Deltaproteobacteria_UncS1371/red_DsrB_b:Deltaproteobacteria_UncS1371/' | \
-        sed 's/red_DsrA_b:Clostridia_DslAero7/red_DsrB_b:Clostridia_DslAero7/' \
+sed 's/oxi_DsrA-Alphaproteobacteria_JQ256776/oxi_DsrB-Alphaproteobacteria_JQ256776/' $wrk_dir/muller_DsrA_dataset_final.faa | \
+        sed 's/red_DsrA_b-Deltaproteobacteria_UncS1371/red_DsrB_b-Deltaproteobacteria_UncS1371/' | \
+        sed 's/red_DsrA_b-Clostridia_DslAero7/red_DsrB_b-Clostridia_DslAero7/' \
         > reference_data/sequence_databases/dsrA/muller_DsrA_dataset_final.faa
 rm -fr reference_data/sequence_databases/dsrA/.DS_Store reference_data/sequence_databases/dsrA/.Rhistory reference_data/sequence_databases/dsrA/wrk_dir
 ```
