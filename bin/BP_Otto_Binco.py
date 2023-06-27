@@ -77,7 +77,8 @@ else:
 
 if os.path.isdir(mFL):
     print("Directory with mapping files to use: " + mFL)
-    glob.glob(mFL + "/*_to_" + aID + ".bam")
+    mappingFiles = glob.glob(mFL + "/*_to_" + aID + ".bam")
+    print(mappingFiles)
 else:
     print("Provided folder with mapping files does not exist: " + mFL)
     sys.exit()
