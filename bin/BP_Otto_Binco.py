@@ -9,6 +9,7 @@ Benjamin D. Peterson
 ###########################
 import argparse
 import os
+import glob
 
 
 
@@ -68,7 +69,7 @@ out = inputs.outputLocation
 ###########################
 if os.path.isfile(aFi):
     print("Assembly file to use: " + aFi)
-    aID = aFi.rsplit("/", 1)[1].rstrip(".fna")
+    aID = aFi.rsplit("/", 1)[1].rsplit("_assembly", 1)[0]
     print("Assembly ID: " + aID)
 else:
     print("Provided assembly file does not exist: " + aFi)
@@ -76,6 +77,7 @@ else:
 
 if os.path.isdir(mFL):
     print("Directory with mapping files to use: " + mFL)
+    glob.glob(mFL + "/*_to_" + aID + ".bam")
 else:
     print("Provided folder with mapping files does not exist: " + mFL)
     sys.exit()
