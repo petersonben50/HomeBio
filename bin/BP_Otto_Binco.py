@@ -118,7 +118,7 @@ def move_process_scaffolds():
     else:
         if cCS > 0:
             print("Trimming assembly file to " + str(cCS) + " bp.")
-            sp.run(['anvi-script-reformat-fasta', aFi, "-o", nCF, "-l", cCS])
+            sp.run(['anvi-script-reformat-fasta', aFi, "-o", nCF, "-l", str(cCS)])
         else:
             print("No trimming criteria provided")
             sp.run(['cp', aFi, nCF])
