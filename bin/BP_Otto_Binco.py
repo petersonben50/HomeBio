@@ -100,6 +100,9 @@ if os.path.isdir(out):
     else:
         print("Making output folder")
         sp.run(['mkdir', oPD])
+else:
+    print("Provided folder with mapping files does not exist: " + out)
+    sys.exit()
 
 
 
