@@ -54,7 +54,7 @@ parser.add_argument(
 # Flags
 parser.add_argument(
     '--contigCutoffSize', default=0, type=int,
-    help = "Minimum length of contig to be included in binning. If not specified, defaults to 0 and no additional cutoff is implemented. If number is specified, anvi-script-reformat-fasta is invoked to cut out contigs shorter than contigCutoffSize. Recommend that contigs less than 2000 bp are not used for binning."
+    help = "Minimum length of contig to be included in binning. If not specified, defaults to 0 and no additional cutoff is implemented. If number is specified, contigs shorter than contigCutoffSize are removed. Recommend that contigs less than 2000 bp are not used for binning."
     )
 
 ###########################
@@ -118,7 +118,12 @@ def move_process_scaffolds():
     else:
         if cCS > 0:
             print("Trimming assembly file to " + str(cCS) + " bp.")
-            sp.run(['anvi-script-reformat-fasta', aFi, "-o", nCF, "-l", str(cCS)])
+            with open(nCF, 'w') as resultFile:
+                for seq_record in SeqIO.parse(aFi, "fasta"):
+                    if len(str(seq_record.seq)) >= cCS:
+                        resultFile.write('>' + str(seq_record.id) + '\n' + str(seq_record.seq).replace("*","") + '\n')
+                    else:
+                        print(seq_record.id)
         else:
             print("No trimming criteria provided")
             sp.run(['cp', aFi, nCF])
