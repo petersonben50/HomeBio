@@ -117,7 +117,7 @@ def move_process_scaffolds():
         print("Assembly has already been prepped for binning")
     else:
         if cCS > 0:
-            print("Trimming assembly file to " + cCS + " bp.")
+            print("Trimming assembly file to " + str(cCS) + " bp.")
             sp.run(['anvi-script-reformat-fasta', aFi, "-o", nCF, "-l", cCS])
         else:
             print("No trimming criteria provided")
