@@ -10,6 +10,7 @@ Benjamin D. Peterson
 import argparse
 import os
 import glob
+import subprocess as sp
 
 
 
@@ -17,11 +18,9 @@ import glob
 
 ######################################################
 ######################################################
-# Parse commands
+# Parse commands and prepare variables
 ######################################################
 ######################################################
-
-print("Parsing input arguments")
 
 ###########################
 # Set up an argument parser
@@ -45,11 +44,17 @@ parser.add_argument(
 parser.add_argument(
     '--outputLocation',
     required = True,
-    help = "Path to the output folder. The results from each of the binning algorithms and Das Tool (if needed) will be in this folder. The output folder does not need to be empty."
+    help = "Path to the output folder. All the results from this will get stored inside this folder named for the assembly ID. Within that folder, the results from each of the binning algorithms and Das Tool (if needed) will be in this folder. The output folder does not need to be empty."
     )
 
-# Flags
+# Binning algorithms to use
 
+
+# Flags
+parser.add_argument(
+    '--contigCutoffSize', default=0, type=int,
+    help = "Minimum length of contig to be included in binning. If not specified, defaults to 0 and no additional cutoff is implemented. If number is specified, anvi-script-reformat-fasta is invoked to cut out contigs shorter than contigCutoffSize. Recommend that contigs less than 2000 bp are not used for binning."
+    )
 
 ###########################
 # Parse names from argument
@@ -63,6 +68,9 @@ out = inputs.outputLocation
 
 
 # Flags
+cCS = inputs.contigCutoffSize
+
+
 
 ###########################
 # Check inputs
@@ -84,7 +92,33 @@ else:
     sys.exit()
 
 if os.path.isdir(out):
-    print("Directory with mapping files to use: " + out)
+    oPD = out + '/' + aID
+    print("Output folder to use: " + out)
+    if os.path.isdir(oPD):
+        print("Output folder already exists")
+    else:
+        print("Making output folder")
+        sp.run(['mkdir', oPD])
+
 else:
     print("Provided folder with mapping files does not exist: " + out)
     sys.exit()
+
+
+
+######################################################
+######################################################
+# Define functions to call binning algorithms
+######################################################
+######################################################
+def move_process_scaffolds():
+    nCF = oPD + "/" + aID + "_assembly_for_binning.fna"
+    if os.path.isfile(nCF):
+        print("Assembly has already been prepped for binning")
+    else:
+        if cCS > 0:
+            print("Trimming assembly file to " + cCS + " bp.")
+            sp.run(['anvi-script-reformat-fasta', aFi, "-o", nCF, "-l", cCS])
+        else:
+            print("No trimming criteria provided")
+            sp.run(['cp', aFi, nCF])
