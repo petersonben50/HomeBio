@@ -130,7 +130,7 @@ def move_process_scaffolds():
                     if len(str(seq_record.seq)) >= cCS:
                         resultFile.write('>' + str(seq_record.id) + '\n' + str(seq_record.seq).replace("*","") + '\n')
                         passing_contigs = passing_contigs + 1
-                        passing_contig_IDs = passing_contig_IDs.append(str(seq_record.id))
+                        passing_contig_IDs.append(str(seq_record.id))
                     else:
                         failing_contigs = failing_contigs + 1
             print("Contigs in assembly: " + str(failing_contigs + passing_contigs))
