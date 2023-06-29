@@ -120,13 +120,18 @@ def move_process_scaffolds():
         print("Assembly has already been prepped for binning")
     else:
         if cCS > 0:
+            passing_contigs = 0
+            failing_contigs = 0
             print("Trimming assembly file to " + str(cCS) + " bp.")
             with open(nCF, 'w') as resultFile:
                 for seq_record in SeqIO.parse(aFi, "fasta"):
                     if len(str(seq_record.seq)) >= cCS:
                         resultFile.write('>' + str(seq_record.id) + '\n' + str(seq_record.seq).replace("*","") + '\n')
+                        passing_contigs = passing_contigs + 1
                     else:
-                        print(seq_record.id)
+                        failing_contigs = failing_contigs + 1
+            print("Contigs in assembly: " + str(failing_contigs + passing_contigs))
+            print("Contigs over " + cCS + " bp: " + str(passing_contigs) + "(" + str(passing_contigs / (failing_contigs + passing_contigs) * 100) + "%)")
         else:
             print("No trimming criteria provided")
             sp.run(['cp', aFi, nCF])
