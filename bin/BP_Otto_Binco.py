@@ -131,7 +131,7 @@ def move_process_scaffolds():
                     else:
                         failing_contigs = failing_contigs + 1
             print("Contigs in assembly: " + str(failing_contigs + passing_contigs))
-            print("Contigs over " + cCS + " bp: " + str(passing_contigs) + "(" + str(passing_contigs / (failing_contigs + passing_contigs) * 100) + "%)")
+            print("Contigs over " + str(cCS) + " bp: " + str(passing_contigs) + "(" + str(passing_contigs / (failing_contigs + passing_contigs) * 100) + "%)")
         else:
             print("No trimming criteria provided")
             sp.run(['cp', aFi, nCF])
