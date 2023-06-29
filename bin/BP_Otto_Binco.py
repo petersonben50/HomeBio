@@ -141,7 +141,9 @@ def move_process_scaffolds():
 
 def filter_a_bam_file():
     bam_file = pysam.AlignmentFile(mappingFiles[1], "rb")
-    bam_file.fetch(passing_contig_IDs[1])
+    for read in bam_file.fetch(passing_contig_IDs[1]):
+        print(read)
+        break
     
 
 
