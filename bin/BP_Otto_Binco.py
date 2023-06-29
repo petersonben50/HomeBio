@@ -88,7 +88,8 @@ else:
 if os.path.isdir(mFL):
     print("Directory with mapping files to use: " + mFL)
     mappingFiles = glob.glob(mFL + "/*_to_" + aID + ".bam")
-    print(mappingFiles)
+    print("Total number of mapping files: " + str(len(mappingFiles)))
+    print("Example mapping file path and name: " + mappingFiles[0])
 else:
     print("Provided folder with mapping files does not exist: " + mFL)
     sys.exit()
@@ -114,6 +115,7 @@ else:
 ######################################################
 def move_process_scaffolds():
     nCF = oPD + "/" + aID + "_assembly_for_binning.fna"
+    print("Assembly file for binning: " + nCF)
     if os.path.isfile(nCF):
         print("Assembly has already been prepped for binning")
     else:
@@ -138,6 +140,7 @@ def move_process_scaffolds():
 ######################################################
 
 def main():
+    print("")
     move_process_scaffolds()
 
 
