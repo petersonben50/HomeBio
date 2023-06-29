@@ -13,7 +13,7 @@ import sys
 import glob
 import subprocess as sp
 from Bio import SeqIO
-
+import pysam
 
 
 
@@ -85,6 +85,7 @@ else:
     print("Provided assembly file does not exist: " + aFi)
     sys.exit()
 
+# Prep mapping files list
 if os.path.isdir(mFL):
     print("Directory with mapping files to use: " + mFL)
     mappingFiles = glob.glob(mFL + "/*_to_" + aID + ".bam")
@@ -110,9 +111,10 @@ else:
 
 ######################################################
 ######################################################
-# Define functions to call binning algorithms
+# Define functions
 ######################################################
 ######################################################
+passing_contig_IDs = list()
 def move_process_scaffolds():
     nCF = oPD + "/" + aID + "_assembly_for_binning.fna"
     print("Assembly file for binning: " + nCF)
@@ -128,14 +130,19 @@ def move_process_scaffolds():
                     if len(str(seq_record.seq)) >= cCS:
                         resultFile.write('>' + str(seq_record.id) + '\n' + str(seq_record.seq).replace("*","") + '\n')
                         passing_contigs = passing_contigs + 1
+                        passing_contig_IDs = passing_contig_IDs.append(str(seq_record.id))
                     else:
                         failing_contigs = failing_contigs + 1
             print("Contigs in assembly: " + str(failing_contigs + passing_contigs))
-            print("Contigs over " + str(cCS) + " bp: " + str(passing_contigs) + "(" + str(passing_contigs / (failing_contigs + passing_contigs) * 100) + "%)")
+            print("Contigs over " + str(cCS) + " bp: " + str(passing_contigs) + "(" + round(str(passing_contigs / (failing_contigs + passing_contigs) * 100), 1) + "%)")
         else:
             print("No trimming criteria provided")
             sp.run(['cp', aFi, nCF])
 
+def filter_a_bam_file():
+    bam_file = pysam.AlignmentFile(mappingFiles[1], "rb")
+    bam_file.fetch(passing_contig_IDs[1])
+    
 
 
 ######################################################
@@ -147,7 +154,8 @@ def move_process_scaffolds():
 def main():
     print("")
     move_process_scaffolds()
-
+    print("Length of list: " + str(len(passing_contig_IDs)))
+    filter_a_bam_file()
 
 if __name__ == '__main__':
     main()
