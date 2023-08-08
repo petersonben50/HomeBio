@@ -139,13 +139,36 @@ def move_process_scaffolds():
             print("No trimming criteria provided")
             sp.run(['cp', aFi, nCF])
 
-def filter_a_bam_file():
-    bam_file = pysam.AlignmentFile(mappingFiles[1], "rb")
-    for read in bam_file.fetch(passing_contig_IDs[1]):
-        print(read)
-        break
-    
+def count_reads(i):
+    return sum(1 for e in i)
 
+def filter_a_bam_file(bam_file, contigs_to_keep, output_folder):
+    bFN = bam_file.rsplit("/", 1)[1].rsplit(".bam", 1)[0]
+    outF = output_folder + '/' + bFN + '_trimmed.bam'
+    pre_filtering_reads = count_reads(pysam.AlignmentFile(bam_file, "rb")))
+    print('Original file with ' + pre_filtering_reads + ' reads: ' + bam_file)
+    view_cmd = ['samtools', 'view', '-b', '-h', '-o', outF, bam_file]
+    for contig in contigs_to_keep:
+        view_cmd.append(contig)
+    sp.run(view_cmd, check = True)
+    post_filtering_reads = count_reads(pysam.AlignmentFile(outF, "rb")))
+    print('Filtered file with ' + post_filtering_reads + ' reads: ' + outF)
+    
+    
+def binning_by_metabat2(assembly_file, list_of_bam_files, output_folder):
+    MB2F = output_folder + '/metabat2'
+    MB2F_WD = MB2F + "wrk_dir"
+    aID_MB2 = assembly_file.rsplit("/", 1)[1].rsplit("_assembly", 1)[0]
+    print('Metabat2 output folder: ' + MB2F)
+    if os.path.isdir(MB2F):
+        print("Metabat2 output folder exists. Delete folder if you want to run Metabat2 again.")
+    else:
+        sp.run("mkdir", MB2F)
+        sp.run("mkdir", MB2F_WD)
+        cmd = ['jgi_summarize_bam_contig_depths', '--outputDepth', MB2F_WD + "/depth_to_" + aID_MB2 + ".txt"]
+        for bFi in list_of_bam_files:
+            cmd = cmd + " " + list_of_bam_files
+        sp.run(cmd, check=True)
 
 ######################################################
 ######################################################
