@@ -7,6 +7,10 @@ from Bio import SeqIO
 
 """
 This subpackage provides utilities for working with fasta files.
+
+There is a common set of input and output parameters for all functions in this subpackage:
+fasta_input: Path to the input fasta file.
+fasta_output: Path to the output fasta file, where the modified sequences will be written.
 """
 
 
@@ -58,7 +62,10 @@ def filter_fasta_file(
 
 
 # Define function to clean fasta file
-def clean_fasta_file(fasta_input, fasta_output, use_upper_case=False):
+def clean_fasta_file(
+        fasta_input,
+        fasta_output,
+        use_upper_case=False):
     """
     Cleans and optionally converts a fasta file to uppercase.
 
@@ -87,3 +94,32 @@ def clean_fasta_file(fasta_input, fasta_output, use_upper_case=False):
                     outputFile.write(str(seq_record.seq) + '\n')
     except FileNotFoundError as e:
         print(f"Error: {e}. Please provide valid paths to the fasta files.")
+
+
+# Define function to get list of fasta headers
+def get_list_fasta_headers(fasta_input):
+    """
+    Retrieves a list of headers from a fasta file.
+
+    :param fasta_input: The path to the input fasta file.
+    :type fasta_input: str
+    :raises FileNotFoundError: If the input fasta file path is not valid.
+    :return: A list of fasta headers (sequence identifiers).
+    :rtype: list
+
+    Usage:
+
+    >>> headers = get_list_fasta_headers("input.fasta")
+    >>> print(headers)
+    ['header1', 'header2', ...]
+    """
+
+    fasta_headers = []
+
+    try:
+        for seq_record in SeqIO.parse(fasta_input, "fasta"):
+            fasta_headers.append(str(seq_record.id))
+    except FileNotFoundError as e:
+        print(f"Error: {e}. Please provide a valid path to the fasta file.")
+
+    return fasta_headers
