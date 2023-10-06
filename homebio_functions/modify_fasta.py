@@ -43,6 +43,9 @@ def filter_fasta_file(
     try:
         print("#############################################")
         print("Trimming fasta file.")
+        print("Input: " + fasta_input)
+        print("Output: " + fasta_output)
+        print("Contig size cutoff: " + str(contig_size_cutoff))
         passing_sequences = 0
         failing_sequences = 0
         with open(fasta_output, 'w') as resultFile:
