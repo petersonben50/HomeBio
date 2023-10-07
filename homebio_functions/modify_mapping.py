@@ -36,16 +36,20 @@ def filter_bam(input_bam, output_bam, fasta_headers):
     >>> filter_bam("input.bam", "output.bam", fasta_headers)
     """
 
-    #pre_filtering_reads = count_reads_in_bam(input_bam)
-    #print(f'Original file with {pre_filtering_reads} reads: {input_bam}')
+    # Set up counting variables
+    total_read_count = 0
+    filtered_read_count = 0
 
     # Filter bam file by fasta headers using pysam
     with pysam.AlignmentFile(input_bam, "rb") as input_bam_file:
         with pysam.AlignmentFile(output_bam, "wb", template=input_bam_file) as output_bam_file:
             for read in input_bam_file:
+                total_read_count = total_read_count + 1
                 if read.reference_name in fasta_headers:
                     output_bam_file.write(read)
-
-    #post_filtering_reads = count_reads_in_bam(output_bam)
-    #print(f'Filtered file with {post_filtering_reads} reads: {output_bam}')
+                    filtered_read_count = filtered_read_count + 1
+    
+    # Print read counts
+    print(f'Input file with {total_read_count} mapped reads: {input_bam}')
+    print(f'Filtered file with {filtered_read_count} mapped reads: {output_bam}')
 
