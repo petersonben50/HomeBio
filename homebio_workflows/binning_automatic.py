@@ -67,7 +67,7 @@ def main():
         if bam_file.endswith('.bam'):
             list_of_unfiltered_bam_files.append(bam_file)
     # For every unfiltered bam file, filter it and save it in the working directory. Run this in parallel using map.
-    if list_of_unfiltered_bam_files > (mp.cpu_count()-1):
+    if len(list_of_unfiltered_bam_files) > (mp.cpu_count()-1):
         pool = mp.Pool(mp.cpu_count()-1)
     else:
         pool = mp.Pool(len(list_of_unfiltered_bam_files))
