@@ -1,0 +1,7 @@
+.DS_Store
+
+# Ignore everything in files named sandbox
+sandbox/
+
+# Ignore all pycache directories
+__pycache__/
