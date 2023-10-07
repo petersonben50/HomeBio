@@ -36,6 +36,12 @@ def filter_bam(input_bam, output_bam, fasta_headers):
     >>> filter_bam("input.bam", "output.bam", fasta_headers)
     """
 
+    print("#############################################")
+    print("Filtering bam file.")
+    print("Input: " + input_bam)
+    print("Output: " + output_bam)
+    print("Number of fasta headers: " + str(len(fasta_headers)))
+
     # Set up counting variables
     total_read_count = 0
     filtered_read_count = 0
@@ -50,6 +56,7 @@ def filter_bam(input_bam, output_bam, fasta_headers):
                     filtered_read_count = filtered_read_count + 1
     
     # Print read counts
-    print(f'Input file with {total_read_count} mapped reads: {input_bam}')
-    print(f'Filtered file with {filtered_read_count} mapped reads: {output_bam}')
+    print(f'Number of originally mapped reads: {total_read_count}')
+    print(f'Number of reads that mapped to the contigs above the size cutoff: {filtered_read_count}')
+    
 
