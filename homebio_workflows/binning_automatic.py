@@ -67,9 +67,12 @@ def main():
         if bam_file.endswith('.bam'):
             list_of_unfiltered_bam_files.append(bam_file)
     # For every unfiltered bam file, filter it and save it in the working directory. Run this in parallel using map.
-    pool = mp.Pool(mp.cpu_count()-1)
+    if list_of_unfiltered_bam_files > (mp.cpu_count()-1):
+        pool = mp.Pool(mp.cpu_count()-1)
+    else:
+        pool = mp.Pool(len(list_of_unfiltered_bam_files))
     pool.starmap(filter_bam, [(inputs.mapping_folder + '/' + bam_file,
-                               working_directory + '/' + bam_file,
+                               working_directory + '/filtered_' + bam_file,
                                fasta_headers) for bam_file in list_of_unfiltered_bam_files])
     
     # Step 3: Bin contigs by depth using MetaBAT2
