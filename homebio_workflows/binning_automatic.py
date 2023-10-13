@@ -58,22 +58,28 @@ def main():
     else:
         print(f'Assembly output does not exist: {assembly_output}')
         filter_fasta_file(inputs.assembly_input, assembly_output, inputs.contig_size_cutoff)
+  
     # Step 2: Subset mapping file
     # 2.1: Get the list of headers from the filtered fasta file
     fasta_headers = get_list_fasta_headers(assembly_output)
     # 2.2 Get a list of the unfiltered bam files
     list_of_unfiltered_bam_files = []
+    number_of_unfiltered_bam_files = len(list_of_unfiltered_bam_files)
     for bam_file in os.listdir(inputs.mapping_folder):
         if bam_file.endswith('.bam'):
             list_of_unfiltered_bam_files.append(bam_file)
-    # For every unfiltered bam file, filter it and save it in the working directory. Run this in parallel using map.
+    # 2.3 Figure out how many cores to use
     if len(list_of_unfiltered_bam_files) > (mp.cpu_count()-1):
-        pool = mp.Pool(mp.cpu_count()-1)
+        core_count = mp.cpu_count()-1
     else:
-        pool = mp.Pool(len(list_of_unfiltered_bam_files))
+        core_count = len(list_of_unfiltered_bam_files)
+    pool = mp.Pool(core_count)
+    print(f'Filter {number_of_unfiltered_bam_files} bam files in parallel on {core_count} cores.')
+    # 2.4 For every unfiltered bam file, filter it and save it in the working directory. Run this in parallel using map.
     pool.starmap(filter_bam, [(inputs.mapping_folder + '/' + bam_file,
                                working_directory + '/filtered_' + bam_file,
                                fasta_headers) for bam_file in list_of_unfiltered_bam_files])
+
     '''
     # Step 3: Bin contigs by depth using MetaBAT2
     # 3.1: Get the list of bam files in the working directory
