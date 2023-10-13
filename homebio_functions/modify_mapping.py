@@ -54,6 +54,7 @@ def filter_bam(input_bam, output_bam, fasta_headers):
                 if read.reference_name in fasta_headers:
                     output_bam_file.write(read)
                     filtered_read_count = filtered_read_count + 1
+    pysam.index(output_bam)
     
     # Print read counts
     print(f'Number of originally mapped reads: {total_read_count}')
