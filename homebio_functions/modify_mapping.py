@@ -78,5 +78,6 @@ def filter_bam(input_bam, output_bam, fasta_headers):
     print(f'Number of reads that mapped to the contigs above the size cutoff: {filtered_read_count}')
     
     # Index the output bam file
+    pysam.sort(output_bam)
     pysam.index(output_bam)
     print(f'Generated index for {output_bam}')
