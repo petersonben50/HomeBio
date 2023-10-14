@@ -57,7 +57,7 @@ def main():
     else:
         print(f'Assembly output does not exist: {assembly_output}')
         filter_fasta_file(inputs.assembly_input, assembly_output, inputs.contig_size_cutoff)
-  
+    
     # Step 2: Subset mapping file
     # 2.1: Get the list of headers from the filtered fasta file
     fasta_headers = get_list_fasta_headers(assembly_output)
@@ -91,7 +91,7 @@ def main():
                         list_of_bam_files = list_of_filtered_bam_files,
                         output_folder = working_directory,
                         assembly_ID = inputs.assembly_input.split('/')[-1].split('.')[0])
-    '''
+'''    
 
 
 if __name__ == "__main__":
