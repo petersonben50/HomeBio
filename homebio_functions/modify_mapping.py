@@ -44,9 +44,12 @@ def filter_bam(input_bam, output_bam, fasta_headers):
     # Set up counting variables
     filtered_read_count = 0
 
+    # Set unsorted bam output file name
+    unsorted_bam = output_bam.replace(".bam", "_unsorted.bam")
+
     # Open input and output BAM files
     input_bam_file = pysam.AlignmentFile(input_bam, "rb")
-    output_bam_file = pysam.AlignmentFile(output_bam, "wb", template=input_bam_file)
+    output_bam_file = pysam.AlignmentFile(unsorted_bam, "wb", template=input_bam_file)
 
     # Convert fasta_headers to set for faster look-up
     fasta_headers_set = set(fasta_headers)
@@ -78,6 +81,6 @@ def filter_bam(input_bam, output_bam, fasta_headers):
     print(f'Number of reads that mapped to the contigs above the size cutoff: {filtered_read_count}')
     
     # Index the output bam file
-    pysam.sort(output_bam)
+    pysam.sort("-o", output_bam, unsorted_bam)
     pysam.index(output_bam)
     print(f'Generated index for {output_bam}')
