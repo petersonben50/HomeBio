@@ -79,7 +79,7 @@ def main():
                                working_directory + '/filtered_' + bam_file,
                                fasta_headers) for bam_file in list_of_unfiltered_bam_files])
 
-    '''
+
     # Step 3: Bin contigs by depth using MetaBAT2
     # 3.1: Get the list of bam files in the working directory
     list_of_filtered_bam_files = []
@@ -91,7 +91,7 @@ def main():
                         list_of_bam_files = list_of_filtered_bam_files,
                         output_folder = working_directory,
                         assembly_ID = inputs.assembly_input.split('/')[-1].split('.')[0])
-'''    
+
 
 
 if __name__ == "__main__":
