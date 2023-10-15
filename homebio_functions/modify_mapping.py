@@ -1,5 +1,6 @@
 # Import necessary modules
 
+import os
 import csv
 import pysam
 
@@ -72,7 +73,6 @@ def filter_bam(input_bam, output_bam, fasta_headers):
 
     # Pull out reads from each targeted contig and write to output BAM file. Use buffered write for speed.
     for fasta_header in fasta_headers_set:
-        print(f'Processing {fasta_header}')
         for read in input_bam_file.fetch(fasta_header):
             a = pysam.AlignedSegment(output_bam_file.header)
             a.query_name = read.query_name
@@ -105,7 +105,11 @@ def filter_bam(input_bam, output_bam, fasta_headers):
     # Print read counts
     print(f'Number of reads that mapped to the contigs above the size cutoff: {filtered_read_count}')
     
-    # Index the output bam file
+    # Sort the output bam file
     pysam.sort("-o", output_bam, unsorted_bam)
+    # Remove the unsorted bam file
+    os.remove(unsorted_bam)
+    # Index the output bam file
     pysam.index(output_bam)
-    print(f'Generated index for {output_bam}')
+    print(f'Completed depth aggregation for {output_bam}')
+
