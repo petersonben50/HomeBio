@@ -85,7 +85,7 @@ def main():
     list_of_filtered_bam_files = []
     for bam_file in os.listdir(working_directory):
         if bam_file.endswith('.bam'):
-            list_of_filtered_bam_files.append(bam_file)
+            list_of_filtered_bam_files.append(working_directory + '/' + bam_file)
     # 3.2: Run MetaBAT2
     binning_by_metabat2(assembly_file_to_use = assembly_output,
                         list_of_bam_files = list_of_filtered_bam_files,
