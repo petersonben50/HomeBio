@@ -61,6 +61,9 @@ def filter_bam(input_bam, output_bam, fasta_headers):
     # Create output BAM file
     output_bam_file = pysam.AlignmentFile(unsorted_bam, "wb", header=new_header)
 
+    # Create a set of valid reference_ids based on the new_header
+    valid_reference_ids = set(new_header.references)
+
     # Convert fasta_headers to set for faster look-up
     fasta_headers_set = set(fasta_headers)
 
@@ -69,28 +72,27 @@ def filter_bam(input_bam, output_bam, fasta_headers):
 
     # Pull out reads from each targeted contig and write to output BAM file. Use buffered write for speed.
     for fasta_header in fasta_headers_set:
+        print(f'Processing {fasta_header}')
         for read in input_bam_file.fetch(fasta_header):
-            if read.reference_name in fasta_headers_set:
-                a = pysam.AlignedSegment(output_bam_file.header)
-                a.query_name = read.query_name
-                a.query_sequence = read.query_sequence
-                a.reference_name = read.reference_name
-                a.flag = read.flag
-                a.reference_start = read.reference_start
-                a.mapping_quality = read.mapping_quality
-                a.cigar = read.cigar
-                a.next_reference_id = read.next_reference_id
-                a.next_reference_start = read.next_reference_start
-                a.template_length = read.template_length
-                a.query_qualities = read.query_qualities
-                a.tags = read.tags
-                buffered_reads.append(a)
-                filtered_read_count += 1
-
-                if len(buffered_reads) >= 1000:  # Batch size
-                    for r in buffered_reads:
-                        output_bam_file.write(r)
-                    buffered_reads.clear()
+            a = pysam.AlignedSegment(output_bam_file.header)
+            a.query_name = read.query_name
+            a.query_sequence = read.query_sequence
+            a.reference_name = read.reference_name
+            a.flag = read.flag
+            a.reference_start = read.reference_start
+            a.mapping_quality = read.mapping_quality
+            a.cigar = read.cigar
+            a.next_reference_id = -1 if read.next_reference_id not in valid_reference_ids else read.next_reference_id
+            a.next_reference_start = -1 if read.next_reference_id not in valid_reference_ids else read.next_reference_start
+            a.template_length = read.template_length
+            a.query_qualities = read.query_qualities
+            a.tags = read.tags
+            buffered_reads.append(a)
+            filtered_read_count += 1
+            if len(buffered_reads) >= 1000:  # Batch size
+                for r in buffered_reads:
+                    output_bam_file.write(r)
+                buffered_reads.clear()
 
     # Write any remaining reads in buffer
     for r in buffered_reads:
