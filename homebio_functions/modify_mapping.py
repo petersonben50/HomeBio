@@ -71,7 +71,20 @@ def filter_bam(input_bam, output_bam, fasta_headers):
     for fasta_header in fasta_headers_set:
         for read in input_bam_file.fetch(fasta_header):
             if read.reference_name in fasta_headers_set:
-                buffered_reads.append(read)
+                a = pysam.AlignedSegment(output_bam_file.header)
+                a.query_name = read.query_name
+                a.query_sequence = read.query_sequence
+                a.reference_name = read.reference_name
+                a.flag = read.flag
+                a.reference_start = read.reference_start
+                a.mapping_quality = read.mapping_quality
+                a.cigar = read.cigar
+                a.next_reference_id = read.next_reference_id
+                a.next_reference_start = read.next_reference_start
+                a.template_length = read.template_length
+                a.query_qualities = read.query_qualities
+                a.tags = read.tags
+                buffered_reads.append(a)
                 filtered_read_count += 1
 
                 if len(buffered_reads) >= 1000:  # Batch size
