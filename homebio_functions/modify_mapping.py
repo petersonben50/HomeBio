@@ -1,5 +1,6 @@
 # Import necessary modules
 
+import csv
 import pysam
 
 # Module-level docstring
@@ -16,6 +17,7 @@ def count_reads_in_bam(input_bam):
     """
     read_count = sum(1 for _ in pysam.AlignmentFile(input_bam, "rb"))
     return read_count
+
 
 def filter_bam(input_bam, output_bam, fasta_headers):
     """
@@ -49,7 +51,15 @@ def filter_bam(input_bam, output_bam, fasta_headers):
 
     # Open input and output BAM files
     input_bam_file = pysam.AlignmentFile(input_bam, "rb")
-    output_bam_file = pysam.AlignmentFile(unsorted_bam, "wb", template=input_bam_file)
+
+    # Set up header for output BAM file
+    header_dict = input_bam_file.header.to_dict()
+    # Remove SQ lines from header that are not in the fasta_headers list
+    header_dict['SQ'] = [sq for sq in header_dict['SQ'] if sq['SN'] in fasta_headers]
+    new_header = pysam.AlignmentHeader.from_dict(header_dict)
+
+    # Create output BAM file
+    output_bam_file = pysam.AlignmentFile(unsorted_bam, "wb", header=new_header)
 
     # Convert fasta_headers to set for faster look-up
     fasta_headers_set = set(fasta_headers)
