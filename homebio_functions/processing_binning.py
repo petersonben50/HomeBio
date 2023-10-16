@@ -27,7 +27,8 @@ def binning_by_metabat2(
         os.makedirs(output_folder)
 
     metabat2_wkdir = os.path.join(output_folder, "wrk_dir")
-    metabat2_bins_output = os.path.join(output_folder, "bins")
+    metabat2_bins_folder = os.path.join(output_folder, "/bins_dir")
+    metabat2_bins_output = os.path.join(metabat2_bins_folder, f"metabat2_{assembly_ID}")
     
     # Create additional directories if needed
     os.makedirs(metabat2_wkdir, exist_ok=True)
