@@ -27,7 +27,7 @@ def binning_by_metabat2(
         os.makedirs(output_folder)
 
     metabat2_wkdir = os.path.join(output_folder, "wrk_dir")
-    metabat2_bins_folder = os.path.join(output_folder, "/bins_dir")
+    metabat2_bins_folder = os.path.join(output_folder, "bins_dir")
     metabat2_bins_output = os.path.join(metabat2_bins_folder, f"metabat2_{assembly_ID}")
     
     # Create additional directories if needed
@@ -45,3 +45,13 @@ def binning_by_metabat2(
     # Running MetaBAT 2
     cmd = ['metabat2', '-i', assembly_file_to_use, '-a', depth_output_file, '-o', metabat2_bins_output]
     sp.run(cmd, check=True)
+
+
+def binning_by_maxbin(
+        assembly_file_to_use,
+        list_of_bam_files,
+        output_folder,
+        assembly_ID):
+    """
+    Bins contigs by depth using MaxBin 2.
+    """
