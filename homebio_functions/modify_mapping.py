@@ -125,14 +125,12 @@ def process_reference(reference, bam_path, exclude_bases):
         start = exclude_bases
         end = ref_length - exclude_bases
         coverage_sum = 0
-        base_count = 0
 
         for pileupcolumn in bamfile.pileup(reference, start, end):
             coverage = pileupcolumn.n
             coverage_sum += coverage
-            base_count += 1
 
-        return reference, coverage_sum / base_count if base_count > 0 else 0
+        return reference, coverage_sum / ref_length
 
 
 def calculate_average_coverage(bam_folder, reference_set, exclude_bases=0, output_file=None, target_references=None, cores=None):
