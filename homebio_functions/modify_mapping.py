@@ -113,3 +113,66 @@ def filter_bam(input_bam, output_bam, fasta_headers):
     pysam.index(output_bam)
     print(f'Completed depth aggregation for {output_bam}')
 
+
+from concurrent.futures import ThreadPoolExecutor, as_completed
+
+def process_reference(reference, bamfile, exclude_bases):
+    ref_length = bamfile.get_reference_length(reference)
+    start = exclude_bases
+    end = ref_length - exclude_bases
+    coverage_sum = 0
+    base_count = 0
+
+    for pileupcolumn in bamfile.pileup(reference, start, end):
+        coverage = pileupcolumn.n
+        coverage_sum += coverage
+        base_count += 1
+
+    return reference, coverage_sum / base_count if base_count > 0 else 0
+
+def calculate_average_coverage(input_bam, exclude_bases=0, output_file=None, referenceID=None):
+    """
+    Calculates the average read coverage for each reference sequence in a BAM file.
+
+    :param input_bam: Path to the input BAM file.
+    :type input_bam: str
+    :param exclude_bases: Number of bases to exclude from each end of the reference sequence.
+    :type exclude_bases: int
+    :param output_file: Path to the output TSV file. If None, TSV won't be saved.
+    :type output_file: str or None
+    :param referenceID: Identifier for the reference genome.
+    :type referenceID: str or None
+
+    Usage:
+    >>> calculate_average_coverage("your_file.bam", exclude_bases=5, output_file="output.tsv", referenceID="RefID")
+    """
+
+    average_coverage = {}
+    with pysam.AlignmentFile(input_bam, 'rb') as bamfile:
+        with ThreadPoolExecutor() as executor:
+            futures_to_ref = {executor.submit(process_reference, ref, bamfile, exclude_bases): ref for ref in bamfile.references}
+            
+            for future in as_completed(futures_to_ref):
+                ref = futures_to_ref[future]
+                try:
+                    average_coverage[ref] = future.result()
+                except Exception as e:
+                    print(f"Error processing {ref}: {e}")
+
+    # Save to TSV if output_file is specified
+    if output_file:
+        with open(output_file, 'w', newline='') as tsvfile:
+            fieldnames = ['contigID', 'read_coverage']
+            if referenceID:
+                fieldnames.append('referenceID')
+                
+            writer = csv.DictWriter(tsvfile, fieldnames=fieldnames, delimiter='\t')
+            writer.writeheader()
+            
+            for ref, avg_cov in average_coverage.items():
+                row = {'contigID': ref, 'read_coverage': avg_cov}
+                if referenceID:
+                    row['referenceID'] = referenceID
+                writer.writerow(row)
+
+    return average_coverage
