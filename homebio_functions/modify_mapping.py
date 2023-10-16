@@ -5,6 +5,7 @@ import csv
 import pysam
 import pandas as pd
 import multiprocessing as mp
+from concurrent.futures import ThreadPoolExecutor, as_completed
 # Module-level docstring
 
 
@@ -117,21 +118,22 @@ def filter_bam(input_bam, output_bam, fasta_headers):
 
 
 
-from concurrent.futures import ThreadPoolExecutor, as_completed
 
-def process_reference(reference, bamfile, exclude_bases):
-    ref_length = bamfile.get_reference_length(reference)
-    start = exclude_bases
-    end = ref_length - exclude_bases
-    coverage_sum = 0
-    base_count = 0
+def process_reference(reference, bam_path, exclude_bases):
+    with pysam.AlignmentFile(bam_path, 'rb') as bamfile:
+        ref_length = bamfile.get_reference_length(reference)
+        start = exclude_bases
+        end = ref_length - exclude_bases
+        coverage_sum = 0
+        base_count = 0
 
-    for pileupcolumn in bamfile.pileup(reference, start, end):
-        coverage = pileupcolumn.n
-        coverage_sum += coverage
-        base_count += 1
+        for pileupcolumn in bamfile.pileup(reference, start, end):
+            coverage = pileupcolumn.n
+            coverage_sum += coverage
+            base_count += 1
 
-    return reference, coverage_sum / base_count if base_count > 0 else 0
+        return reference, coverage_sum / base_count if base_count > 0 else 0
+
 
 def calculate_average_coverage(bam_folder, reference_set, exclude_bases=0, output_file=None, target_references=None, cores=None):
     """
@@ -176,7 +178,7 @@ def calculate_average_coverage(bam_folder, reference_set, exclude_bases=0, outpu
             references_to_process = target_references if target_references else bamfile.references
             # Process references in parallel
             with ThreadPoolExecutor(max_workers=core_count) as executor:
-                futures_to_ref = {executor.submit(process_reference, ref, bamfile, exclude_bases): ref for ref in references_to_process}
+                futures_to_ref = {executor.submit(process_reference, ref, bam_path, exclude_bases): ref for ref in references_to_process}
                 # Store results in dictionary
                 for future in as_completed(futures_to_ref):
                     ref = futures_to_ref[future]
