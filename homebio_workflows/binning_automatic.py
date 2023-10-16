@@ -41,16 +41,23 @@ inputs = parser.parse_args()
 
 
 
-#### Set up variables ####
+# Step 0: Set up directories and paths
+
+# 0.1: Define folder for working directory
 working_directory = inputs.output_location + '/working_directory'
-# find if path does not exist, if so, make it:
-if not os.path.exists(working_directory):
-    os.makedirs(working_directory)
+os.makedirs(working_directory, exist_ok=True)
+
+# 0.2: Define file name for output assembly
 assembly_output = working_directory + '/trimmed_' + inputs.assembly_input.split('/')[-1]
+
+# 0.3: Define folder for output bam files
+mapping_dir = working_directory + '/mapping_files'
+os.makedirs(mapping_dir, exist_ok=True)
 
 
 # Define main function
 def main():
+    
     # Step 1: Filter contigs by length
     if os.path.exists(assembly_output):
         print(f'Assembly output already exists: {assembly_output}')
@@ -58,11 +65,10 @@ def main():
         print(f'Assembly output does not exist: {assembly_output}')
         filter_fasta_file(inputs.assembly_input, assembly_output, inputs.contig_size_cutoff)
     
+
     # Step 2: Subset mapping file
     # 2.1: Get the list of headers from the filtered fasta file
     fasta_headers = get_list_fasta_headers(assembly_output)
-    # 2.2: Define location for output bam files
-    mapping_dir = working_directory + '/mapping_files'
     # 2.2 Get a list of the unfiltered bam files
     list_of_unfiltered_bam_files = []
     for bam_file in os.listdir(inputs.mapping_folder):
