@@ -61,6 +61,8 @@ def main():
     # Step 2: Subset mapping file
     # 2.1: Get the list of headers from the filtered fasta file
     fasta_headers = get_list_fasta_headers(assembly_output)
+    # 2.2: Define location for output bam files
+    mapping_dir = working_directory + '/mapping_files'
     # 2.2 Get a list of the unfiltered bam files
     list_of_unfiltered_bam_files = []
     for bam_file in os.listdir(inputs.mapping_folder):
@@ -76,16 +78,16 @@ def main():
     print(f'Filtering {number_of_unfiltered_bam_files} bam files in parallel on {core_count} cores.')
     # 2.4 For every unfiltered bam file, filter it and save it in the working directory. Run this in parallel using map.
     pool.starmap(filter_bam, [(inputs.mapping_folder + '/' + bam_file,
-                               working_directory + '/filtered_' + bam_file,
+                               mapping_dir + '/filtered_' + bam_file,
                                fasta_headers) for bam_file in list_of_unfiltered_bam_files])
 
 
     # Step 3: Bin contigs by depth using MetaBAT2
     # 3.1: Get the list of bam files in the working directory
     list_of_filtered_bam_files = []
-    for bam_file in os.listdir(working_directory):
+    for bam_file in os.listdir(mapping_dir):
         if bam_file.endswith('.bam'):
-            list_of_filtered_bam_files.append(working_directory + '/' + bam_file)
+            list_of_filtered_bam_files.append(mapping_dir + '/' + bam_file)
     # 3.2: Run MetaBAT2
     binning_by_metabat2(assembly_file_to_use = assembly_output,
                         list_of_bam_files = list_of_filtered_bam_files,
