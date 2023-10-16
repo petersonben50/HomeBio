@@ -3,7 +3,8 @@
 import os
 import csv
 import pysam
-
+import pandas as pd
+import multiprocessing as mp
 # Module-level docstring
 
 
@@ -114,6 +115,8 @@ def filter_bam(input_bam, output_bam, fasta_headers):
     print(f'Completed depth aggregation for {output_bam}')
 
 
+
+
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
 def process_reference(reference, bamfile, exclude_bases):
@@ -130,49 +133,69 @@ def process_reference(reference, bamfile, exclude_bases):
 
     return reference, coverage_sum / base_count if base_count > 0 else 0
 
-def calculate_average_coverage(input_bam, exclude_bases=0, output_file=None, referenceID=None):
+def calculate_average_coverage(bam_folder, reference_set, exclude_bases=0, output_file=None, target_references=None, cores=None):
     """
-    Calculates the average read coverage for each reference sequence in a BAM file.
+    Calculates the average read coverage for each reference sequence in a folder of BAM files.
 
-    :param input_bam: Path to the input BAM file.
-    :type input_bam: str
+    :param bam_folder: Path to the folder holding the input BAM files.
+    :type bam_folder: str
+    :param reference_set: The identifier for the reference genome set.
+    :type reference_set: str
     :param exclude_bases: Number of bases to exclude from each end of the reference sequence.
     :type exclude_bases: int
     :param output_file: Path to the output TSV file. If None, TSV won't be saved.
     :type output_file: str or None
-    :param referenceID: Identifier for the reference genome.
-    :type referenceID: str or None
+    :param target_references: References within the bam file to filter on.
+    :type target_references: list or None
+    :param cores: Number of cores to use for parallel processing.
+    :type cores: int or None
 
     Usage:
-    >>> calculate_average_coverage("your_file.bam", exclude_bases=5, output_file="output.tsv", referenceID="RefID")
+    >>> df = calculate_average_coverage(bam_folder="path/to/bam_folder", reference_set="some_set", exclude_bases=5, output_file="output.tsv", target_references=["ref1", "ref2"], cores=4)
     """
+    
+    
+    # Initialize a Pandas DataFrame for storing results
+    df = pd.DataFrame()
 
-    average_coverage = {}
-    with pysam.AlignmentFile(input_bam, 'rb') as bamfile:
-        with ThreadPoolExecutor() as executor:
-            futures_to_ref = {executor.submit(process_reference, ref, bamfile, exclude_bases): ref for ref in bamfile.references}
-            
-            for future in as_completed(futures_to_ref):
-                ref = futures_to_ref[future]
-                try:
-                    average_coverage[ref] = future.result()
-                except Exception as e:
-                    print(f"Error processing {ref}: {e}")
+    # Determine number of cores to use
+    core_count = cores if cores and cores < mp.cpu_count() - 1 else mp.cpu_count() - 1
+
+    # Process each BAM file in the folder that has the correct reference_set ID
+    for bam_filename in os.listdir(bam_folder):
+        if not (bam_filename.endswith(".bam") and bam_filename.split("_to_")[1].replace(".bam", "") == reference_set):
+            continue
+
+        # Initialize a dictionary to store results for this BAM file
+        average_coverage = {}
+        # Get the path to the BAM file
+        bam_path = os.path.join(bam_folder, bam_filename)
+        # Open the BAM file
+        with pysam.AlignmentFile(bam_path, 'rb') as bamfile:
+            # If references are specified, use those. Otherwise, use all references in the BAM file.
+            references_to_process = target_references if target_references else bamfile.references
+            # Process references in parallel
+            with ThreadPoolExecutor(max_workers=core_count) as executor:
+                futures_to_ref = {executor.submit(process_reference, ref, bamfile, exclude_bases): ref for ref in references_to_process}
+                # Store results in dictionary
+                for future in as_completed(futures_to_ref):
+                    ref = futures_to_ref[future]
+                    try:
+                        average_coverage[ref] = future.result()[1]
+                    except Exception as e:
+                        print(f"Error processing {ref}: {e}")
+
+        # Convert dictionary to DataFrame for this BAM file
+        temp_df = pd.DataFrame.from_dict(average_coverage, orient='index', columns=[bam_filename])
+
+        # Merge with the main DataFrame
+        if df.empty:
+            df = temp_df
+        else:
+            df = pd.merge(df, temp_df, left_index=True, right_index=True, how='outer')
 
     # Save to TSV if output_file is specified
     if output_file:
-        with open(output_file, 'w', newline='') as tsvfile:
-            fieldnames = ['contigID', 'read_coverage']
-            if referenceID:
-                fieldnames.append('referenceID')
-                
-            writer = csv.DictWriter(tsvfile, fieldnames=fieldnames, delimiter='\t')
-            writer.writeheader()
-            
-            for ref, avg_cov in average_coverage.items():
-                row = {'contigID': ref, 'read_coverage': avg_cov}
-                if referenceID:
-                    row['referenceID'] = referenceID
-                writer.writerow(row)
+        df.to_csv(output_file, sep='\t')
 
-    return average_coverage
+    return df
