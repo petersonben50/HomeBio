@@ -154,7 +154,13 @@ def calculate_average_coverage(bam_folder, reference_set, exclude_bases=0, outpu
     >>> df = calculate_average_coverage(bam_folder="path/to/bam_folder", reference_set="some_set", exclude_bases=5, output_file="output.tsv", target_references=["ref1", "ref2"], cores=4)
     """
     
-    
+    print("#############################################")
+    print("Calculating coverage of bam files mapping to reference.")
+    print(f'Input folder (only bam files): {bam_folder}')
+    print(f'Mapping reference set: {reference_set}')
+    print(f'Number of bases to exclude from each end of the reference sequence: {exclude_bases}')
+    print(f'Optional ouput file: {output_file}')
+
     # Initialize a Pandas DataFrame for storing results
     df = pd.DataFrame()
 
@@ -165,7 +171,7 @@ def calculate_average_coverage(bam_folder, reference_set, exclude_bases=0, outpu
     for bam_filename in os.listdir(bam_folder):
         if not (bam_filename.endswith(".bam") and bam_filename.split("_to_")[1].replace(".bam", "") == reference_set):
             continue
-
+        print(f"Processing {bam_filename}")
         # Initialize a dictionary to store results for this BAM file
         average_coverage = {}
         # Get the path to the BAM file
@@ -174,6 +180,7 @@ def calculate_average_coverage(bam_folder, reference_set, exclude_bases=0, outpu
         with pysam.AlignmentFile(bam_path, 'rb') as bamfile:
             # If references are specified, use those. Otherwise, use all references in the BAM file.
             references_to_process = target_references if target_references else bamfile.references
+            print(f'Number of references to process: {len(references_to_process)}')
             # Process references in parallel
             with ThreadPoolExecutor(max_workers=core_count) as executor:
                 futures_to_ref = {executor.submit(process_reference, ref, bam_path, exclude_bases): ref for ref in references_to_process}
