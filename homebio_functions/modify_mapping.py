@@ -206,3 +206,66 @@ def calculate_average_coverage(bam_folder, reference_set, exclude_bases=0, outpu
         df.to_csv(output_file, sep='\t')
 
     return df
+
+
+
+def calculate_bin_coverage(bam_folder, s2b_file, b2a_file, output_file=None, exclude_bases=150, cores=None):
+    """
+    Aggregates metagenomic read coverage of genomic bins using average coverage data.
+
+    :param bam_folder: Path to the folder containing BAM files.
+    :type bam_folder: str
+    :param s2b_file: Path to the S2B file with contig IDs and corresponding bin IDs.
+    :type s2b_file: str
+    :param b2a_file: Path to the bin-to-assembly file with bin IDs and assembly bin IDs.
+    :type b2a_file: str
+    :param exclude_bases: Number of bases to exclude from each end of the contig.
+    :type exclude_bases: int
+    :param output_file: Path to the output file. If None, the result won't be saved.
+    :type output_file: str or None
+    :param cores: Number of cores to use for parallel processing.
+    :type cores: int or None
+
+    Usage:
+    >>> bin_coverage = calculate_bin_coverage(bam_folder="path/to/bam_folder", s2b_file="path/to/s2b_file", exclude_bases=5, cores=4)
+    """
+
+    # Read the S2B file into a DataFrame
+    s2b_df = pd.read_csv(s2b_file, sep='\t', header=None, names=['contig_id', 'bin_id'])
+
+    # Read the B2A file into a DataFrame
+    b2a_df = pd.read_csv(b2a_file, sep='\t', header=None, names=['bin_id', 'assemblyID'])
+    # Get a list of unique assemblyIDs
+    assemblyIDs = list(set(b2a_df['assemblyID']))
+
+    # Initialize a DataFrame for storing results
+    bin_coverage_df = pd.DataFrame()
+
+    # Generate bin coverage data by looping through each assemblyID
+    for assembly in assemblyIDs:
+        # Get the bin IDs for this assembly
+        bins_in_assembly = list(b2a_df[b2a_df['assemblyID'] == assembly]['bin_id'])
+        # Get the contigs in these bins
+        contigs_in_bins = set(s2b_df[s2b_df['bin_id'].isin(bins_in_assembly)]['contig_id'])
+        # Calculate coverage over every contig
+        temp_df = calculate_average_coverage(bam_folder=bam_folder, reference_set=assembly, exclude_bases=exclude_bases, output_file=None, target_references=contigs_in_bins, cores=cores)
+        # Add a column to the DataFrame with the binID by using the index of the temp_df DataFrame
+        temp_df['contig_id'] = temp_df.index
+        # Merge the s2b_df with the temp_df to add the bin_id
+        temp_df = pd.merge(s2b_df, temp_df, on='contig_id', left_index=False, right_index=False, how='inner')
+        # Drop the contig_id column
+        temp_df = temp_df.drop(columns=['contig_id'])
+        # Group by bin_id and calculate the mean coverage
+        temp_df = temp_df.groupby('bin_id').mean()
+        # Trim the column headers to only include the metagenomeID, which always before "_to_" in the BAM file name
+        temp_df.columns = [col.split("_to_")[0] for col in temp_df.columns]
+        # Bind rows of temp_df with the main DataFrame (NOT merge), making sure the bin_id is included and that the columns match up
+        if bin_coverage_df.empty:
+            bin_coverage_df = temp_df
+        else:
+            bin_coverage_df = pd.concat([bin_coverage_df, temp_df], axis=0, join='outer', ignore_index=False, keys=None, levels=None, names=None, verify_integrity=False, copy=False)
+    
+    # Save to TSV if output_file is specified
+    if output_file:
+        bin_coverage_df.to_csv(output_file, sep='\t')
+    return bin_coverage_df
