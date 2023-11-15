@@ -31,6 +31,13 @@ parser.add_argument(
     help = "This is the path to the output file where the coverage data will be written."
     )
 parser.add_argument(
+    '--output_file',
+    required = False,
+    nargs = '?',
+    const = 0,
+    help = "This is the number of nucleotides to ignore on either end. I typically make this the length of the metagenomic reads I have."
+    )
+parser.add_argument(
     '--cores',
     required = False,
     nargs = '?',
