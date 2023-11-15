@@ -31,7 +31,7 @@ parser.add_argument(
     help = "This is the path to the output file where the coverage data will be written."
     )
 parser.add_argument(
-    '--output_file',
+    '--exclude_bases',
     required = False,
     nargs = '?',
     const = 0,
