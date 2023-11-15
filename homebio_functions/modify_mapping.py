@@ -167,11 +167,15 @@ def calculate_average_coverage(bam_folder, reference_set, exclude_bases=0, outpu
     # Determine number of cores to use
     core_count = cores if cores and cores < mp.cpu_count() - 1 else mp.cpu_count() - 1
 
+    # Set up object to count bam files
+    bam_count = 0
+
     # Process each BAM file in the folder that has the correct reference_set ID
     for bam_filename in os.listdir(bam_folder):
         if not (bam_filename.endswith(".bam") and bam_filename.split("_to_")[1].replace(".bam", "") == reference_set):
             continue
         print(f"Processing {bam_filename}")
+        bam_count += 1
         # Initialize a dictionary to store results for this BAM file
         average_coverage = {}
         # Get the path to the BAM file
@@ -205,6 +209,9 @@ def calculate_average_coverage(bam_folder, reference_set, exclude_bases=0, outpu
     if output_file:
         df.to_csv(output_file, sep='\t')
 
+    print(f"Finished calculating coverage of {bam_count} bam files mapping to reference.")
+    print("#############################################")
+    print("")
     return df
 
 
